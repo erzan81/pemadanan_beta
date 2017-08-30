@@ -112,6 +112,9 @@
                             <li>
                                 <a href="morris.html">Master Kolom</a>
                             </li>
+                            <li>
+                                <a href="morris.html">Master Gelar</a>
+                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
