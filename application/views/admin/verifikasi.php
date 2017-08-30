@@ -1,3 +1,16 @@
+<link href="<?php echo base_url('assets/app/css/ui_upload_source.css') ?>" rel="stylesheet">
+<style type="text/css">
+
+    td.details-control {
+        background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+        cursor: pointer;
+        table-layout: fixed;
+    }
+    tr.shown td.details-control {
+        background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+    }
+
+</style>
 
 <div id="page-wrapper">
 
@@ -8,109 +21,149 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    <div class="row">
+    <div class="row" id="main_row">
         <div class="col-md-12">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" id="loadingnya">
                 <div class="panel-heading">
-                    Verifikasi dan Cleansing Data
+                    <span class='fa fa-check-circle-o'></span> Verifikasi dan Cleansing Data
                 </div>
                 <div class="panel-body">
 
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#home" data-toggle="tab">Verifikasi Data</a>
+                        <li class="active"><a href="#gabung" data-toggle="tab">Penggabungan Final Temp</a>
                         </li>
-                        <li><a href="#edit" data-toggle="tab">Perubahan Data</a>
+                         <li class=""><a href="#cleansing" data-toggle="tab">Cleansing</a>
                         </li>
+                         <li class=""><a href="#final" data-toggle="tab">Proses Final</a>
+                        </li>
+                        
 
                     </ul>
 
                     <div class="tab-content">
-                        <div class="tab-pane fade in active" id="home">
+                        <div class="tab-pane fade in active" id="gabung">
                             <form role="form">
-
+                                <br>
                                 <div class="form-group">
-                                    <label>No Matching</label>
-                                    <input class="form-control" >
 
-                                </div>
+                                    <label>Get Kolom</label>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="table_temp_upload" >
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" width="5%">#</th>
+                                                <th class="text-center" width="20%">NAMA INSTANSI</th>
+                                                <th class="text-center" width="12%">ID INSTANSI</th>
+                                                <th class="text-center" width="20%">ID UPLOAD</th>
+                                                <th class="text-center" width="35%">KEGIATAN</th>
+                                                <th class="text-center" width="8%">PILIH</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                <div class="form-group">
-                                    <label>Instansi</label>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-
-                                <!-- <div class="form-group">
-                                    <label class="text-danger">Note : File yang akan diupload harus bertype excel (.xls)</label>
-                                    
+                                        </tbody>
+                                    </table>
 
                                 </div>
                                 
-                                
                                 <div class="form-group">
-                                    <label>File input</label>
-                                    <input type="file">
-                                </div> -->
+                                    <label>Abaikan Data Bad ?</label>
+                                    <input type="checkbox" name="ignore_bad" id="ignore_bad" value="YA"  />
+                                </div>
 
-                                <button type="submit" class="btn btn-info"><i class="fa fa-refresh"></i> Proses </button>
+
+                                <a href="#" class="btn btn-primary" id="btn_gabung"><i class="fa fa-archive"></i> Penggabungan</a>
                                 
                             </form>
 
 
                         </div>
-                        <div class="tab-pane fade in" id="edit">
+
+                        <div class="tab-pane fade in" id="cleansing">
                             <form role="form">
-
+                                <br>
                                 <div class="form-group">
-                                    <label>No Matching</label>
-                                    <input class="form-control" >
 
-                                </div>
+                                    <label>Get Main</label>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="cleansing_main" >
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" width="20%">NAMA INSTANSI</th>
+                                                <th class="text-center" width="12%">ID INSTANSI</th>
+                                                <th class="text-center" width="20%">ID UPLOAD</th>
+                                                <th class="text-center" width="40%">KEGIATAN</th>
+                                                <th class="text-center" width="8%">PILIH</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                <div class="form-group">
-                                    <label>Instansi</label>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
+                                        </tbody>
+                                    </table>
 
-                                <div class="form-group">
-                                    <label>Jenis Perubahan : </label>
-                                    <label class="radio-inline text-info">
-                                        <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked><i class="fa fa-pencil"></i> Edit
-                                    </label>
-                                    <label class="radio-inline text-success">
-                                        <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2"><i class="fa fa-plus"></i> Tambah
-                                    </label>
-                                    <label class="radio-inline text-danger">
-                                        <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3"><i class="fa fa-trash-o"></i> Hapus
-                                    </label>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <i class="text-danger">*Note : File yang akan diupload harus bertype excel (.xls)</i>
+
+                                    <label>Referensi </label>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_referensi">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" width="10%">NO</th>
+                                                <th class="text-center" width="15%">KOLOM</th>
+                                                <th class="text-center" width="15%">ID CLEANSING</th>
+                                                <th class="text-center" width="50%">KEGIATAN</th>
+                                                <th class="text-center" width="10%">PILIH</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+
                                 </div>
 
                                 <div class="form-group">
-                                    <label>File input</label>
-                                    <input type="file">
+                                    <a href="#" class="btn btn-primary" id="btn_tambah_conf"><i class="fa fa-plus"></i> Tambah</a>
                                 </div>
 
-                                <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Upload Perubahan</button>
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <span class='fa fa-check-circle-o'></span> Referensi Conf
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+
+                                            <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_conf">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" width="10%">NO URUT</th>
+                                                        <th class="text-center" width="15%">KOLOM</th>
+                                                        <th class="text-center" width="15%">ID CLEANSING</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <a href="#" class="btn btn-success" id="btn_submit_conf"><i class="fa fa-save"></i> Submit</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                
                                 
                             </form>
-
-
                         </div>
+
+                        <div class="tab-pane fade in" id="final">
+                            <p>FINAL CUY</p>
+                        </div>
+                        
+                        
                     </div>
 
 
@@ -123,117 +176,77 @@
         </div>
         <!-- /.col-lg-12 -->
 
-        <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            List Data
-                            <div class="pull-right">
-                                <a href="" class="btn btn-success btn-xs"><i class="fa fa-file"></i> Export to Excel</a>
-                            </div>
-                        </div>
-                        
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">4</td>
-                                        <td class="center">X</td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 5.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">5</td>
-                                        <td class="center">C</td>
-                                    </tr>
-                                    <tr class="odd gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 5.5</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">5.5</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="even gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 6</td>
-                                        <td>Win 98+</td>
-                                        <td class="center">6</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="odd gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 7</td>
-                                        <td>Win XP SP2+</td>
-                                        <td class="center">7</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="even gradeA">
-                                        <td>Trident</td>
-                                        <td>AOL browser (AOL desktop)</td>
-                                        <td>Win XP</td>
-                                        <td class="center">6</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Firefox 1.0</td>
-                                        <td>Win 98+ / OSX.2+</td>
-                                        <td class="center">1.7</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Firefox 1.5</td>
-                                        <td>Win 98+ / OSX.2+</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Firefox 2.0</td>
-                                        <td>Win 98+ / OSX.2+</td>
-                                        <td class="center">1.8</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Gecko</td>
-                                        <td>Firefox 3.0</td>
-                                        <td>Win 2k+ / OSX.3+</td>
-                                        <td class="center">1.9</td>
-                                        <td class="center">A</td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                            <!-- /.table-responsive -->
-                            
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
+
+
+    <div class="row" style="display:none" id="detail_row">
+
+        <div class="col-md-12">
+            <div class="panel panel-success active">
+                <div class="panel-heading">
+                    Detail #<label id="label_id_upload">id upload</label> 
+                    <div class='pull-right'>
+                        #<label id="label_nama_tabel">nama tabel</label>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_detail">
+                                <thead>
+                                    <tr></tr> 
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <div class="panel-footer">
+
+                    <a class="btn btn-danger" id="kembali_detail"><i class="fa fa-rotate-left" ></i> Kembali</a>
+
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+
 </div>
 
-<script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-    </script>
+
+<div class="modal fade" id="modalNotif">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <center><h3 class="modal-title">Informasi </h3></center>
+            </div>
+            <div class="modal-body" >
+                <div class="col-sm-12">
+                    <div class="row">
+
+                        <center><p id="pesan_notifikasi"></p></center>
+                
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script src="<?php echo base_url('assets/app/js/js_ui_verifikasi.js') ?>"></script>

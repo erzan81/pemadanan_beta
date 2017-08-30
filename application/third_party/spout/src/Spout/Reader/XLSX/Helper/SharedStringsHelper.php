@@ -34,7 +34,7 @@ class SharedStringsHelper
 
     /**
      * @param string $filePath Path of the XLSX file being read
-     * @param string|void $tempFolder Temporary folder where the temporary files to store shared strings will be stored
+     * @param string|null|void $tempFolder Temporary folder where the temporary files to store shared strings will be stored
      */
     public function __construct($filePath, $tempFolder = null)
     {
@@ -80,7 +80,7 @@ class SharedStringsHelper
         $xmlReader = new XMLReader();
         $sharedStringIndex = 0;
         /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-        $escaper = new \Box\Spout\Common\Escaper\XLSX();
+        $escaper = \Box\Spout\Common\Escaper\XLSX::getInstance();
 
         $sharedStringsFilePath = $this->getSharedStringsFilePath();
         if ($xmlReader->open($sharedStringsFilePath) === false) {
@@ -94,38 +94,18 @@ class SharedStringsHelper
             $xmlReader->readUntilNodeFound('si');
 
             while ($xmlReader->name === 'si') {
-                $node = $this->getSimpleXmlElementNodeFromXMLReader($xmlReader);
-                $node->registerXPathNamespace('ns', self::MAIN_NAMESPACE_FOR_SHARED_STRINGS_XML);
-
-                // removes nodes that should not be read, like the pronunciation of the Kanji characters
-                $cleanNode = $this->removeSuperfluousTextNodes($node);
-
-                // find all text nodes 't'; there can be multiple if the cell contains formatting
-                $textNodes = $cleanNode->xpath('//ns:t');
-
-                $textValue = '';
-                foreach ($textNodes as $textNode) {
-                    if ($this->shouldPreserveWhitespace($textNode)) {
-                        $textValue .= $textNode->__toString();
-                    } else {
-                        $textValue .= trim($textNode->__toString());
-                    }
-                }
-
-                $unescapedTextValue = $escaper->unescape($textValue);
-                $this->cachingStrategy->addStringForIndex($unescapedTextValue, $sharedStringIndex);
-
+                $this->processSharedStringsItem($xmlReader, $sharedStringIndex, $escaper);
                 $sharedStringIndex++;
 
                 // jump to the next 'si' tag
                 $xmlReader->next('si');
             }
 
+            $this->cachingStrategy->closeCache();
+
         } catch (XMLProcessingException $exception) {
             throw new IOException("The sharedStrings.xml file is invalid and cannot be read. [{$exception->getMessage()}]");
         }
-
-        $this->cachingStrategy->closeCache();
 
         $xmlReader->close();
     }
@@ -142,7 +122,7 @@ class SharedStringsHelper
      * Returns the shared strings unique count, as specified in <sst> tag.
      *
      * @param \Box\Spout\Reader\Wrapper\XMLReader $xmlReader XMLReader instance
-     * @return int Number of unique shared strings in the sharedStrings.xml file
+     * @return int|null Number of unique shared strings in the sharedStrings.xml file
      * @throws \Box\Spout\Common\Exception\IOException If sharedStrings.xml is invalid and can't be read
      */
     protected function getSharedStringsUniqueCount($xmlReader)
@@ -154,19 +134,52 @@ class SharedStringsHelper
             $xmlReader->read();
         }
 
-        return intval($xmlReader->getAttribute('uniqueCount'));
+        $uniqueCount = $xmlReader->getAttribute('uniqueCount');
+
+        // some software do not add the "uniqueCount" attribute but only use the "count" one
+        // @see https://github.com/box/spout/issues/254
+        if ($uniqueCount === null) {
+            $uniqueCount = $xmlReader->getAttribute('count');
+        }
+
+        return ($uniqueCount !== null) ? intval($uniqueCount) : null;
     }
 
     /**
      * Returns the best shared strings caching strategy.
      *
-     * @param int $sharedStringsUniqueCount
+     * @param int|null $sharedStringsUniqueCount Number of unique shared strings (NULL if unknown)
      * @return CachingStrategyInterface
      */
     protected function getBestSharedStringsCachingStrategy($sharedStringsUniqueCount)
     {
         return CachingStrategyFactory::getInstance()
                 ->getBestCachingStrategy($sharedStringsUniqueCount, $this->tempFolder);
+    }
+
+    /**
+     * Processes the shared strings item XML node which the given XML reader is positioned on.
+     *
+     * @param \Box\Spout\Reader\Wrapper\XMLReader $xmlReader
+     * @param int $sharedStringIndex Index of the processed shared strings item
+     * @param \Box\Spout\Common\Escaper\XLSX $escaper Helper to escape values
+     * @return void
+     */
+    protected function processSharedStringsItem($xmlReader, $sharedStringIndex, $escaper)
+    {
+        $node = $this->getSimpleXmlElementNodeFromXMLReader($xmlReader);
+        $node->registerXPathNamespace('ns', self::MAIN_NAMESPACE_FOR_SHARED_STRINGS_XML);
+
+        // removes nodes that should not be read, like the pronunciation of the Kanji characters
+        $cleanNode = $this->removeSuperfluousTextNodes($node);
+
+        // find all text nodes "t"; there can be multiple if the cell contains formatting
+        $textNodes = $cleanNode->xpath('//ns:t');
+
+        $textValue = $this->extractTextValueForNodes($textNodes);
+        $unescapedTextValue = $escaper->unescape($textValue);
+
+        $this->cachingStrategy->addStringForIndex($unescapedTextValue, $sharedStringIndex);
     }
 
     /**
@@ -200,6 +213,8 @@ class SharedStringsHelper
     {
         $tagsToRemove = [
             'rPh', // Pronunciation of the text
+            'pPr', // Paragraph Properties / Previous Paragraph Properties
+            'rPr', // Run Properties for the Paragraph Mark / Previous Run Properties for the Paragraph Mark
         ];
 
         foreach ($tagsToRemove as $tagToRemove) {
@@ -208,6 +223,29 @@ class SharedStringsHelper
         }
 
         return $parentNode;
+    }
+
+    /**
+     * @param array $textNodes Text XML nodes ("<t>")
+     * @return string The value associated with the given text node(s)
+     */
+    protected function extractTextValueForNodes($textNodes)
+    {
+        $textValue = '';
+
+        foreach ($textNodes as $nodeIndex => $textNode) {
+            if ($nodeIndex !== 0) {
+                // add a space between each "t" node
+                $textValue .= ' ';
+            }
+
+            $textNodeAsString = $textNode->__toString();
+            $shouldPreserveWhitespace = $this->shouldPreserveWhitespace($textNode);
+
+            $textValue .= ($shouldPreserveWhitespace) ? $textNodeAsString : trim($textNodeAsString);
+        }
+
+        return $textValue;
     }
 
     /**
