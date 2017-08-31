@@ -25,6 +25,7 @@
    <link href="<?php echo base_url('assets/sb-admin-v2/css/sb-admin.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/sb-admin-v2/css/select2.min.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/plugins/loading/loading.css') ?>" rel="stylesheet">
+   <link href="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
 
    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -107,13 +108,16 @@
                         <a href="#"><i class="fa fa-databases"></i> Data Master<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="flot.html">Master Instansi</a>
+                                <a href="<?php echo base_url('admin/instansi');?>">Master Instansi</a>
                             </li>
                             <li>
-                                <a href="morris.html">Master Kolom</a>
+                                <a href="<?php echo base_url('admin/kolom');?>">Master Kolom</a>
                             </li>
                             <li>
-                                <a href="morris.html">Master Gelar</a>
+                                <a href="<?php echo base_url('admin/element');?>">Master Element</a>
+                            </li>
+                            <li>
+                                <a href="#">Master Gelar</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
