@@ -205,7 +205,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <a href="#" class="btn btn-primary" id="btn_tambah_conf"><i class="fa fa-plus"></i> Tambah</a>
+                                    <a href="#" class="btn btn-primary" id="btn_tambah_element"><i class="fa fa-plus"></i> Tambah</a>
                                 </div>
 
                                 <div class="panel panel-success">
@@ -215,12 +215,13 @@
                                     <div class="panel-body">
                                         <div class="form-group">
 
-                                            <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_conf">
+                                            <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_conf_element">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" width="10%">ID UPLOAD</th>
+                                                        <th class="text-center" width="30%">ID UPLOAD</th>
                                                         <th class="text-center" width="15%">NO URUT</th>
                                                         <th class="text-center" width="15%">ID ELEMENT</th>
+                                                        <th class="text-center" width="10%">AKSI</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -231,13 +232,13 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="checkbox" name="data_keluarga" id="data_keluarga" value="YA"  />
+                                            <input type="checkbox" name="is_keluarga" id="is_keluarga" value="YA"  />
                                             <label>Data Keluarga</label>
                                             
                                         </div>
 
                                         <div class="form-group">
-                                            <a href="#" class="btn btn-success" id="btn_submit_conf"><i class="fa fa-save"></i> Proses Final</a>
+                                            <a href="#" class="btn btn-success" id="btn_init_final"><i class="fa fa-save"></i> Proses Final</a>
                                         </div>
                                     </div>
                                 </div>

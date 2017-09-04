@@ -26,9 +26,23 @@ $(document).ready(function() {
 
     });
 
+    $('#btn_tambah_element').on('click', function () {
+
+         tambah_element();
+
+    });
+
+    
+
     $('#btn_submit_conf').on('click', function () {
 
          submit_conf();
+
+    });
+
+    $('#btn_init_final').on('click', function () {
+
+         init_final();
 
     });
 
@@ -535,7 +549,7 @@ function get_data_final(){
                           '<td align="center">' + value.UPLOAD_KE + '</td>' +
                           '<td align="center">' + value.NAMA_FILE + '</td>' +
                           '<td align="center">' + value.CREATE_DATE + '</td>' +
-                          '<td align="center"><input type="radio" class="radio" name="pilih_main" style="width:25px; height:25px;" /></td>'+
+                          '<td align="center"><input type="radio" class="radio" name="pilih_final" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+'" onclick="get_conf_element(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
                           '</tr>';
                 $('#tabel_main_final tbody').append(ret_valueT);
             });
@@ -568,7 +582,7 @@ function get_ref_element(){
                           '<td align="left">' + value.ID_ELEMENT + '</td>' +
                           '<td align="center">' + value.TIPE_KOLOM + '</td>' +
                           '<td align="center">' + value.SIZE_KOLOM + '</td>' +
-                          '<td align="center"><input type="checkbox" class="radio" name="pilih_main" value="'+value.ID_ELEMENT+'" style="width:25px; height:25px;" /></td>'+
+                          '<td align="center"><input type="checkbox" class="radio" name="pilih_element" value="'+value.ID_ELEMENT+'" style="width:25px; height:25px;" /></td>'+
                           '</tr>';
                 $('#tabel_element tbody').append(ret_valueT);
             });
@@ -590,6 +604,176 @@ function get_ref_element(){
             });
 
 
+        },
+        error: function (response) {
+            alert(response); // display error response from the server
+        }
+    });
+
+}
+
+function tambah_element(){
+
+    var selected = "";
+    var param_main = $('input[name="pilih_final"]:checked').val();
+    var main = param_main.split(',');
+
+    var instansi = main[0];
+    var id_upload = main[1];
+    var no_urut =1;
+
+    var data = [];
+
+    $('#loadingnya').loading();
+    $('#tabel_element input[name="pilih_element"]:checked').each(function() {
+
+        var id_element = $(this).val();
+
+        var temp = {'p_id_upload' : id_upload,
+                    'p_id_element' : id_element,
+                    'p_no_urut' : null
+                    };
+        
+        data.push(temp);
+        //no_urut++;
+    });
+
+    $.ajax({
+        url: BASE_URL+'admin/verifikasi/tambah_element', // point to server-side controller method
+        data: {data: data},
+        type: 'post',
+        success: function (response) {
+            var data = JSON.parse(response);
+
+            if(data.out_rowcount == 1){
+                $('#pesan_notifikasi').html("Element Berhasil Ditambahkan.");
+            }
+            else{
+                $('#pesan_notifikasi').html(data.msgerror);
+            }
+
+            $('#loadingnya').loading('stop');
+
+            $('#modalNotif').modal('show');
+            get_conf_element(id_upload);
+            
+        },
+        error: function (response) {
+            console.log(response); // display error response from the server
+            $('#loadingnya').loading('stop');
+        }
+    });
+   
+}
+
+
+function init_final(){
+
+    var selected = "";
+    var param_main = $('input[name="pilih_final"]:checked').val();
+    var main = param_main.split(',');
+
+    var instansi = main[0];
+    var id_upload = main[1];
+    var is_keluarga = $('input[name="is_keluarga"]:checked').val();
+
+
+
+    $('#loadingnya').loading();
+    $.ajax({
+        url: BASE_URL+'admin/verifikasi/init_final', // point to server-side controller method
+        data: {'p_id_upload' : id_upload,
+               'p_instansi_id' : instansi,
+               'p_is_keluarga' : is_keluarga
+              },
+        type: 'post',
+        success: function (response) {
+            var data = JSON.parse(response);
+
+            if(data.out_rowcount == 1){
+                $('#pesan_notifikasi').html("Init Final Berhasil Disubmit.");
+            }
+            else{
+                $('#pesan_notifikasi').html(data.msgerror);
+            }
+
+            $('#loadingnya').loading('stop');
+
+            $('#modalNotif').modal('show');
+            //get_conf_element(id_upload);
+            
+        },
+        error: function (response) {
+            console.log(response); // display error response from the server
+            $('#loadingnya').loading('stop');
+        }
+    });
+   
+}
+
+
+function del_element(id_upload, id_element){
+
+
+    var id_element = id_element;
+    var id_upload = id_upload;
+
+    $('#loadingnya').loading();
+    $.ajax({
+        url: BASE_URL+'admin/verifikasi/del_element', // point to server-side controller method
+        data: {'p_id_upload' : id_upload,
+               'p_id_element' : id_element
+              },
+        type: 'post',
+        success: function (response) {
+            var data = JSON.parse(response);
+
+            if(data.out_rowcount == 1){
+                $('#pesan_notifikasi').html("Element Berhasil Dihapus.");
+            }
+            else{
+                $('#pesan_notifikasi').html(data.msgerror);
+            }
+
+            $('#loadingnya').loading('stop');
+
+            $('#modalNotif').modal('show');
+            get_conf_element(id_upload);
+            
+        },
+        error: function (response) {
+            console.log(response); // display error response from the server
+            $('#loadingnya').loading('stop');
+        }
+    });
+
+}
+
+function get_conf_element(param){
+
+    $("#tabel_conf_element").dataTable().fnDestroy();
+    $.ajax({
+        url: BASE_URL+'admin/verifikasi/get_conf_element', // point to server-side controller method
+        dataType: 'text', // what to expect back from the server
+        data: {p_id_upload: param},
+        type: 'post',
+        success: function (response) {
+
+            //console.log(response);
+            data = JSON.parse(response);
+            
+            $('#tabel_conf_element tbody').empty();
+            $.each(data, function (i, value) {
+                var ret_valueT =
+                          '<tr>' +
+                          '<td align="center">' + value.ID_UPLOAD + '</td>' +
+                          '<td align="center">' + value.NO_URUT + '</td>' +
+                          '<td align="center">' + value.ID_ELEMENT + '</td>' +
+                          '<td align="center"><a href="javascript:del_element(\''+value.ID_UPLOAD+'\',\''+value.ID_ELEMENT+'\')" class="btn btn-danger btn-xs btn_delete" ><span class="fa fa-trash-o"></span> Hapus</a></td>'
+                          '</tr>';
+                $('#tabel_conf_element tbody').append(ret_valueT);
+            });
+            $("#tabel_conf_element").dataTable();
         },
         error: function (response) {
             alert(response); // display error response from the server
