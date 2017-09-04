@@ -7,6 +7,40 @@ class Master_model extends CI_Model {
       parent::__construct();
    }
 
+   
+   function get_data_final($p_create_by){
+        $results = '';
+
+        $this->pblmig_db = $this->load->database('pblmig', true);
+        if (!$this->pblmig_db) {
+          $m = oci_error();
+          trigger_error(htmlentities($m['message']), E_USER_ERROR);
+        }
+     
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_PEMADANAN.GET_DATA_FINAL(:p_create_by); END;');
+
+        $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
+
+        oci_bind_by_name($stid, ':p_create_by', $p_create_by,100, SQLT_CHR) or die('Error binding string5');
+        oci_bind_by_name($stid, ':RetVal', $OUT_DATA,-1, OCI_B_CURSOR) or die('Error binding string1');
+
+        if(oci_execute($stid)){
+          oci_execute($OUT_DATA, OCI_DEFAULT);
+          oci_fetch_all($OUT_DATA, $cursor, null, null, OCI_FETCHSTATEMENT_BY_ROW);          
+
+          $results = $cursor;
+ 
+        }else{
+          $e = oci_error($stid);
+          $results =  $e['message'];
+        } 
+
+        oci_free_statement($stid);
+        oci_close($this->pblmig_db->conn_id);
+
+        return json_decode(json_encode($results), FALSE);
+    }
+
    function get_ref_kolom(){
         $results = '';
 

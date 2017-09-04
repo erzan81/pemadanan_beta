@@ -12,6 +12,17 @@ class Instansi extends CI_Controller {
         $this->load->view('admin/include/footer');
     }
 
+    function get_main_instansi(){
+
+    	$this->load->model('master_data/MInstansi');
+
+    	$ref = $this->MInstansi->getInstansi();
+    	
+    	echo json_encode($ref);
+
+
+    }
+
 }
 
 /* End of file home.php */

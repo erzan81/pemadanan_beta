@@ -135,6 +135,26 @@ class Verifikasi extends CI_Controller {
 
     }
 
+    function get_data_final(){
+
+        $p_created_by = "ERZAN";
+
+        $this->load->model('Master_model');
+        $main = $this->Master_model->get_data_final($p_created_by);
+
+        echo json_encode($main);
+
+    }
+
+    function get_ref_element(){
+
+        $this->load->model('master_data/MElements');
+        $main = $this->MElements->get_ref_element();
+
+        echo json_encode($main);
+
+    }
+
 
 
 }

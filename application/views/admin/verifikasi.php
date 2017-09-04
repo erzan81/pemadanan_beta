@@ -32,8 +32,8 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#gabung" data-toggle="tab">Penggabungan Final Temp</a>
                         </li>
-                         <li class=""><a href="#cleansing" data-toggle="tab">Cleansing</a>
-                        </li>
+                         <!-- <li class=""><a href="#cleansing" data-toggle="tab">Cleansing</a>
+                        </li> -->
                          <li class=""><a href="#final" data-toggle="tab">Proses Final</a>
                         </li>
                         
@@ -78,7 +78,7 @@
 
                         </div>
 
-                        <div class="tab-pane fade in" id="cleansing">
+                        <!-- <div class="tab-pane fade in" id="cleansing">
                             <form role="form">
                                 <br>
                                 <div class="form-group">
@@ -157,10 +157,97 @@
                                 
                                 
                             </form>
-                        </div>
+                        </div> -->
 
                         <div class="tab-pane fade in" id="final">
-                            <p>FINAL CUY</p>
+                            
+
+                            <form role="form">
+                                <br>
+                                <div class="form-group">
+
+                                    <label>Get Main</label>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_main_final" >
+                                        <thead>
+                                            <tr>
+                                                <th width="20%">INSTANSI</th>
+                                                <th width="20%">ID UPLOAD</th>
+                                                <th width="10%">UPLOAD KE</th>
+                                                <th width="30%">NAMA FILE</th>
+                                                <th width="10%">CREATE DATE</th>
+                                                <th class="text-center" width="10%">PILIH</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                
+                                <div class="form-group">
+
+                                    <label>Referensi Element</label>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_element">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" width="50%">NAMA KOLOM</th>
+                                                <th class="text-center" width="20%">TYPE KOLOM</th>
+                                                <th class="text-center" width="20%">SIZE KOLOM</th>
+                                                <th class="text-center" width="10%">PILIH</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-primary" id="btn_tambah_conf"><i class="fa fa-plus"></i> Tambah</a>
+                                </div>
+
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <span class='fa fa-check-circle-o'></span> Referensi Final
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+
+                                            <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_conf">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" width="10%">ID UPLOAD</th>
+                                                        <th class="text-center" width="15%">NO URUT</th>
+                                                        <th class="text-center" width="15%">ID ELEMENT</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="checkbox" name="data_keluarga" id="data_keluarga" value="YA"  />
+                                            <label>Data Keluarga</label>
+                                            
+                                        </div>
+
+                                        <div class="form-group">
+                                            <a href="#" class="btn btn-success" id="btn_submit_conf"><i class="fa fa-save"></i> Proses Final</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                
+                                
+                            </form>
+
+
                         </div>
                         
                         

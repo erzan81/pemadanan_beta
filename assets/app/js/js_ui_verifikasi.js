@@ -9,8 +9,10 @@ $(document).ready(function() {
 	    });
 	});
 
-    get_ref_cleansing();
+    //get_ref_cleansing();
     get_main_temp();
+    get_data_final();
+    get_ref_element();
 
 	$('#btn_gabung').on('click', function () {
 
@@ -511,4 +513,88 @@ function submit_conf(){
 
 }
 
+
+function get_data_final(){
+
+    $("#tabel_main_final").dataTable().fnDestroy();
+    $.ajax({
+        url: BASE_URL+'admin/verifikasi/get_data_final', // point to server-side controller method
+        dataType: 'text', // what to expect back from the server
+        type: 'post',
+        success: function (response) {
+
+            //console.log(response);
+            data = JSON.parse(response);
+            
+            $('#tabel_main_final tbody').empty();
+            $.each(data, function (i, value) {
+                var ret_valueT =
+                          '<tr>' +
+                          '<td align="center">' + value.NAMA_INSTANSI + '</td>' +
+                          '<td align="center">' + value.ID_UPLOAD + '</td>' +
+                          '<td align="center">' + value.UPLOAD_KE + '</td>' +
+                          '<td align="center">' + value.NAMA_FILE + '</td>' +
+                          '<td align="center">' + value.CREATE_DATE + '</td>' +
+                          '<td align="center"><input type="radio" class="radio" name="pilih_main" style="width:25px; height:25px;" /></td>'+
+                          '</tr>';
+                $('#tabel_main_final tbody').append(ret_valueT);
+            });
+            $("#tabel_main_final").dataTable();
+        },
+        error: function (response) {
+            alert(response); // display error response from the server
+        }
+    });
+
+}
+
+
+function get_ref_element(){
+
+    
+    $.ajax({
+        url: BASE_URL+'admin/verifikasi/get_ref_element', // point to server-side controller method
+        dataType: 'text', // what to expect back from the server
+        type: 'post',
+        success: function (response) {
+
+            //console.log(response);
+            data = JSON.parse(response);
+            
+            $('#tabel_element tbody').empty();
+            $.each(data, function (i, value) {
+                var ret_valueT =
+                          '<tr>' +
+                          '<td align="left">' + value.ID_ELEMENT + '</td>' +
+                          '<td align="center">' + value.TIPE_KOLOM + '</td>' +
+                          '<td align="center">' + value.SIZE_KOLOM + '</td>' +
+                          '<td align="center"><input type="checkbox" class="radio" name="pilih_main" value="'+value.ID_ELEMENT+'" style="width:25px; height:25px;" /></td>'+
+                          '</tr>';
+                $('#tabel_element tbody').append(ret_valueT);
+            });
+
+
+            $("#tabel_element").tableDnD({
+                onDragClass: "myDragClass",
+                onDrop: function(table, row) {
+                    var rows = table.tBodies[0].rows;
+                    var debugStr = "Row dropped was "+row.id+". New order: ";
+                    for (var i=0; i<rows.length; i++) {
+                        debugStr += rows[i].id+" ";
+                    }
+                    $(table).parent().find('.result').text(debugStr);
+                },
+                onDragStart: function(table, row) {
+                    $(table).parent().find('.result').text("Started dragging row "+row.id);
+                }
+            });
+
+
+        },
+        error: function (response) {
+            alert(response); // display error response from the server
+        }
+    });
+
+}
 

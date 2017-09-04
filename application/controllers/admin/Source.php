@@ -258,6 +258,7 @@ function upload_file_lanjutan() {
    $p_isi_data = "";
    $save_ins = array();
    $out = [];
+   $temp=array();  
 
 
    if($hit["out_rowcount"] != 1){
@@ -265,6 +266,7 @@ function upload_file_lanjutan() {
     $out['out_rowcount'] = $hit["out_rowcount"];
     $out['msgerror'] = $hit["msgerror"];
 
+    //array_push($temp,$out);
 }
 else{
     foreach ($data as $value) {
@@ -282,6 +284,11 @@ else{
 
         $p_isi_data = "";
         $save_ins = array();
+
+        $out['out_rowcount'] = $ins_file["out_rowcount"];
+        $out['msgerror'] = $ins_file["msgerror"];
+
+        //array_push($temp,$out);
     }
 
     $save_rekap['p_id_upload'] = $id_upload;
@@ -292,6 +299,10 @@ else{
     $out['out_rowcount'] = $rekap_upload["out_rowcount"];
     $out['msgerror'] = $rekap_upload["msgerror"];
 }
+
+
+
+//print_r($temp);
 
 echo json_encode($out);
 

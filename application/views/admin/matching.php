@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Inisialisasi Form Entry
+                    Data Final
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -21,22 +21,19 @@
 
                         <div class="form-group" id="init_kolom">
                                 
-                                <table width="100%" class="table table-striped table-bordered table-hover" id="table_kolom">
+                                <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_main_final">
                                     <thead>
                                         <tr>
                                             <th width="20%">INSTANSI</th>
                                             <th width="20%">ID UPLOAD</th>
-                                            <th>HEADER KOLOM</th>
+                                            <th>UPLOAD KE</th>
+                                            <th>NAMA FILE</th>
+                                            <th>CREATE DATE</th>
                                             <th class="text-center" width="10%">PILIH</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                         <tr>
-                                            <td>INSTANSI A</td>
-                                            <td>UPLOAD-20170815-000014</td>
-                                            <td>NIK, ALAMAT, NM_LGKP</td>
-                                            <td align="center"><input type='radio' class='radio' name='pilih_lanjutan' value=''/></td>
-                                        </tr> 
+                                         
                                     </tbody>
                             </table>
                         </div>
@@ -248,3 +245,48 @@
 </div>
 <!-- /.row -->
 </div>
+
+
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+
+    get_data_final();
+
+});
+
+function get_data_final(){
+
+    $("#tabel_main_final").dataTable().fnDestroy();
+    $.ajax({
+        url: BASE_URL+'admin/matching/get_data_final', // point to server-side controller method
+        dataType: 'text', // what to expect back from the server
+        type: 'post',
+        success: function (response) {
+
+            //console.log(response);
+            data = JSON.parse(response);
+            
+            $('#tabel_main_final tbody').empty();
+            $.each(data, function (i, value) {
+                var ret_valueT =
+                          '<tr>' +
+                          '<td align="center">' + value.NAMA_INSTANSI + '</td>' +
+                          '<td align="center">' + value.ID_UPLOAD + '</td>' +
+                          '<td align="center">' + value.UPLOAD_KE + '</td>' +
+                          '<td align="center">' + value.NAMA_FILE + '</td>' +
+                          '<td align="center">' + value.CREATE_DATE + '</td>' +
+                          '<td align="center"><input type="radio" class="radio" name="pilih_main" style="width:25px; height:25px;" /></td>'+
+                          '</tr>';
+                $('#tabel_main_final tbody').append(ret_valueT);
+            });
+            $("#tabel_main_final").dataTable();
+        },
+        error: function (response) {
+            alert(response); // display error response from the server
+        }
+    });
+
+}
+</script>

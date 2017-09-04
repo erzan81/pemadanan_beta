@@ -12,6 +12,17 @@ class Matching extends CI_Controller {
         $this->load->view('admin/include/footer');
     }
 
+    function get_data_final(){
+
+    	$p_created_by = "ERZAN";
+
+        $this->load->model('Master_model');
+        $main = $this->Master_model->get_data_final($p_created_by);
+
+        echo json_encode($main);
+
+    }
+
 }
 
 /* End of file home.php */
