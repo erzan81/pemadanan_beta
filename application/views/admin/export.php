@@ -2,13 +2,6 @@
 <div id="page-wrapper">
 
     <div class="row">
-        <div class="col-lg-12">
-            <h3 class="page-header"><span class="glyphicon glyphicon-export"></span> Export Data</h3>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-
-    <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">

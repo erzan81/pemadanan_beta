@@ -2,15 +2,8 @@
 <div id="page-wrapper">
 
     <div class="row">
-        <div class="col-lg-12">
-            <h3 class="page-header"><span class="fa fa-laptop"></span> Monitoring</h3>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-
-    <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     Monitoring
                 </div>

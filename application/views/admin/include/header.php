@@ -1,112 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta name="description" content="">
-   <meta name="keywords" content="">
-   <meta name="author" content="">
-
-	<title>Codeigniter</title>
-
-   <link href="<?php echo base_url('assets/bootstrap-3.1.1/css/bootstrap.min.css') ?>" rel="stylesheet">
-   <link href="<?php echo base_url('assets/bootstrap-3.1.1/css/font-awesome.css') ?>" rel="stylesheet">
-   <link href="<?php echo base_url('assets/bootstrap-3.1.1/css/custom.css') ?>" rel="stylesheet">
-   
-   <!-- Page-Level Plugin CSS - Dashboard -->
-    <link href="<?php echo base_url('assets/sb-admin-v2/css/plugins/morris/morris-0.4.3.min.css') ;?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/sb-admin-v2/css/plugins/timeline/timeline.css') ;?>" rel="stylesheet">
-
-    <!-- DataTables CSS -->
-    <!-- <link href="<?php //echo base_url('assets/sb-admin-v2/css/plugins/dataTables/dataTables.bootstrap.css') ;?>" rel="stylesheet"> -->
-    <link href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" rel="stylesheet">
-   
-   <!-- SB Admin CSS - Include with every page -->
-   <link href="<?php echo base_url('assets/sb-admin-v2/css/sb-admin.css') ?>" rel="stylesheet">
-   <link href="<?php echo base_url('assets/sb-admin-v2/css/select2.min.css') ?>" rel="stylesheet">
-   <link href="<?php echo base_url('assets/plugins/loading/loading.css') ?>" rel="stylesheet">
-   <link href="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-
-   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js"></script>
-   <script src="<?php echo base_url('assets/bootstrap-3.1.1/js/bootstrap.min.js') ?>"></script>
-   <script src="<?php echo base_url('assets/bootstrap-3.1.1/js/custom.js') ?>"></script>
-   
-   
-   
-   <!-- Core Scripts - Include with every page -->    
-    <script src="<?php echo base_url('assets/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js') ?>"></script>
-
-    <!-- Page-Level Plugin Scripts - Dashboard -->
-    <script src="<?php echo base_url('assets/sb-admin-v2/js/select2.full.min.js') ?>"></script>
-
-    <script src="https://cdn.jsdelivr.net/jquery.tablednd/0.8/jquery.tablednd.0.8.min.js"></script>
- 
-    <!-- DataTables JavaScript -->
-    <!-- <script src="<?php //echo base_url('assets/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js') ?>"></script> -->
-    <script src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-    
-    <!-- <script src="<?php //echo base_url('assets/sb-admin-v2/js/plugins/dataTables/dataTables.bootstrap.js') ?>"></script> -->
-    <!-- <script src="http://cdn.datatables.net/responsive/1.0.1/js/dataTables.responsive.min.js"></script> -->
-    
-    <script src="<?php echo base_url('assets/plugins/loading/loading.js') ?>"></script>
-    <script type="text/javascript">
+    <head>        
+        <!-- META SECTION -->
+        <title>Joli Admin - Responsive Bootstrap Admin Template</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         
-        var BASE_URL = "<?php echo base_url()?>";
-    </script>
-</head>
-<body style="padding-top: 0px;">
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url()?>new_asset/css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->  
 
-<div id="wrapper">
+        <link href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" rel="stylesheet">
+   
+        <!-- <link href="<?php //echo base_url('assets/sb-admin-v2/css/select2.min.css') ?>" rel="stylesheet"> -->
+        <link href="<?php echo base_url('assets/plugins/loading/loading.css') ?>" rel="stylesheet">
 
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="<?php echo base_url('admin/home');?>"></a>
-                
-            </div>
-            <div class="pull-right">
-                <a class="navbar-brand">Selamat Datang, <?php echo $this->session->userdata('nama');?></a>
-            </div>
-            <!-- /.navbar-header -->
 
+        <!-- START PRELOADS -->
+        <audio id="audio-alert" src="<?php echo base_url()?>new_asset/audio/alert.mp3" preload="auto"></audio>
+        <audio id="audio-fail" src="<?php echo base_url()?>new_asset/audio/fail.mp3" preload="auto"></audio>
+        <!-- END PRELOADS -->                  
+        
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js"></script>
+
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap.min.js"></script>        
+        <!-- END PLUGINS -->
+
+        <!-- <script src="<?php //echo base_url('assets/sb-admin-v2/js/select2.full.min.js') ?>"></script> -->
+
+        <script src="https://cdn.jsdelivr.net/jquery.tablednd/0.8/jquery.tablednd.0.8.min.js"></script>
+ 
+    
+        <script src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    
+        <script src="<?php echo base_url('assets/plugins/loading/loading.js') ?>"></script>
+        
+        <script type="text/javascript">
+            var BASE_URL = "<?php echo base_url()?>";
+        </script>
+
+        <!-- START THIS PAGE PLUGINS-->        
+        <script type='text/javascript' src='<?php echo base_url()?>new_asset/js/plugins/icheck/icheck.min.js'></script>        
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/scrolltotop/scrolltopcontrol.js"></script>
+                  
+        <script type='text/javascript' src='<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-datepicker.js'></script>                                
+        
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/moment.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- END THIS PAGE PLUGINS-->        
+
+        <!-- START TEMPLATE -->
+        <!-- <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/settings.js"></script>
+         -->
+
+        <script type='text/javascript' src='<?php echo base_url()?>new_asset/js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-timepicker.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-colorpicker.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-file-input.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-select.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins.js"></script>        
+        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/actions.js"></script>
+        
+        <!-- END TEMPLATE -->
+    <!-- END SCRIPTS -->                                        
+    </head>
+    <body>
+        <!-- START PAGE CONTAINER -->
+        <div class="page-container">
             
+            <!-- START PAGE SIDEBAR -->
+            <div class="page-sidebar">
+                <!-- START X-NAVIGATION -->
+                <ul class="x-navigation">
+                    <li class="xn-logo">
+                        <a href="index.html">Joli Admin</a>
+                        <a href="#" class="x-navigation-control"></a>
+                    </li>
+                    <li class="xn-profile">
+                        <a href="#" class="profile-mini">
+                            <img src="<?php echo base_url()?>new_asset/assets/images/users/avatar.jpg" alt="John Doe"/>
+                        </a>
+                        <div class="profile">
+                            <div class="profile-image">
+                                <img src="<?php echo base_url()?>new_asset/assets/images/users/avatar.jpg" alt="John Doe"/>
+                            </div>
+                            <div class="profile-data">
+                                <div class="profile-data-name">John Doe</div>
+                                <div class="profile-data-title">Web Developer/Designer</div>
+                            </div>
+                            <div class="profile-controls">
+                                <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>
+                                <a href="pages-messages.html" class="profile-control-right"><span class="fa fa-envelope"></span></a>
+                            </div>
+                        </div>                                                                        
+                    </li>
+                    <li class="xn-title">Navigation</li>
+                    <li class="active">
+                        <a href="<?php echo base_url('admin/home');?>"><i class="fa fa-desktop fa-fw"></i> <span class="xn-text">Dashboard</span></a>                        
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('admin/source');?>"><i class="fa fa-upload fa-fw"></i> <span class="xn-text">Upload Data Sumber</span></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('admin/verifikasi');?>"><i class="fa fa-edit fa-fw"></i> <span class="xn-text">Verifikasi dan Cleansing</span></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('admin/matching');?>"><i class="fa fa-bar-chart-o fa-fw"></i> <span class="xn-text">Macthing Data</span></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('admin/monitoring');?>"><i class="fa fa-laptop fa-fw"></i> <span class="xn-text">Monitoring</span></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('admin/export');?>"><i class="fa fa-file fa-fw"></i> <span class="xn-text">Export Data</span></a>
+                    </li>
 
-        </nav>
-        <!-- /.navbar-static-top -->
 
-        <nav class="navbar-default navbar-static-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li class="sidebar-search">
-                        
-                            <span class="fa fa-list"></span> Navigation
-                        
-                        <!-- /input-group -->
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('admin/home');?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                    </li>
-                    
-                    <li>
-                        <a href="<?php echo base_url('admin/source');?>"><i class="fa fa-upload fa-fw"></i> Upload Data Sumber</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('admin/verifikasi');?>"><i class="fa fa-edit fa-fw"></i> Verifikasi dan Cleansing Data</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('admin/matching');?>"><i class="fa fa-bar-chart-o fa-fw"></i> Macthing Data</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('admin/monitoring');?>"><i class="fa fa-laptop fa-fw"></i> Monitoring</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('admin/export');?>"><i class="fa fa-file fa-fw"></i> Export Data</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-databases"></i> Data Master<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
+                    <li class="xn-openable">
+                        <a href="#"><span class="fa fa-gears"></span> <span class="xn-text">Master</span></a>
+                        <ul>
                             <li>
                                 <a href="<?php echo base_url('admin/instansi');?>">Master Instansi</a>
                             </li>
@@ -118,23 +143,60 @@
                             </li>
                             <li>
                                 <a href="#">Master Gelar</a>
-                            </li>
+                            </li>                           
                         </ul>
-                        <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="<?php echo base_url('login/logout');?>" class="text-danger"><i class="fa fa-power-off fa-fw"></i> Logout</a>
+                        <a href="#" class="text-danger mb-control" data-box="#mb-signout"><i class="fa fa-power-off fa-fw text-danger" ></i> <span class="xn-text ">Logout</span></a>
                     </li>
+                                       
                     
+                    
+                                      
+                   
                     
                 </ul>
-                <!-- /#side-menu -->
+                <!-- END X-NAVIGATION -->
             </div>
-            <!-- /.sidebar-collapse -->
-        </nav>
-        <!-- /.navbar-static-side -->
+            <!-- END PAGE SIDEBAR -->
+            
+            <!-- PAGE CONTENT -->
+            <div class="page-content">
+                
+                <!-- START X-NAVIGATION VERTICAL -->
+                <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                    <!-- TOGGLE NAVIGATION -->
+                    <li class="xn-icon-button">
+                        <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+                    </li>
+                    <!-- END TOGGLE NAVIGATION -->
+                    >
+                    <!-- SIGN OUT -->
+                    <li class="xn-icon-button pull-right">
+                        <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
+                    </li> 
+                    <!-- END SIGN OUT -->
+                    <!-- MESSAGES -->
+                    
+                </ul>
+                <!-- END X-NAVIGATION VERTICAL -->                     
 
-        
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>                    
+                    <li class="active">Dashboard</li>
+                </ul>
+                <!-- END BREADCRUMB -->                       
+                
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+                    
+                   
+                    
+                
 
-    </div>
-    <!-- /#wrapper -->
+
+
+
+
+

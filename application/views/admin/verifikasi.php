@@ -12,35 +12,26 @@
 
 </style>
 
-<div id="page-wrapper">
-
-    <div class="row">
-        <div class="col-lg-12">
-            <h3 class="page-header"><span class="fa fa-check-square-o"></span> Verifikasi dan Cleansing Data</h3>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-
     <div class="row" id="main_row">
         <div class="col-md-12">
-            <div class="panel panel-primary" id="loadingnya">
+            <div class="panel panel-default" id="loadingnya">
                 <div class="panel-heading">
                     <span class='fa fa-check-circle-o'></span> Verifikasi dan Cleansing Data
                 </div>
-                <div class="panel-body">
+                <div class="panel-body tabs">
 
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#gabung" data-toggle="tab">Penggabungan Final Temp</a>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#gabung" role="tab" data-toggle="tab">Penggabungan Final Temp</a>
                         </li>
                          <!-- <li class=""><a href="#cleansing" data-toggle="tab">Cleansing</a>
                         </li> -->
-                         <li class=""><a href="#final" data-toggle="tab">Proses Final</a>
+                         <li class=""><a href="#final" role="tab" data-toggle="tab">Proses Final</a>
                         </li>
-                        
-
                     </ul>
 
-                    <div class="tab-content">
+                    
+
+                    <div class="panel-body tab-content">
                         <div class="tab-pane fade in active" id="gabung">
                             <form role="form">
                                 <br>
@@ -307,7 +298,7 @@
     </div>
 
 
-</div>
+
 
 
 <div class="modal fade" id="modalNotif">

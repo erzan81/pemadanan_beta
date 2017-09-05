@@ -25,37 +25,32 @@
 
 </style>
 
-    <div id="page-wrapper">
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="page-header"><span class="fa fa-upload"></span> Upload Data Sumber</h3>
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
+    
 
         <div class="row" id="main_row">
             <div class="col-lg-12">
-                <div class="panel panel-primary">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         Upload Data Source / Sumber Data
                     </div>
                     <!-- /.panel-heading -->
-                    <div class="panel-body">
+                    <div class="panel-body tabs">
                         <!-- Nav tabs -->
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#home" data-toggle="tab">Upload From Excel / CSV</a>
+
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#home" role="tab" data-toggle="tab">Upload From Excel / CSV</a>
                             </li>
-                            <li><a href="#dmp" data-toggle="tab">Upload From DMP</a>
+                            <li><a href="#dmp" role="tab" data-toggle="tab">Upload From DMP</a>
                             </li>
-                            <li><a href="#dbf" data-toggle="tab">Upload From DBF</a>
+                            <li><a href="#dbf" role="tab" data-toggle="tab">Upload From DBF</a>
                             </li>
-                            <li><a href="#edit" data-toggle="tab" id="tab_perubahan_data">Perubahan Data</a>
+                            <li><a href="#edit" role="tab" data-toggle="tab" id="tab_perubahan_data">Perubahan Data</a>
                             </li>
                         </ul>
+                        
 
                         <!-- Tab panes -->
-                        <div class="tab-content" id="loadingnya">
+                        <div class="panel-body tab-content" id="loadingnya">
                             <div class="tab-pane fade in active" id="home">
                                 <br>
 
@@ -74,7 +69,7 @@
 
                                     <div class="form-group" id="instansi_form">
                                         <label>Instansi</label>
-                                        <select class="form-control" id="cmb_instansi" name="cmb_instansi" width="100%">
+                                        <select class="form-control select" data-live-search="true" id="cmb_instansi" name="cmb_instansi" width="100%">
                                             <?php 
 
                                             foreach ($instansi as $row  ) {
@@ -296,7 +291,7 @@
     </div>
 </div>
 
-</div>
+
 
 
 <div class="modal fade" id="modalNotif">

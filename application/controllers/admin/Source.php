@@ -20,8 +20,10 @@ class Source extends CI_Controller {
 
         $this->load->model('Master_model');
 
-        $data['instansi'] = $this->Master_model->getInstansi();
-        $data['kolom'] = $this->Master_model->get_ref_kolom();
+        //$data['instansi'] = $this->Master_model->getInstansi();
+        //$data['kolom'] = $this->Master_model->get_ref_kolom();
+
+        $data = [];
         
         $this->load->view('admin/include/header');
         $this->load->view('admin/upload_source',$data);

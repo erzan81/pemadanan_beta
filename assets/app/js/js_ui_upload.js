@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
-        $('#cmb_instansi').select2({
-            dropdownAutoWidth : true,
-            width: '100%'
-        });
+        // $('#cmb_instansi').select2({
+        //     dropdownAutoWidth : true,
+        //     width: '100%'
+        // });
       
         
 

@@ -23,6 +23,19 @@ class Matching extends CI_Controller {
 
     }
 
+
+    function get_kolom_pemadanan(){
+
+    	$p_id_upload = $this->input->post("p_id_upload");
+
+    	//$p_id_upload = "UPLOAD-20170904-000007";
+        $this->load->model('MMatching');
+        $main = $this->MMatching->get_kolom_pemadanan($p_id_upload);
+
+        echo json_encode($main);
+
+    }
+
 }
 
 /* End of file home.php */
