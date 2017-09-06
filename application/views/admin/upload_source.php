@@ -1,11 +1,11 @@
 <link href="<?php echo base_url('assets/app/css/ui_upload_source.css') ?>" rel="stylesheet">
 
 <style type="text/css">
-    td.details-control {
+    .details-control {
         background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
         cursor: pointer;
     }
-    tr.shown td.details-control {
+    .shown td.details-control {
         background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
     }
 

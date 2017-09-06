@@ -269,44 +269,61 @@ function upload_file_lanjutan() {
     $out['msgerror'] = $hit["msgerror"];
 
     //array_push($temp,$out);
-}
-else{
-    foreach ($data as $value) {
+    }
+    else{
+        foreach ($data as $value) {
 
-        foreach ($value as $key ) {
+            foreach ($value as $key ) {
 
-            $p_isi_data .= $key.";";
+                $p_isi_data .= $key.";";
 
+            }
+
+            $save_ins['p_id_upload'] = $id_upload;
+            $save_ins['p_isi_data'] = $p_isi_data;
+
+            $ins_file = $this->MUpload->ins_file($save_ins);
+
+            if($ins_file['out_rowcount'] != 1){
+
+                    $out['out_rowcount'] = $ins_file["out_rowcount"];
+                    $out['msgerror'] = $ins_file["msgerror"];
+
+                    break;
+                    
+
+                }
+
+            $p_isi_data = "";
+            $save_ins = array();
+
+            $out['out_rowcount'] = $ins_file["out_rowcount"];
+            $out['msgerror'] = $ins_file["msgerror"];
+
+            //array_push($temp,$out);
         }
 
-        $save_ins['p_id_upload'] = $id_upload;
-        $save_ins['p_isi_data'] = $p_isi_data;
+        if($ins_file['out_rowcount'] != 1){
 
-        $ins_file = $this->MUpload->ins_file($save_ins);
+            echo json_encode($out);
 
-        $p_isi_data = "";
-        $save_ins = array();
+        }
+        else{
 
-        $out['out_rowcount'] = $ins_file["out_rowcount"];
-        $out['msgerror'] = $ins_file["msgerror"];
+            $save_rekap['p_id_upload'] = $id_upload;
+            $save_rekap['p_instansi_id'] = $instansi;
 
-        //array_push($temp,$out);
+            $rekap_upload = $this->MUpload->rekap_upload($save_rekap);
+
+            $out['out_rowcount'] = $rekap_upload["out_rowcount"];
+            $out['msgerror'] = $rekap_upload["msgerror"];
+
+            echo json_encode($out);
+
+        }
+        
     }
 
-    $save_rekap['p_id_upload'] = $id_upload;
-    $save_rekap['p_instansi_id'] = $instansi;
-
-    $rekap_upload = $this->MUpload->rekap_upload($save_rekap);
-
-    $out['out_rowcount'] = $rekap_upload["out_rowcount"];
-    $out['msgerror'] = $rekap_upload["msgerror"];
-}
-
-
-
-//print_r($temp);
-
-echo json_encode($out);
 
 }
 
@@ -342,22 +359,40 @@ function submit_all_lanjutan($data, $save){
 
             $ins_file = $this->MUpload->ins_file($save_ins);
 
-            
+            if($ins_file['out_rowcount'] != 1){
 
+                $out['out_rowcount'] = $ins_file["out_rowcount"];
+                $out['msgerror'] = $ins_file["msgerror"];
+
+                break;
+                
+
+            }
+        
             $p_isi_data = "";
             $save_ins = array();
         }
 
-        $save_rekap['p_id_upload'] = $id_upload;
-        $save_rekap['p_instansi_id'] = $instansi;
+        if($ins_file['out_rowcount'] != 1){
 
-        $rekap_upload = $this->MUpload->rekap_upload($save_rekap);
+            echo json_encode($out);
+        }
+        else{
+            $save_rekap['p_id_upload'] = $id_upload;
+            $save_rekap['p_instansi_id'] = $instansi;
 
-        $out['out_rowcount'] = $rekap_upload["out_rowcount"];
-        $out['msgerror'] = $rekap_upload["msgerror"];
+            $rekap_upload = $this->MUpload->rekap_upload($save_rekap);
+
+            $out['out_rowcount'] = $rekap_upload["out_rowcount"];
+            $out['msgerror'] = $rekap_upload["msgerror"];
+
+            echo json_encode($out);
+        }
+        
     }
 
-    echo json_encode($out);
+    
+    
 
 }
 

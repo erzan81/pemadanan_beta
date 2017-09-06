@@ -127,8 +127,18 @@ $(document).ready(function() {
 
             $('#loadingnya').loading();
             var file_data = $('#file_perubahan').prop('files')[0];
-            var param = $('#tabel_perubahan input[name="radio_perubahan"]:checked').val();
             var jenis = $('input[name="pilihan_update"]:checked').val();
+
+            if(jenis == 1){
+                var param = $('#tabel_perubahan input[name="radio_perubahan"]:checked').val();
+            }
+            else{
+                var param = $('#tabel_bad input[name="radio_perubahan_bad"]:checked').val();
+            }
+
+
+            
+            
             var form_data = new FormData();
             form_data.append('files', file_data);
             form_data.append('param', param);
@@ -538,7 +548,7 @@ function get_upload_bad(){
                   '<td align="center">' + value.UPLOAD_KE + '</td>' +
                   '<td align="left">' + value.NAMA_TABEL + '</td>' +
                   '<td align="center"><a href="javascript:get_detail_temp_upload(\''+value.HEADER_KOLOM+'\',\''+value.ID_UPLOAD+'\',\''+value.NAMA_TABEL+'\')" class="btn btn-info btn-xs")><span class="fa fa-search"></span> See Detail</a></td>'+
-                  '<td align="center" style="padding:0px;"><input type="radio" class="radio" name="radio_perubahan" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+','+value.UPLOAD_KE+'" style="height:25px; width:25px;"/></td>' +
+                  '<td align="center" style="padding:0px;"><input type="radio" class="radio" name="radio_perubahan_bad" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+','+value.UPLOAD_KE+'" style="height:25px; width:25px;"/></td>' +
                   '</tr>';
                 number++;
                 $("#tabel_bad tbody").append(strRow);

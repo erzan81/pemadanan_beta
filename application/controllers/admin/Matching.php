@@ -36,6 +36,36 @@ class Matching extends CI_Controller {
 
     }
 
+    function submit_metode_pemadana(){
+
+        $this->load->model('MMatching');
+
+        $data = $this->input->post('data');
+
+        foreach ($data as $key) {
+
+            $save['p_instansi_id'] = $key['p_instansi_id'];
+            $save['p_id_upload'] = $key['p_id_upload'];
+            $save['p_id_kolom'] = $key['p_id_kolom'];
+            $save['p_is_proses'] = $key['p_is_proses'];
+            $save['p_is_digit'] = $key['p_is_digit'];
+
+            $save['p_metode'] = $key['p_metode'];
+            $save['p_nilai'] = $key['p_nilai'];
+            $save['p_atribut'] = $key['p_atribut'];
+            $save['p_digit'] = $key['p_digit'];
+            $save['p_create_by'] = "ERZAN";
+            
+            $hit = $this->MMatching->metode_pemadanan($save);
+
+            $out['out_rowcount'] = $hit["out_rowcount"];
+            $out['msgerror'] = $hit["msgerror"];
+        }
+
+        echo json_encode($out);
+
+    }
+
 }
 
 /* End of file home.php */
