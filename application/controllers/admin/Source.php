@@ -267,6 +267,7 @@ function upload_file_lanjutan() {
 
     $out['out_rowcount'] = $hit["out_rowcount"];
     $out['msgerror'] = $hit["msgerror"];
+    $out['function'] = "new_upload";
 
     //array_push($temp,$out);
     }
@@ -278,7 +279,13 @@ function upload_file_lanjutan() {
                 $p_isi_data .= $key.";";
 
             }
+            //echo "<pre>";
+            // $kar = "'";
 
+            // if (strpos($p_isi_data, $kar) !== false) {
+            //     $p_isi_data = str_replace("'", "", $p_isi_data);
+            // }
+            //print_r($p_isi_data);
             $save_ins['p_id_upload'] = $id_upload;
             $save_ins['p_isi_data'] = $p_isi_data;
 
@@ -288,7 +295,7 @@ function upload_file_lanjutan() {
 
                     $out['out_rowcount'] = $ins_file["out_rowcount"];
                     $out['msgerror'] = $ins_file["msgerror"];
-
+                    $out['function'] = "break ins_file";
                     break;
                     
 
@@ -299,13 +306,13 @@ function upload_file_lanjutan() {
 
             $out['out_rowcount'] = $ins_file["out_rowcount"];
             $out['msgerror'] = $ins_file["msgerror"];
-
+            $out['function'] = "ins_file";
             //array_push($temp,$out);
         }
 
         if($ins_file['out_rowcount'] != 1){
 
-            echo json_encode($out);
+            $out;
 
         }
         else{
@@ -317,12 +324,15 @@ function upload_file_lanjutan() {
 
             $out['out_rowcount'] = $rekap_upload["out_rowcount"];
             $out['msgerror'] = $rekap_upload["msgerror"];
-
-            echo json_encode($out);
+            $out['function'] = "rekap_upload";
 
         }
+
+
         
     }
+
+    echo json_encode($out);
 
 
 }
@@ -341,6 +351,7 @@ function submit_all_lanjutan($data, $save){
 
         $out['out_rowcount'] = $hit["out_rowcount"];
         $out['msgerror'] = $hit["msgerror"];
+        $out['function'] = "next_upload";
 
     }
     else{
@@ -352,10 +363,14 @@ function submit_all_lanjutan($data, $save){
 
             }
 
+            // $kar = "'";
+
+            // if (strpos($p_isi_data, $kar) !== false) {
+            //     $p_isi_data = str_replace("'", "", $p_isi_data);
+            // }
+
             $save_ins['p_id_upload'] = $id_upload;
             $save_ins['p_isi_data'] = $p_isi_data;
-
-            
 
             $ins_file = $this->MUpload->ins_file($save_ins);
 
@@ -363,6 +378,7 @@ function submit_all_lanjutan($data, $save){
 
                 $out['out_rowcount'] = $ins_file["out_rowcount"];
                 $out['msgerror'] = $ins_file["msgerror"];
+                $out['function'] = "ins_file";
 
                 break;
                 
@@ -375,7 +391,7 @@ function submit_all_lanjutan($data, $save){
 
         if($ins_file['out_rowcount'] != 1){
 
-            echo json_encode($out);
+            $out;
         }
         else{
             $save_rekap['p_id_upload'] = $id_upload;
@@ -385,14 +401,15 @@ function submit_all_lanjutan($data, $save){
 
             $out['out_rowcount'] = $rekap_upload["out_rowcount"];
             $out['msgerror'] = $rekap_upload["msgerror"];
+            $out['function'] = "rekap_upload";
 
-            echo json_encode($out);
+            $out;
         }
         
     }
 
     
-    
+    echo json_encode($out);
 
 }
 

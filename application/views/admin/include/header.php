@@ -76,7 +76,53 @@
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/actions.js"></script>
         
         <!-- END TEMPLATE -->
-    <!-- END SCRIPTS -->                                        
+    <!-- END SCRIPTS -->  
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+     
+                var current_page_URL = location.href;
+                $("a").each(function () {
+                    var link = $(this);
+                    if (link.attr("href") !== "#") {
+                        var target_URL = link.prop("href");
+                        if (target_URL === current_page_URL) {
+                            $('nav a').parents('li, ul').removeClass('active');
+                            link.parent('li').addClass('active');
+                            link.parent('li').parent('li, ul').parent().addClass('active');
+                            return false;
+                        }
+                    }
+                });
+
+                function setBreadcrumb(page) {
+                    var breadcrumb = $('#breadcrumb ol');
+                    breadcrumb.find('li:not(:first)').remove();
+                    var childB = page.split("/");
+                    var i = childB.length;
+                    while (i--) {
+                        breadcrumb.append('<li>' + childB[i] + '</li>');
+                    }
+                    breadcrumb.find('li:last').attr('class', 'active');
+                }
+
+                var text = $('li:has(a[href="' + window.location.pathname + '"])').parents('li').map(function () {
+                    //console.log('$(this).children(a): ', $(this).children('a'));
+                    var a = $.trim($(this).children('a').text());
+                    //console.log('a: ', a);
+        
+                    return $.trim($(this).children('a').text());
+                }).get();
+                text.unshift($('li a[href="' + window.location.pathname + '"]').text());
+
+                //console.log('text: ', text);
+
+                var outputString = text.join('/');
+                //console.log('outputString: ', outputString);
+                setBreadcrumb(outputString);
+            });
+        </script> 
+
     </head>
     <body>
         <!-- START PAGE CONTAINER -->
@@ -109,7 +155,7 @@
                         </div>                                                                        
                     </li>
                     <li class="xn-title">Navigation</li>
-                    <li class="active">
+                    <li class="">
                         <a href="<?php echo base_url('admin/home');?>"><i class="fa fa-desktop fa-fw"></i> <span class="xn-text">Dashboard</span></a>                        
                     </li>
                     <li>

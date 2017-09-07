@@ -143,7 +143,7 @@
                                                     <td>".$key->SIZE_KOLOM."</td>
                                                     <td align='center'><input type='checkbox' name='pilih".$i."' id='pilih".$i."' value='".$key->ID_KOLOM."'/></td>
                                                     <td align='center'><input type='checkbox' name='pk".$i."' id='pk".$i."' value='#'/></td>
-                                                    <td align='center'><input type='checkbox' name='score".$i."' id='score".$i."' value='$'/></td>
+                                                    <td align='center'><input type='checkbox' name='score".$i."' id='score".$i."' value='@'/></td>
 
                                                 </tr>";
                                                 $i++;

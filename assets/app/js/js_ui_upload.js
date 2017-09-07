@@ -155,7 +155,7 @@ $(document).ready(function() {
                     success: function (response) {
                         //$('#msg').html(response);
                         //get_upload_temp_tandingan();
-                        //console.log(response);
+                        console.log(response);
                         data = JSON.parse(response);
                         //console.log(data);
                         
@@ -264,7 +264,7 @@ function get_kolom_check(){
         var kolom = $('input[name="pilih'+index+'"]:checked').val();
         var pk = $('input[name="pk'+index+'"]:checked').val();
         var is_score = $('input[name="score'+index+'"]:checked').val();
-        console.log(kolom);
+        //console.log(kolom);
         if(kolom == NaN || kolom == undefined ){
             //do nothing
         } 

@@ -12,7 +12,7 @@ $(document).ready(function() {
     //get_ref_cleansing();
     get_main_temp();
     get_data_final();
-    get_ref_element();
+    //get_ref_element();
 
 	$('#btn_gabung').on('click', function () {
 
@@ -549,7 +549,7 @@ function get_data_final(){
                           '<td align="center">' + value.UPLOAD_KE + '</td>' +
                           '<td align="center">' + value.NAMA_FILE + '</td>' +
                           '<td align="center">' + value.CREATE_DATE + '</td>' +
-                          '<td align="center"><input type="radio" class="radio" name="pilih_final" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+'" onclick="get_conf_element(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
+                          '<td align="center"><input type="radio" name="pilih_final" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+'" onclick="get_ref_conf(\''+value.ID_UPLOAD+'\')"  /></td>'+
                           '</tr>';
                 $('#tabel_main_final tbody').append(ret_valueT);
             });
@@ -563,12 +563,13 @@ function get_data_final(){
 }
 
 
-function get_ref_element(){
+function get_ref_element(id_upload){
 
     
     $.ajax({
         url: BASE_URL+'admin/verifikasi/get_ref_element', // point to server-side controller method
         dataType: 'text', // what to expect back from the server
+        data: {p_id_upload: id_upload},
         type: 'post',
         success: function (response) {
 
@@ -582,7 +583,7 @@ function get_ref_element(){
                           '<td align="left">' + value.ID_ELEMENT + '</td>' +
                           '<td align="center">' + value.TIPE_KOLOM + '</td>' +
                           '<td align="center">' + value.SIZE_KOLOM + '</td>' +
-                          '<td align="center"><input type="checkbox" class="radio" name="pilih_element" value="'+value.ID_ELEMENT+'" style="width:25px; height:25px;" /></td>'+
+                          '<td align="center"><input type="checkbox"  name="pilih_element" value="'+value.ID_ELEMENT+'" /></td>'+
                           '</tr>';
                 $('#tabel_element tbody').append(ret_valueT);
             });
@@ -779,6 +780,12 @@ function get_conf_element(param){
             alert(response); // display error response from the server
         }
     });
+
+}
+
+function get_ref_conf(id_upload){
+    get_ref_element(id_upload);
+    get_conf_element(id_upload);
 
 }
 

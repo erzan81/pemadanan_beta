@@ -154,8 +154,9 @@ class Verifikasi extends CI_Controller {
 
     function get_ref_element(){
 
-        $this->load->model('master_data/MElements');
-        $main = $this->MElements->get_ref_element();
+        $this->load->model('Master_model');
+        $id_upload = $this->input->post('p_id_upload');
+        $main = $this->Master_model->get_dim_element($id_upload);
 
         echo json_encode($main);
 

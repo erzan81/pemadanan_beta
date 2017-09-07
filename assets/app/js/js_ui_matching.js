@@ -8,6 +8,12 @@ $(document).ready(function() {
 
     });
 
+    $('#proses_pemadanan').on('click', function () {
+
+         get_proses_pemadanan();
+
+    });
+
 });
 
 function get_data_final(){
@@ -31,11 +37,45 @@ function get_data_final(){
                           '<td align="center">' + value.UPLOAD_KE + '</td>' +
                           '<td align="center">' + value.NAMA_FILE + '</td>' +
                           '<td align="center">' + value.CREATE_DATE + '</td>' +
-                          '<td align="center"><input type="radio" class="radio" name="pilih_main" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_kolom_pemadanan(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
+                          '<td class="text-center"><input type="radio" name="pilih_main" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_kolom_pemadanan(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
                           '</tr>';
                 $('#tabel_main_final tbody').append(ret_valueT);
             });
             $("#tabel_main_final").dataTable();
+        },
+        error: function (response) {
+            alert(response); // display error response from the server
+        }
+    });
+
+}
+
+function get_proses_pemadanan(){
+
+    $("#tabel_proses").dataTable().fnDestroy();
+    $.ajax({
+        url: BASE_URL+'admin/matching/get_data_final', // point to server-side controller method
+        dataType: 'text', // what to expect back from the server
+        type: 'post',
+        success: function (response) {
+
+            //console.log(response);
+            data = JSON.parse(response);
+            
+            $('#tabel_proses tbody').empty();
+            $.each(data, function (i, value) {
+                var ret_valueT =
+                          '<tr>' +
+                          '<td align="center">' + value.NAMA_INSTANSI + '</td>' +
+                          '<td align="center">' + value.ID_UPLOAD + '</td>' +
+                          '<td align="center">' + value.UPLOAD_KE + '</td>' +
+                          '<td align="center">' + value.NAMA_FILE + '</td>' +
+                          '<td align="center">' + value.CREATE_DATE + '</td>' +
+                          '<td class="text-center"><input type="radio" name="pilih_proses" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_kolom_pemadanan(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
+                          '</tr>';
+                $('#tabel_proses tbody').append(ret_valueT);
+            });
+            $("#tabel_proses").dataTable();
         },
         error: function (response) {
             alert(response); // display error response from the server
@@ -64,7 +104,7 @@ function get_kolom_pemadanan(id_upload){
                           '<tr>' +
                           
                           '<td align="left">' + value.ID_KOLOM + '</td>' +
-                          '<td align="center"><input type="checkbox" class="radio" name="is_matching_'+i+'" value="YA"/></td>' +
+                          '<td align="center"><input type="checkbox" name="is_matching_'+i+'" value="YA"/></td>' +
 
                           '<td align="center">'+
                             '<select class="form-control metode" id="metode_'+i+'" onchange="aksi_metode(\''+i+'\')">'+
