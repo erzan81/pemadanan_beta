@@ -256,15 +256,37 @@ $(document).ready(function() {
 function get_kolom_check(){
 
     var selected = "";
+    var coba = "";
+
+    $("#table_kolom tbody").find("tr").each(function (index) {
+
+        var tempKolom = $(this).find('td').toArray();
+        var kolom = $('input[name="pilih'+index+'"]:checked').val();
+        var pk = $('input[name="pk'+index+'"]:checked').val();
+        var is_score = $('input[name="score'+index+'"]:checked').val();
+        console.log(kolom);
+        if(kolom == NaN || kolom == undefined ){
+            //do nothing
+        } 
+        else{
+
+            if(pk == undefined){
+                pk = "";
+            }
+
+            if(is_score == undefined){
+                is_score = "";
+            }
+
+            selected += kolom + pk + is_score +';';
+        }
     
-    $('#table_kolom input[name="pilih"]:checked').each(function() {
-
-        selected += $(this).val()+ ';';
-
+        
     });
 
+    
     str1 = selected.replace(/;$/, "") + "";
-
+    //console.log(str1);
     return str1;
 }
 

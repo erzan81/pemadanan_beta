@@ -127,22 +127,26 @@
                                                     <th>NAMA KOLOM</th>
                                                     <th>TIPE KOLOM</th>
                                                     <th>SIZE KOLOM</th>
-                                                    <th width="10%">PILIH</th>
-                                                    <th width="12%">PRIMARY KEY</th>
+                                                    <th width="10%" class="text-center">PILIH</th>
+                                                    <th width="10%" class="text-center">PRIMARY KEY</th>
+                                                    <th width="10%" class="text-center">IS SCORE</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
+                                                $i=0;
                                                 foreach ($kolom as $key) {
 
                                                     echo "<tr>
                                                     <td>".$key->ID_KOLOM."</td>
                                                     <td>".$key->TIPE_KOLOM."</td>
                                                     <td>".$key->SIZE_KOLOM."</td>
-                                                    <td align='center'><input type='checkbox' name='pilih' value='".$key->ID_KOLOM."'/></td>
-                                                    <td align='center'><input type='checkbox' name='pk' value='#'/></td>
+                                                    <td align='center'><input type='checkbox' name='pilih".$i."' id='pilih".$i."' value='".$key->ID_KOLOM."'/></td>
+                                                    <td align='center'><input type='checkbox' name='pk".$i."' id='pk".$i."' value='#'/></td>
+                                                    <td align='center'><input type='checkbox' name='score".$i."' id='score".$i."' value='$'/></td>
 
                                                 </tr>";
+                                                $i++;
                                             }
                                             ?>
                                         </tbody>
@@ -153,7 +157,6 @@
                         <!-- <a class="btn btn-info" onclick="get_kolom_check()"><i class="fa fa-check" ></i> Cek</a>
                     -->
 
-                    
                     <a class="btn btn-info" id="upload"><i class="fa fa-upload" ></i> Upload</a>
                     <a class="btn btn-success" id="upload_lanjutan" style="display:none"><i class="fa fa-upload" ></i> Upload</a>
 
@@ -300,24 +303,19 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <center><h3 class="modal-title">Informasi </h3></center>
-    </div>
-    <div class="modal-body" >
-        <div class="col-sm-12">
-          <div class="row">
-
-            <center><p id="pesan_notifikasi"></p></center>
-            
         </div>
-    </div>
-</div>
-<div class="modal-footer">
+        
+        <div class="modal-body" >
+            <center><p id="pesan_notifikasi"></p></center>
+        </div>
+        
+        <div class="modal-footer">
 
-    <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
 
-
-</div>
-</div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 

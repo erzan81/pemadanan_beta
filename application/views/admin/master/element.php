@@ -114,11 +114,9 @@
 
             <div class="modal-body" >
                 
-                <div class="col-lg-12">
-                    <center>
-                        <p>Apakah Anda Yakin Akan Menhapus Data Tersebut ?</p>
-                    </center>
-                </div>
+                <center>
+                    <p>Apakah Anda Yakin Akan Menhapus Data Tersebut ?</p>
+                </center>
                 
             </div>
 

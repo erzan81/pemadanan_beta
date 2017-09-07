@@ -309,13 +309,9 @@
                 <center><h3 class="modal-title">Informasi </h3></center>
             </div>
             <div class="modal-body" >
-                <div class="col-sm-12">
-                    <div class="row">
-
-                        <center><p id="pesan_notifikasi"></p></center>
                 
-                    </div>
-                </div>
+                <center><p id="pesan_notifikasi"></p></center>
+                        
             </div>
 
             <div class="modal-footer">
