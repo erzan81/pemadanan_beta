@@ -2,7 +2,7 @@
 <html lang="en">
     <head>        
         <!-- META SECTION -->
-        <title>Joli Admin - Responsive Bootstrap Admin Template</title>            
+        <title>Pemadanan</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -133,25 +133,25 @@
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="index.html">Joli Admin</a>
+                        <a href="index.html">Pemadanan</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
-                            <img src="<?php echo base_url()?>new_asset/assets/images/users/avatar.jpg" alt="John Doe"/>
+                            <img src="<?=base_url('gambar/user.png');?>" alt="Pemadanan"/>
                         </a>
                         <div class="profile">
                             <div class="profile-image">
-                                <img src="<?php echo base_url()?>new_asset/assets/images/users/avatar.jpg" alt="John Doe"/>
+                                <img src="<?=base_url('gambar/user.png');?>" alt="Pemadanan"/>
                             </div>
                             <div class="profile-data">
-                                <div class="profile-data-name">John Doe</div>
-                                <div class="profile-data-title">Web Developer/Designer</div>
+                                <div class="profile-data-name">Staff</div>
+                                <!-- <div class="profile-data-title">Web Developer/Designer</div> -->
                             </div>
-                            <div class="profile-controls">
+                            <!-- <div class="profile-controls">
                                 <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>
                                 <a href="pages-messages.html" class="profile-control-right"><span class="fa fa-envelope"></span></a>
-                            </div>
+                            </div> -->
                         </div>                                                                        
                     </li>
                     <li class="xn-title">Navigation</li>
@@ -215,6 +215,10 @@
                     <li class="xn-icon-button">
                         <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
                     </li>
+                    <li class="">
+                        <a href="#" class="">Aplikasi Pemadanan Ver. 1.0</a>
+                    </li>
+
                     <!-- END TOGGLE NAVIGATION -->
                     >
                     <!-- SIGN OUT -->
