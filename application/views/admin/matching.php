@@ -1,4 +1,17 @@
 
+<style type="text/css">
+    td.details-control {
+        background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+    .shown td.details-control {
+        background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+    }
+
+
+</style>
+
+
 <div id="page-wrapper">
 
     <div class="row">
@@ -97,42 +110,20 @@
                                                 <form role="form">
                                                     <div class="form-group" id="init_kolom">
                                                             
-                                                            <table width="100%" class="table table-striped table-bordered table-hover" id="table_kolom">
+                                                            <table width="100%" class="table table-striped table-bordered table-hover" id="table_acuan_step">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th width="10%">STEP</th>
-                                                                        <th width="20%">NIK</th>
-                                                                        <th width="20%">ALAMAT</th>
-                                                                        <th width="20%">NM_LGKP</th>
-                                                                        <th width="15%">SUDAH PROSES</th>
+                                                                        <th width="5%">#</th>
+                                                                        <th width="5%">STEP</th>
+                                                                        <th width="20%">INSTANSI</th>
+                                                                        <th width="20%">ID UPLOAD</th>
+                                                                        <th width="15%">ACUAN STEP</th>
+                                                                        <th width="15%">KETERANGAN</th>
                                                                         <th width="10%">AKSI</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                     <tr>
-                                                                        <td align="center">1</td>
-                                                                        <td align="center">100%</td>
-                                                                        <td align="center">85%</td>
-                                                                        <td align="center">99%</td>
-                                                                        <td align="center"><input type='checkbox'   /></td>
-                                                                        <td align="center"><span class="btn btn-info">Proses</span> </td>
-                                                                    </tr> 
-                                                                    <tr>
-                                                                        <td align="center">2</td>
-                                                                        <td align="center">100%</td>
-                                                                        <td align="center">>85%</td>
-                                                                        <td align="center">>60%</td>
-                                                                        <td align="center"><input type='checkbox'  /></td>
-                                                                        <td align="center"><span class="btn btn-info">Proses</span> </td>
-                                                                    </tr> 
-                                                                    <tr>
-                                                                        <td align="center">3</td>
-                                                                        <td align="center">100%</td>
-                                                                        <td align="center">>85%</td>
-                                                                        <td align="center">=>90%</td>
-                                                                        <td align="center"><input type='checkbox' /></td>
-                                                                        <td align="center"><span class="btn btn-info">Proses</span> </td>
-                                                                    </tr> 
+                                                                     
                                                                     
                                                                 </tbody>
                                                         </table>
@@ -320,6 +311,28 @@
 </div>
 <!-- /.row -->
 </div>
+
+<div class="modal fade" id="modalNotif">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title">Informasi </h3></center>
+        </div>
+        
+        <div class="modal-body" >
+            <center><p id="pesan_notifikasi"></p></center>
+        </div>
+        
+        <div class="modal-footer">
+
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 
 <script src="<?php echo base_url('assets/app/js/js_ui_matching.js') ?>"></script>

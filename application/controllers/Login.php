@@ -9,10 +9,11 @@ class Login extends Main_Controller {
         parent::__construct();
         $this->load->helper('form');
         $this->load->library('form_validation');
+        $this->load->library('recaptcha');
     }  
 
     public function index() {
-        $this->load->view('login');
+        $this->load->view('login_new');
     }    
     
     function do_login(){

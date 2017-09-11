@@ -63,10 +63,8 @@
         <!-- <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/settings.js"></script>
          -->
 
-        <script type='text/javascript' src='<?php echo base_url()?>new_asset/js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
         
-        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-datepicker.js"></script>
+        
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-timepicker.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-colorpicker.js"></script>
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-file-input.js"></script>

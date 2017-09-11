@@ -570,7 +570,7 @@ function get_upload_bad(){
                   '<td align="center">' + value.UPLOAD_KE + '</td>' +
                   '<td align="left">' + value.NAMA_TABEL + '</td>' +
                   '<td align="center"><a href="javascript:get_detail_temp_upload(\''+value.HEADER_KOLOM+'\',\''+value.ID_UPLOAD+'\',\''+value.NAMA_TABEL+'\')" class="btn btn-info btn-xs")><span class="fa fa-search"></span> See Detail</a></td>'+
-                  '<td align="center" style="padding:0px;"><input type="radio" class="radio" name="radio_perubahan_bad" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+','+value.UPLOAD_KE+'" style="height:25px; width:25px;"/></td>' +
+                  '<td align="center" style="padding:0px;"><input type="radio"  name="radio_perubahan_bad" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+','+value.UPLOAD_KE+'" style="height:25px; width:25px;"/></td>' +
                   '</tr>';
                 number++;
                 $("#tabel_bad tbody").append(strRow);
