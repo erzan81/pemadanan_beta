@@ -130,6 +130,7 @@
                                                     <th width="10%" class="text-center">PILIH</th>
                                                     <th width="10%" class="text-center">PRIMARY KEY</th>
                                                     <th width="10%" class="text-center">IS SCORE</th>
+                                                    <th width="10%" class="text-center">IS SELECT</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -144,6 +145,7 @@
                                                     <td align='center'><input type='checkbox' name='pilih".$i."' id='pilih".$i."' value='".$key->ID_KOLOM."'/></td>
                                                     <td align='center'><input type='checkbox' name='pk".$i."' id='pk".$i."' value='#'/></td>
                                                     <td align='center'><input type='checkbox' name='score".$i."' id='score".$i."' value='@'/></td>
+                                                    <td align='center'><input type='checkbox' name='is_select".$i."' id='is_select".$i."' value='%'/></td>
 
                                                 </tr>";
                                                 $i++;
@@ -166,11 +168,159 @@
             </div>
             <div class="tab-pane fade" id="dmp">
                 <br>
+                <form role="form">
 
+
+                    <div class="form-group" >
+                        <label>Instansi</label>
+                        <select class="form-control select" data-live-search="true" id="cmb_instansi_dmp" name="cmb_instansi_dmp" width="100%">
+                            <?php 
+
+                            foreach ($instansi as $row  ) {
+                            //print_r ($row);
+                                echo "<option value='".$row->INSTANSI_ID."'>". $row->INSTANSI_NAMA."</option>";
+                            }
+
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="keterangan_form">
+                        <label>Keterangan</label>
+                        <input type="text" id="keterangan_dmp" name="keterangan_dmp" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>File input</label>
+                        <input type="file" id="file_dmp" name="file_dmp" accept=".dmp">
+                    </div>
+
+                    <div class="pull-right">
+                        <label style="color:red">*Note : Upload file Oracle DMP (.dmp)</label>
+                    </div>
+
+
+                    <div class="form-group" id="init_kolom_dmp">
+                        <label>Inisialisasi Kolom</label>
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="table_kolom_dmp">
+                            <thead>
+                                <tr>
+                                    <th>NAMA KOLOM</th>
+                                    <th>TIPE KOLOM</th>
+                                    <th>SIZE KOLOM</th>
+                                    <th width="10%" class="text-center">PILIH</th>
+                                    <th width="10%" class="text-center">PRIMARY KEY</th>
+                                    <th width="10%" class="text-center">IS SCORE</th>
+                                    <th width="10%" class="text-center">IS SELECT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i=0;
+                                foreach ($kolom as $key) {
+
+                                    echo "<tr>
+                                    <td>".$key->ID_KOLOM."</td>
+                                    <td>".$key->TIPE_KOLOM."</td>
+                                    <td>".$key->SIZE_KOLOM."</td>
+                                    <td align='center'><input type='checkbox' name='pilih_dmp".$i."' id='pilih_dmp".$i."' value='".$key->ID_KOLOM."'/></td>
+                                    <td align='center'><input type='checkbox' name='pk_dmp".$i."' id='pk_dmp".$i."' value='#'/></td>
+                                    <td align='center'><input type='checkbox' name='score_dmp".$i."' id='score_dmp".$i."' value='@'/></td>
+                                    <td align='center'><input type='checkbox' name='is_select_dmp".$i."' id='is_select_dmp".$i."' value='%'/></td>
+
+                                </tr>";
+                                $i++;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                 
+
+                <a class="btn btn-success" id="upload_dmp"><i class="fa fa-upload" ></i> Upload DMP</a>
+
+            </form>
 
             </div>
             <div class="tab-pane fade" id="dbf">
                 <br>
+
+                <form role="form">
+
+
+                    <div class="form-group" >
+                        <label>Instansi</label>
+                        <select class="form-control select" data-live-search="true" id="cmb_instansi_dbf" name="cmb_instansi_dbf" width="100%">
+                            <?php 
+
+                            foreach ($instansi as $row  ) {
+                            //print_r ($row);
+                                echo "<option value='".$row->INSTANSI_ID."'>". $row->INSTANSI_NAMA."</option>";
+                            }
+
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="keterangan_form">
+                        <label>Keterangan</label>
+                        <input type="text" id="keterangan_dbf" name="keterangan_dbf" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>File input</label>
+                        <input type="file" id="file_dbf" name="file_dbf" accept=".dbf">
+                    </div>
+
+                    <div class="pull-right">
+                        <label style="color:red">*Note : Upload file DBF (.dbf)</label>
+                    </div>
+
+
+                    <div class="form-group" id="init_kolom_dbf">
+                        <label>Inisialisasi Kolom</label>
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="table_kolom_dbf">
+                            <thead>
+                                <tr>
+                                    <th>NAMA KOLOM</th>
+                                    <th>TIPE KOLOM</th>
+                                    <th>SIZE KOLOM</th>
+                                    <th width="10%" class="text-center">PILIH</th>
+                                    <th width="10%" class="text-center">PRIMARY KEY</th>
+                                    <th width="10%" class="text-center">IS SCORE</th>
+                                    <th width="10%" class="text-center">IS SELECT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i=0;
+                                foreach ($kolom as $key) {
+
+                                    echo "<tr>
+                                    <td>".$key->ID_KOLOM."</td>
+                                    <td>".$key->TIPE_KOLOM."</td>
+                                    <td>".$key->SIZE_KOLOM."</td>
+                                    <td align='center'><input type='checkbox' name='pilih_dmp".$i."' id='pilih_dmp".$i."' value='".$key->ID_KOLOM."'/></td>
+                                    <td align='center'><input type='checkbox' name='pk_dmp".$i."' id='pk_dmp".$i."' value='#'/></td>
+                                    <td align='center'><input type='checkbox' name='score_dmp".$i."' id='score_dmp".$i."' value='@'/></td>
+                                    <td align='center'><input type='checkbox' name='is_select_dmp".$i."' id='is_select_dmp".$i."' value='%'/></td>
+
+                                </tr>";
+                                $i++;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                 
+
+                <a class="btn btn-danger" id="upload_dbf"><i class="fa fa-upload" ></i> Upload DBF</a>
+
+            </form>
 
 
             </div>

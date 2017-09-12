@@ -264,6 +264,7 @@ function get_kolom_check(){
         var kolom = $('input[name="pilih'+index+'"]:checked').val();
         var pk = $('input[name="pk'+index+'"]:checked').val();
         var is_score = $('input[name="score'+index+'"]:checked').val();
+        var is_select = $('input[name="is_select'+index+'"]:checked').val();
         //console.log(kolom);
         if(kolom == NaN || kolom == undefined ){
             //do nothing
@@ -278,7 +279,11 @@ function get_kolom_check(){
                 is_score = "";
             }
 
-            selected += kolom + pk + is_score +';';
+            if(is_select == undefined){
+                is_select = "";
+            }
+
+            selected += kolom + pk + is_score + is_select +';';
         }
     
         
