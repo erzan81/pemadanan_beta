@@ -76,7 +76,7 @@ class Matching extends CI_Controller {
 
         $this->load->model('MMatching');
 
-        $p_id_upload = "UPLOAD-20170908-000004";
+        $p_id_upload = $this->input->post('p_id_upload');
 
         $main = $this->MMatching->get_metode_pemadanan($p_id_upload);
         $detil = $this->MMatching->get_metode_pemadanan_detil($p_id_upload);

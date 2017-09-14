@@ -272,7 +272,7 @@
     function initTableListener() {
             
             $(".btn_update").click(function (e) {
-                e.preventDefault();
+                //e.preventDefault();
                 var tds = $(this).closest('tr').children('td');
 
                 $('#p_id_instansi').val(tds[0].innerHTML);
@@ -291,7 +291,7 @@
             });
 
             $(".btn_delete").click(function (e) {
-                e.preventDefault();
+                //e.preventDefault();
                 var tds = $(this).closest('tr').children('td');
                 
                 $('#p_id_instansi').val(tds[0].innerHTML);
@@ -350,26 +350,6 @@
                 });
                 $("#tabel_instansi").dataTable();
                 
-                // $(".btn_update").click(function (e) {
-                // e.preventDefault();
-                    //var tds = $(".btn_update").closest('tr').children('td');
-                    //console.log(tds[0].innerHTML)
-
-                //     $('#p_id_instansi').val(tds[0].innerHTML);
-                //     $('#p_nama_instansi').val(tds[1].innerHTML);
-                //     $('#p_alamat_instansi').val(tds[2].innerHTML);
-                //     $('#p_telp_instansi').val(tds[3].innerHTML);
-                //     $('#p_ket_instansi').val(tds[4].innerHTML);
-                //     $('#p_status'+tds[6].innerHTML).prop('checked',true);
-                //     $('#mode').val("upd");
-
-                //     $('#judul_modal').html('Update Data Instansi');
-                //     $('#statusnya').show('slow');
-            
-                //     $('#modal_insert').modal('show');
-                    
-                // });
-                //initTableListener();
 
                 $('#loading').loading('stop');
 
@@ -383,4 +363,52 @@
 
 
     }
+
+
+    function submit(){
+
+        var instansi = $('#p_id_instansi').val();
+        var nama_instansi = $('#p_nama_instansi').val();
+        var alamat = $('#p_alamat_instansi').val();
+        var telp = $('#p_telp_instansi').val();
+        var ket = $('#p_ket_instansi').val();
+        var status = $('input:name[p_status]').val();
+
+        $.ajax({
+            url: BASE_URL+'admin/instansi/save', // point to server-side controller method
+            data: {
+                    p_instansi_id : instansi,
+                    p_instansi_nama : nama_instansi,
+                    p_instansi_alamat : alamat,
+                    p_instansi_telp : telp,
+                    p_instansi_ket : ket,
+                    p_instansi_status : status
+
+                  },
+            type: 'post',
+            success: function (response) {
+                //get_upload_temp_tandingan();
+
+                data = JSON.parse(response);
+                //console.log(data);
+
+                if(data.out_rowcount == 1){
+                    $('#pesan_notifikasi').html("Berhasil Disimpan.");
+                }
+                else{
+                    $('#pesan_notifikasi').html(data.msgerror);
+                }
+
+                $('#modalNotif').modal('show');
+                //$('#msg').html(response); // display success response from the server
+                $('#loadingnya').loading('stop');
+            },
+            error: function (response) {
+                $('#msg').html(response); // display error response from the server
+            }
+        });
+
+    }
+
+
 </script>
