@@ -43,7 +43,7 @@
     </div>
     <!-- /.row -->
 </div>
-<input type="text" name="mode" id="mode" >
+<input type="hidden" name="mode" id="mode" >
 <div class="modal fade" id="modal_insert">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -100,7 +100,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal"><span class="fa fa-check"></span> Submit</button>
+                <a href="#"  class="btn btn-success btn_submit_instansi" data-dismiss="modal" ><span class="fa fa-check"></span> Submit</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
             </div>
         </div>
     </div>
@@ -118,13 +119,13 @@
         <div class="modal-body" >
             <div id="del">  
                 <center>
-                    <p>Apakah Anda Yakin Akan Menghapus <b id="instansi_msg"></b> ?</p>
+                    <p>Apakah Anda Yakin Akan Menghapus <strong id="instansi_msg"></strong> ?</p>
                 </center>
             </div>
         </div>
         
         <div class="modal-footer">
-
+            <a href="#"  class="btn btn-success btn_submit_instansi" data-dismiss="modal" ><span class="fa fa-check"></span> Submit</a>
             <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
 
         </div>
@@ -164,6 +165,8 @@
 
         $('.btn_tambah').on('click', function () {
 
+            reset_form();
+
             $('#judul_modal').html('Insert Data Instansi');
 
             $('#del').hide('slow');
@@ -175,8 +178,14 @@
 
 
 
+
         });
 
+        $('.btn_submit_instansi').on('click', function () {
+            submit();
+        });
+
+        
         
     });
 
@@ -239,35 +248,35 @@
     }
 
 
-    function get_param(mode){
+    // function get_param(mode){
 
-        $(".btn_update").click(function (e) {
-                e.preventDefault();
-                var tds = $(this).closest('tr').children('td');
+    //     $(".btn_update").click(function (e) {
+    //             e.preventDefault();
+    //             var tds = $(this).closest('tr').children('td');
 
-                console.log(tds[0].innerHTML);
-                $('#p_id_instansi').val(tds[0].innerHTML);
-                $('#p_nama_instansi').val(tds[1].innerHTML);
-                $('#p_alamat_instansi').val(tds[2].innerHTML);
-                $('#p_telp_instansi').val(tds[3].innerHTML);
-                $('#p_ket_instansi').val(tds[4].innerHTML);
-                $('#p_status'+tds[6].innerHTML).prop('checked',true);
-                $('#mode').val("upd");
+    //             console.log(tds[0].innerHTML);
+    //             $('#p_id_instansi').val(tds[0].innerHTML);
+    //             $('#p_nama_instansi').val(tds[1].innerHTML);
+    //             $('#p_alamat_instansi').val(tds[2].innerHTML);
+    //             $('#p_telp_instansi').val(tds[3].innerHTML);
+    //             $('#p_ket_instansi').val(tds[4].innerHTML);
+    //             $('#p_status'+tds[6].innerHTML).prop('checked',true);
+    //             $('#mode').val("upd");
 
-                $('#judul_modal').html('Update Data Instansi');
-                $('#statusnya').show('slow');
+    //             $('#judul_modal').html('Update Data Instansi');
+    //             $('#statusnya').show('slow');
         
-        });
+    //     });
 
-        //console.log(tds[0].innerHTML)
+    //     //console.log(tds[0].innerHTML)
 
-        if(mode == "upd"){
-           $('#modal_insert').modal('show'); 
-        }
-        else{
-           $('#modal_delete').modal('show');
-        }
-    }
+    //     if(mode == "upd"){
+    //        $('#modal_insert').modal('show'); 
+    //     }
+    //     else{
+    //        $('#modal_delete').modal('show');
+    //     }
+    // }
 
     function initTableListener() {
             
@@ -301,6 +310,8 @@
                 $('#p_ket_instansi').val(tds[4].innerHTML);
                 $('#p_status'+tds[6].innerHTML).prop('checked',true);
                 $('#mode').val("del");
+
+                $('#instansi_msg').html(tds[1].innerHTML);
         
                 $('#modal_delete').modal('show');
                 
@@ -372,17 +383,19 @@
         var alamat = $('#p_alamat_instansi').val();
         var telp = $('#p_telp_instansi').val();
         var ket = $('#p_ket_instansi').val();
-        var status = $('input:name[p_status]').val();
+        var status = $('input[name="p_status"]').val();
+        var mode = $('#mode').val();
 
         $.ajax({
-            url: BASE_URL+'admin/instansi/save', // point to server-side controller method
+            url: BASE_URL+'admin/instansi/submit', // point to server-side controller method
             data: {
                     p_instansi_id : instansi,
                     p_instansi_nama : nama_instansi,
                     p_instansi_alamat : alamat,
                     p_instansi_telp : telp,
                     p_instansi_ket : ket,
-                    p_instansi_status : status
+                    p_instansi_status : status,
+                    mode : mode
 
                   },
             type: 'post',
@@ -402,12 +415,27 @@
                 $('#modalNotif').modal('show');
                 //$('#msg').html(response); // display success response from the server
                 $('#loadingnya').loading('stop');
+
+                get_main_instansi();
             },
             error: function (response) {
                 $('#msg').html(response); // display error response from the server
             }
         });
 
+    }
+
+
+
+    function reset_form(){
+
+        $('#p_id_instansi').val("");
+        $('#p_nama_instansi').val("");
+        $('#p_alamat_instansi').val("");
+        $('#p_telp_instansi').val("");
+        $('#p_ket_instansi').val("");
+        $('input[name="p_status"]').val("");
+        $('#mode').val("");
     }
 
 

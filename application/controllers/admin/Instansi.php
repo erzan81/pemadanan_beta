@@ -23,25 +23,11 @@ class Instansi extends CI_Controller {
 
     }
 
-    function save(){
+    function submit(){
 
         $this->load->model('master_data/MInstansi');
 
-        $save['p_instansi_nama'] = $this->input->post('p_instansi_nama');
-        $save['p_instansi_ket'] = $this->input->post('p_instansi_ket');
-        $save['p_instansi_alamat'] = $this->input->post('p_instansi_alamat');
-        $save['p_instansi_telp'] = $this->input->post('p_instansi_telp');
-        $save['p_create_by'] = "ERZAN";
-
-        $ref = $this->MInstansi->ins_instansi($save);
-        
-        echo json_encode($ref);
-
-    }
-
-    function edit(){
-
-        $this->load->model('master_data/MInstansi');
+        $mode = $this->input->post('mode');
 
         $save['p_instansi_id'] = $this->input->post('p_instansi_id');
         $save['p_instansi_nama'] = $this->input->post('p_instansi_nama');
@@ -51,21 +37,27 @@ class Instansi extends CI_Controller {
         $save['p_instansi_status'] = $this->input->post('p_instansi_status');
         $save['p_create_by'] = "ERZAN";
 
-        $ref = $this->MInstansi->upd_instansi($save);
-        
-        echo json_encode($ref);
+        if($mode == "upd"){
 
-    }
+            $ref = $this->MInstansi->upd_instansi($save);
+            $ref['tipe'] = "EDIT";
 
-    function delete(){
+        }
+        else if($mode == "del"){
 
-        $this->load->model('master_data/MInstansi');
+            $ref = $this->MInstansi->del_instansi($save);
+            $ref['tipe'] = "HAPUS";
+            $ref['instansi_id'] = $this->input->post('p_instansi_id');
 
-        $save['p_instansi_id'] = $this->input->post('p_instansi_id');
-        $save['p_create_by'] = "ERZAN";
+        }
+        else{
 
-        $ref = $this->MInstansi->del_instansi($save);
-        
+            $ref = $this->MInstansi->ins_instansi($save);
+            $ref['tipe'] = "SIMPAN";
+            $ref['p_instansi_id'] = "SIMPAN";
+
+        }
+
         echo json_encode($ref);
 
     }

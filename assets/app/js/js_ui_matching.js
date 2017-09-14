@@ -42,7 +42,7 @@ function get_data_final(){
                           '<td align="center">' + value.UPLOAD_KE + '</td>' +
                           '<td align="center">' + value.NAMA_FILE + '</td>' +
                           '<td align="center">' + value.CREATE_DATE + '</td>' +
-                          '<td class="text-center"><input type="radio" name="pilih_main" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_metode_pemadanan(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
+                          '<td class="text-center"><input type="radio" name="pilih_main" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_metode_pemadanan(\''+value.ID_UPLOAD+'\'); get_kolom_pemadanan(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
                           '</tr>';
                 $('#tabel_main_final tbody').append(ret_valueT);
             });

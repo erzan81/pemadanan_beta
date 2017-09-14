@@ -12,6 +12,17 @@ class Element extends CI_Controller {
         $this->load->view('admin/include/footer');
     }
 
+    function get_main_kolom(){
+
+    	$this->load->model('master_data/MKolom');
+
+    	$ref = $this->MKolom->get_ref_kolom();
+    	
+    	echo json_encode($ref);
+
+
+    }
+
 }
 
 /* End of file home.php */
