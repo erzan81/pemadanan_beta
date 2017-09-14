@@ -191,7 +191,9 @@
             } );
 
         }
-        else{
+        
+
+        if(mode == "del"){
 
             $('#tabel_kolom tbody').on( 'click', 'tr', '.btn_delete' , function () {
                 var data = table.row( this ).data();
@@ -233,17 +235,7 @@
                 
                 $('#tabel_kolom tbody').empty();
                 $.each(data, function (i, value) {
-                    var status = "";
-                    var temp_status;
-                    if(value.STATUS == "AKTIF"){
-                        status ='<span class="label label-info">' + value.STATUS + '</span>';
-                        temp_status = 1;
-                    }
-                    else{
-
-                        status ='<span class="label label-danger">' + value.STATUS + '</span>';
-                        temp_status = 0;
-                    }
+                    
 
                     var ret_valueT =
                               '<tr>' +

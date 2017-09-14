@@ -190,93 +190,93 @@
     });
 
 
-    function get_param(mode){
-
-        var table = $('#tabel_instansi').DataTable();
-        
-        if(mode == "upd"){
-
-            $('#tabel_instansi tbody').on( 'click', 'tr','.btn_update' , function () {
-                console.log(this);
-                var data = table.row( this ).data();
-                $('#p_id_instansi').val(data[0]);
-                $('#p_nama_instansi').val(data[1]);
-                $('#p_alamat_instansi').val(data[2]);
-                $('#p_telp_instansi').val(data[3]);
-                $('#p_ket_instansi').val(data[4]);
-                $('#p_status'+data[6]).prop('checked',true);
-
-                $('#judul_modal').html('Update Data Instansi');
-                $('#statusnya').show('slow');
-            
-
-                $('#mode').val("upd");
-
-                $('#modal_insert').modal('show');
-
-            } );
-
-        }
-        else{
-
-            $('#tabel_instansi tbody').on( 'click', 'tr', '.btn_delete' , function () {
-                var data = table.row( this ).data();
-                $('#instansi_msg').html(data[1]);
-
-                $('#p_id_instansi').val(data[0]);
-                $('#p_nama_instansi').val(data[1]);
-                $('#p_alamat_instansi').val(data[2]);
-                $('#p_telp_instansi').val(data[3]);
-                $('#p_ket_instansi').val(data[4]);
-                $('#p_status'+data[6]).prop('checked',true);
-
-                $('#judul_modal').html('Delete Data Instansi');
-                
-
-                $('#mode').val("del");
-                
-                $('#modal_delete').modal('show');
-
-            });
-
-        }
-
-        
-
-        
-
-    }
-
-
     // function get_param(mode){
 
-    //     $(".btn_update").click(function (e) {
-    //             e.preventDefault();
-    //             var tds = $(this).closest('tr').children('td');
+    //     var table = $('#tabel_instansi').DataTable();
+        
+    //     if(mode == "upd"){
 
-    //             console.log(tds[0].innerHTML);
-    //             $('#p_id_instansi').val(tds[0].innerHTML);
-    //             $('#p_nama_instansi').val(tds[1].innerHTML);
-    //             $('#p_alamat_instansi').val(tds[2].innerHTML);
-    //             $('#p_telp_instansi').val(tds[3].innerHTML);
-    //             $('#p_ket_instansi').val(tds[4].innerHTML);
-    //             $('#p_status'+tds[6].innerHTML).prop('checked',true);
-    //             $('#mode').val("upd");
+    //         $('#tabel_instansi tbody').on( 'click', 'tr','.btn_update' , function () {
+    //             console.log(this);
+    //             var data = table.row( this ).data();
+    //             $('#p_id_instansi').val(data[0]);
+    //             $('#p_nama_instansi').val(data[1]);
+    //             $('#p_alamat_instansi').val(data[2]);
+    //             $('#p_telp_instansi').val(data[3]);
+    //             $('#p_ket_instansi').val(data[4]);
+    //             $('#p_status'+data[6]).prop('checked',true);
 
     //             $('#judul_modal').html('Update Data Instansi');
     //             $('#statusnya').show('slow');
-        
-    //     });
+            
 
-    //     //console.log(tds[0].innerHTML)
+    //             $('#mode').val("upd");
 
-    //     if(mode == "upd"){
-    //        $('#modal_insert').modal('show'); 
+    //             $('#modal_insert').modal('show');
+
+    //         } );
+
     //     }
     //     else{
-    //        $('#modal_delete').modal('show');
+
+    //         $('#tabel_instansi tbody').on( 'click', 'tr', '.btn_delete' , function () {
+    //             var data = table.row( this ).data();
+    //             $('#instansi_msg').html(data[1]);
+
+    //             $('#p_id_instansi').val(data[0]);
+    //             $('#p_nama_instansi').val(data[1]);
+    //             $('#p_alamat_instansi').val(data[2]);
+    //             $('#p_telp_instansi').val(data[3]);
+    //             $('#p_ket_instansi').val(data[4]);
+    //             $('#p_status'+data[6]).prop('checked',true);
+
+    //             $('#judul_modal').html('Delete Data Instansi');
+                
+
+    //             $('#mode').val("del");
+                
+    //             $('#modal_delete').modal('show');
+
+    //         });
+
     //     }
+
+        
+
+        
+
     // }
+
+
+    function get_param(mode){
+
+        $(".btn_update").click(function (e) {
+                e.preventDefault();
+                var tds = $(this).closest('tr').children('td');
+
+                console.log(tds[0].innerHTML);
+                $('#p_id_instansi').val(tds[0].innerHTML);
+                $('#p_nama_instansi').val(tds[1].innerHTML);
+                $('#p_alamat_instansi').val(tds[2].innerHTML);
+                $('#p_telp_instansi').val(tds[3].innerHTML);
+                $('#p_ket_instansi').val(tds[4].innerHTML);
+                $('#p_status'+tds[6].innerHTML).prop('checked',true);
+                $('#mode').val("upd");
+
+                $('#judul_modal').html('Update Data Instansi');
+                $('#statusnya').show('slow');
+        
+        });
+
+        //console.log(tds[0].innerHTML)
+
+        if(mode == "upd"){
+           $('#modal_insert').modal('show'); 
+        }
+        else{
+           $('#modal_delete').modal('show');
+        }
+    }
 
     function initTableListener() {
             

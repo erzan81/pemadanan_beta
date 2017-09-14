@@ -28,7 +28,7 @@ class Login extends Main_Controller {
         
         if($this->form_validation->run() == FALSE)
         {
-            $this->load->view('login');
+            $this->load->view('login_new');
         }
         else{
             // $a = $this->musers->check_users($username,md5($password));
@@ -63,7 +63,7 @@ class Login extends Main_Controller {
     
     function logout(){
         $this->session->sess_destroy();
-        redirect(base_url().'login');
+        redirect(base_url().'login_new');
     }
     
 }

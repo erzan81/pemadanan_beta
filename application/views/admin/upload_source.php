@@ -131,6 +131,7 @@
                                                     <th width="10%" class="text-center">PRIMARY KEY</th>
                                                     <th width="10%" class="text-center">IS SCORE</th>
                                                     <th width="10%" class="text-center">IS SELECT</th>
+                                                    <th width="10%" class="text-center">IS CLEANSING</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -146,6 +147,7 @@
                                                     <td align='center'><input type='checkbox' name='pk".$i."' id='pk".$i."' value='#'/></td>
                                                     <td align='center'><input type='checkbox' name='score".$i."' id='score".$i."' value='@'/></td>
                                                     <td align='center'><input type='checkbox' name='is_select".$i."' id='is_select".$i."' value='%'/></td>
+                                                    <td align='center'><input type='checkbox' name='is_cleansing".$i."' id='is_cleansing".$i."' value='~'/></td>
 
                                                 </tr>";
                                                 $i++;
@@ -156,8 +158,8 @@
                                 </div>
 
 
-                        <!-- <a class="btn btn-info" onclick="get_kolom_check()"><i class="fa fa-check" ></i> Cek</a>
-                    -->
+                        <a class="btn btn-info" onclick="get_kolom_check()"><i class="fa fa-check" ></i> Cek</a>
+                   
 
                     <a class="btn btn-info" id="upload"><i class="fa fa-upload" ></i> Upload</a>
                     <a class="btn btn-success" id="upload_lanjutan" style="display:none"><i class="fa fa-upload" ></i> Upload</a>
@@ -212,6 +214,7 @@
                                     <th width="10%" class="text-center">PRIMARY KEY</th>
                                     <th width="10%" class="text-center">IS SCORE</th>
                                     <th width="10%" class="text-center">IS SELECT</th>
+                                    <th width="10%" class="text-center">IS CLEANSING</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -227,6 +230,7 @@
                                     <td align='center'><input type='checkbox' name='pk_dmp".$i."' id='pk_dmp".$i."' value='#'/></td>
                                     <td align='center'><input type='checkbox' name='score_dmp".$i."' id='score_dmp".$i."' value='@'/></td>
                                     <td align='center'><input type='checkbox' name='is_select_dmp".$i."' id='is_select_dmp".$i."' value='%'/></td>
+                                    <td align='center'><input type='checkbox' name='is_cleansing_dmp".$i."' id='is_cleansing_dmp".$i."' value='~'/></td>
 
                                 </tr>";
                                 $i++;
@@ -291,6 +295,7 @@
                                     <th width="10%" class="text-center">PRIMARY KEY</th>
                                     <th width="10%" class="text-center">IS SCORE</th>
                                     <th width="10%" class="text-center">IS SELECT</th>
+                                    <th width="10%" class="text-center">IS CLEANSING</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -302,10 +307,12 @@
                                     <td>".$key->ID_KOLOM."</td>
                                     <td>".$key->TIPE_KOLOM."</td>
                                     <td>".$key->SIZE_KOLOM."</td>
-                                    <td align='center'><input type='checkbox' name='pilih_dmp".$i."' id='pilih_dmp".$i."' value='".$key->ID_KOLOM."'/></td>
-                                    <td align='center'><input type='checkbox' name='pk_dmp".$i."' id='pk_dmp".$i."' value='#'/></td>
-                                    <td align='center'><input type='checkbox' name='score_dmp".$i."' id='score_dmp".$i."' value='@'/></td>
-                                    <td align='center'><input type='checkbox' name='is_select_dmp".$i."' id='is_select_dmp".$i."' value='%'/></td>
+                                    <td align='center'><input type='checkbox' name='pilih_dbf".$i."' id='pilih_dbf".$i."' value='".$key->ID_KOLOM."'/></td>
+                                    <td align='center'><input type='checkbox' name='pk_dbf".$i."' id='pk_dbf".$i."' value='#'/></td>
+                                    <td align='center'><input type='checkbox' name='score_dbf".$i."' id='score_dbf".$i."' value='@'/></td>
+                                    <td align='center'><input type='checkbox' name='is_select_dbf".$i."' id='is_select_dbf".$i."' value='%'/></td>
+                                    <td align='center'><input type='checkbox' name='is_cleansing_dbf".$i."' id='is_cleansing_dbf".$i."' value='~'/></td>
+
 
                                 </tr>";
                                 $i++;
