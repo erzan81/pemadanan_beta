@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url()?>new_asset/css/theme-default.css"/>
         <!-- EOF CSS INCLUDE -->  
 
-        <link href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" rel="stylesheet">
+        <!-- <link href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" rel="stylesheet"> -->
    
         <!-- <link href="<?php //echo base_url('assets/sb-admin-v2/css/select2.min.css') ?>" rel="stylesheet"> -->
         <link href="<?php echo base_url('assets/plugins/loading/loading.css') ?>" rel="stylesheet">

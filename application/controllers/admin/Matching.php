@@ -71,6 +71,28 @@ class Matching extends CI_Controller {
 
     }
 
+    function submit_init_pemadanan(){
+
+        $this->load->model('MMatching');
+
+        $save['p_instansi_id'] = $this->input->post('p_instansi_id');
+        $save['p_id_upload'] = $this->input->post('p_id_upload');
+        $save['p_step_ke'] = $this->input->post('p_step_ke');
+        $save['p_step_acuan'] = $this->input->post('p_step_acuan');
+        $save['p_is_paralel'] = $this->input->post('p_is_paralel');
+        $save['p_create_by'] = "ERZAN";
+        
+        $hit = $this->MMatching->init_pemadanan($save);
+        //print_r($save);
+
+        $out['out_rowcount'] = $hit["out_rowcount"];
+        $out['msgerror'] = $hit["msgerror"];
+        
+
+        echo json_encode($out);
+
+    }
+
 
     function get_metode_pemadanan(){
 

@@ -1,6 +1,12 @@
 
 var table_jancuk;
 
+var p_instansi_id;
+var p_id_upload_init;
+var p_step_ke;
+var p_step_acuan;
+var p_is_paralel;
+
 $(document).ready(function() {
 
     get_data_final();
@@ -18,6 +24,12 @@ $(document).ready(function() {
          get_proses_pemadanan();
 
     });
+
+    $('#btn_inisialisasi').on('click', function () {
+
+        init_pemadanan();
+
+    } );
 
 });
 
@@ -288,18 +300,6 @@ function get_metode_pemadanan(p_id_upload) {
                 "mRender": function (data, type, full) {
                     //console.log("full : ",full);
 
-                    var get_acuan = get_acuan_step(full.ID_UPLOAD, null, full.STEP_KE);
-                    
-                    return get_acuan;
-                }
-            },
-
-            {
-                "aTargets": [5],
-                "sClass": "text-center",
-                "mRender": function (data, type, full) {
-                    //console.log("full : ",full);
-
                     var status = full.STATUS;
                     
                     return status;
@@ -307,12 +307,12 @@ function get_metode_pemadanan(p_id_upload) {
             },
 
             {
-                "aTargets": [6],
+                "aTargets": [5],
                 "sClass": "text-center",
                 "mRender": function (data, type, full) {
-                    //console.log("full : ",full);
+                    //console.log("full : ",full.FLAG_TOMBOL);
                     if(full.FLAG_TOMBOL == 0){
-                      var vProses = '<a href="#" class="btn btn-info">Proses</a>';
+                      var vProses = '<a href="#" class="btn btn-info btn_inisialisasi">Proses</a>';
                     }
                     else{
                       var vProses = "";
@@ -329,7 +329,7 @@ function get_metode_pemadanan(p_id_upload) {
             "data": {p_id_upload: p_id_upload},
             "type": "POST",
             "dataSrc": function (json) {
-                console.log(json);
+                //console.log(json);
                 return json.MAIN;
             }
         },
@@ -340,7 +340,7 @@ function get_metode_pemadanan(p_id_upload) {
                 "className": 'details-control',
                 "orderable": false,
                 "data": null,
-                "defaultContent": ''
+                "defaultContent": '<img src="http://www.datatables.net/examples/resources/details_open.png"></img>'
             },
             {"data": "STEP_KE", "defaultContent": ""},
             {"data": "NAMA_INSTANSI", "defaultContent": ""},
@@ -349,6 +349,27 @@ function get_metode_pemadanan(p_id_upload) {
         "drawCallback": function () {
             $('th').removeClass('sorting_asc');
             //initDataTableInformasiPengadaan();
+
+            var table = $('#table_acuan_step').DataTable();
+ 
+            $('#table_acuan_step tbody').on( 'click', 'tr', function () {
+
+                //var this_acuan = $('#table_acuan_step tbody > tr');
+                var data =  table.row( this ).data();
+                
+                //console.log(data);
+
+                p_instansi_id = data.INSTANSI_ID;
+                p_id_upload_init = data.ID_UPLOAD;
+                p_step_ke = data.STEP_KE;
+                p_step_acuan = $(this).closest('tr').find('.acuan').html();
+                p_is_paralel = "S";
+
+                $("#pesan_inisialisasi").html("Apakah Anda Yakin Akan Proses Inisialisasi "+p_id_upload_init+"");
+                $("#modal_init").modal('show');
+            } );
+
+            
         }
 
 
@@ -370,8 +391,8 @@ function get_metode_pemadanan(p_id_upload) {
 
     //$('#table_acuan_step').('refresh');
 
-    // Show all child nodes
-    // $("#table_temp_upload").DataTable().rows().every(function () {
+    //Show all child nodes
+    // $('#table_acuan_step').dataTable().rows().every(function () {
     //     this.child(formatPSS(this.data())).show();
     //     this.nodes().to$().addClass('shown');
     // });
@@ -439,15 +460,8 @@ function get_acuan_step(p_id_upload, p_is_paralel = null, p_step_ke){
                 success: function (response) {
                     
                   data = JSON.parse(response);
-                  combo_acuan = "<select class='form-control'>";
+                  combo_acuan = "<span class='acuan'>"+data[0].ACUAN_STEP+"</span>";
                   
-                  $.each(data, function (i, value) {
-                      combo_acuan += '<option value= "'+value.ACUAN_STEP+'"> '+ value.ACUAN_STEP +' </option>';
-
-                  });
-                  combo_acuan += '</select>';
-
-
                 }
             });
             // Return the response text
@@ -459,5 +473,45 @@ function get_acuan_step(p_id_upload, p_is_paralel = null, p_step_ke){
 
 
     return xData;
+}
+
+function init_pemadanan(){
+    $('#list_step_pemadanan').loading();
+
+    $.ajax({
+            url: BASE_URL+'admin/matching/submit_init_pemadanan', // point to server-side controller method
+            data: {
+                    p_instansi_id : p_instansi_id,
+                    p_step_ke : p_step_ke,
+                    p_step_acuan : null,
+                    p_is_paralel : p_is_paralel,
+                    p_id_upload : p_id_upload_init
+                  },
+            type: 'post',
+            success: function (response) {
+                //get_upload_temp_tandingan();
+
+                data = JSON.parse(response);
+                //console.log(data);
+
+                if(data.out_rowcount == 1){
+                    $('#pesan_notifikasi').html("Berhasil Diproses.");
+                }
+                else{
+                    $('#pesan_notifikasi').html(data.msgerror);
+                }
+
+                $('#modalNotif').modal('show');
+                //$('#msg').html(response); // display success response from the server
+
+                get_metode_pemadanan(p_id_upload_init);
+                $('#list_step_pemadanan').loading('stop');
+            },
+            error: function (response) {
+                $('#msg').html(response); // display error response from the server
+            }
+        });
+
+
 }
 

@@ -1,17 +1,4 @@
 
-<style type="text/css">
-    td.details-control {
-        background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
-        cursor: pointer;
-    }
-    .shown td.details-control {
-        background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
-    }
-
-
-</style>
-
-
 <div id="page-wrapper">
 
     <div class="row">
@@ -97,7 +84,7 @@
                                     <!-- /.panel-body -->
                                 </div>
                                 <!-- /.panel -->
-                                <div class="panel panel-danger active">
+                                <div class="panel panel-danger active" id="list_step_pemadanan">
                                     <div class="panel-heading">
                                         List Step Pemadanan
                                     </div>
@@ -110,14 +97,13 @@
                                                 <form role="form">
                                                     <div class="form-group" id="init_kolom">
                                                             
-                                                            <table width="100%" class="table table-striped table-bordered table-hover" id="table_acuan_step">
+                                                            <table width="100%" class="table table-striped table-bordered" id="table_acuan_step">
                                                                 <thead>
                                                                     <tr>
                                                                         <th width="5%">#</th>
                                                                         <th width="5%">STEP</th>
                                                                         <th width="20%">INSTANSI</th>
                                                                         <th width="20%">ID UPLOAD</th>
-                                                                        <th width="15%">ACUAN STEP</th>
                                                                         <th width="15%">KETERANGAN</th>
                                                                         <th width="10%">AKSI</th>
                                                                     </tr>
@@ -130,7 +116,6 @@
                                                     </div>
 
 
-                                                    <button type="submit" class="btn btn-danger pull-right"><i class="fa fa-list"></i> Proses Semua</button>
                                                 </form>
                                             </div>
                                             <!-- /.col-lg-6 (nested) -->
@@ -268,8 +253,6 @@
                                                         </table>
                                                     </div>
 
-
-                                                    <button type="submit" class="btn btn-danger pull-right"><i class="fa fa-list"></i> Proses Semua</button>
                                                 </form>
                                             </div>
                                             <!-- /.col-lg-6 (nested) -->
@@ -327,6 +310,27 @@
         <div class="modal-footer">
 
             <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modal_init">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title">Informasi </h3></center>
+        </div>
+        
+        <div class="modal-body" >
+            <center><p id="pesan_inisialisasi"></p></center>
+        </div>
+        
+        <div class="modal-footer">
+
+            <a href="#" class="btn btn-success" id="btn_inisialisasi" data-dismiss="modal"><span class="fa fa-save" ></span> Proses</a>
 
         </div>
     </div><!-- /.modal-content -->
