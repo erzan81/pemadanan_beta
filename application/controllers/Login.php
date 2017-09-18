@@ -63,7 +63,7 @@ class Login extends Main_Controller {
     
     function logout(){
         $this->session->sess_destroy();
-        redirect(base_url().'login_new');
+        redirect(base_url().'login');
     }
     
 }
