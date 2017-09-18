@@ -1,4 +1,9 @@
 
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
 <div id="page-wrapper">
 
     <div class="row">
@@ -142,7 +147,7 @@
                                             <th width="20%">UPLOAD KE</th>
                                             <th width="20%">NAMA FILE</th>
                                             <th width="10%">CREATE DATE</th>
-                                            <th class="text-center" width="10%">PILIH</th>
+                                            <th class="text-center" width="10%">AKSI</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -155,99 +160,28 @@
                                     <div class="panel-heading">
                                         Acuan Step
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="panel-body" id="main_final">
                                         <div class="row">
 
 
                                             <div class="col-lg-12">
 
                                                 <form role="form">
-                                                    <div class="form-group" id="init_kolom">
+                                                    <div class="form-group">
                                                             
-                                                            <table width="100%" class="table table-striped table-bordered table-hover" id="table_kolom">
+                                                            <table width="100%" class="table table-striped table-bordered table-hover" id="table_final_pemadanan">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th width="10%">STEP</th>
-                                                                        <th width="20%">NIK</th>
-                                                                        <th width="20%">ALAMAT</th>
-                                                                        <th width="20%">COMBO STEP</th>
-                                                                        <th width="15%">JENIS MATCHING</th>
-                                                                        <th width="10%">AKSI</th>
+                                                                        <th width="7%">#</th>
+                                                                        <th width="20%">ID UPLOAD</th>
+                                                                        <th width="10%">STEP KE</th>
+                                                                        <th width="20%">NAMA TABEL</th>
+                                                                        <th width="25%">STATUS</th>
+                                                                        <th width="15%">AKSI</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                     <tr>
-                                                                        <td align="center">1</td>
-                                                                        <td align="center">100%</td>
-                                                                        <td align="center">85%</td>
-                                                                        
-                                                                        <td align="center">
-
-                                                                            <select class="form-control atribut" id="atribut">
-                                                                                <option value="="> Step 1 </option>
-                                                                                <option value=">="> Step 2</option>
-                                                                                <option value=">"> Step 3 </option>
-                                                                            </select>
-
-                                                                        </td>
-                                                                        <td align="center">
-
-                                                                            <select class="form-control atribut" id="atribut">
-                                                                                <option value="="> Paralel </option>
-                                                                                <option value=">="> Serial </option>
-                                                                            </select>
-
-                                                                        </td>
-                                                                        <td align="center"><span class="btn btn-info">Proses</span> </td>
-                                                                    </tr> 
-                                                                    <tr>
-                                                                        <td align="center">1</td>
-                                                                        <td align="center">100%</td>
-                                                                        <td align="center">85%</td>
-                                                                        
-                                                                        <td align="center">
-
-                                                                            <select class="form-control atribut" id="atribut">
-                                                                                <option value="="> Step 1 </option>
-                                                                                <option value=">="> Step 2</option>
-                                                                                <option value=">"> Step 3 </option>
-                                                                            </select>
-
-                                                                        </td>
-                                                                        <td align="center">
-
-                                                                            <select class="form-control atribut" id="atribut">
-                                                                                <option value="="> Paralel </option>
-                                                                                <option value=">="> Serial </option>
-                                                                            </select>
-
-                                                                        </td>
-                                                                        <td align="center"><span class="btn btn-info">Proses</span> </td>
-                                                                    </tr> 
-                                                                    <tr>
-                                                                        <td align="center">1</td>
-                                                                        <td align="center">100%</td>
-                                                                        <td align="center">85%</td>
-                                                                        
-                                                                        <td align="center">
-
-                                                                            <select class="form-control atribut" id="atribut">
-                                                                                <option value="="> Step 1 </option>
-                                                                                <option value=">="> Step 2</option>
-                                                                                <option value=">"> Step 3 </option>
-                                                                            </select>
-
-                                                                        </td>
-                                                                        <td align="center">
-
-                                                                            <select class="form-control atribut" id="atribut">
-                                                                                <option value="="> Paralel </option>
-                                                                                <option value=">="> Serial </option>
-                                                                            </select>
-
-                                                                        </td>
-                                                                        <td align="center"><span class="btn btn-info">Proses</span> </td>
-                                                                    </tr> 
+                                                                     
                                                                     
                                                                 </tbody>
                                                         </table>
@@ -260,13 +194,51 @@
                                         </div>
                                         <!-- /.row (nested) -->
                                     </div>
+
+
+
+                                    <div class="panel-body" id="detail_final">
+                                        <div class="row">
+
+
+                                            <div class="col-lg-12">
+
+                                                <form role="form">
+                                                    <div class="form-group" >
+                                                            
+                                                            <table width="100%" class="table table-striped table-bordered table-hover" id="table_final_pemadanan_detil">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="7%">#</th>
+                                                                        <th width="20%">ID UPLOAD</th>
+                                                                        <th width="10%">ID MV</th>
+                                                                        <th width="10%">STEP</th>
+                                                                        <th width="20%">STATUS</th>
+                                                                        <th width="10%">SCRIPT</th>
+                        
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                     
+                                                                    
+                                                                </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div class="form-group" >
+                                                        <a href="#" class="btn btn-danger pull-right" id="detail_kembali"><i class="fa fa-times"></i> Kembali</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- /.col-lg-6 (nested) -->
+
+                                        </div>
+                                        <!-- /.row (nested) -->
+                                    </div>
                                     <!-- /.panel-body -->
+
+
                                 </div>
-
-
-                            
-
-
 
                         </div>
                     </div>
@@ -331,6 +303,31 @@
         <div class="modal-footer">
 
             <a href="#" class="btn btn-success" id="btn_inisialisasi" data-dismiss="modal"><span class="fa fa-save" ></span> Proses</a>
+
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modal_lihat_kode">
+  <div class="modal-dialog" >
+    <div class="modal-content" style="width: 700px">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title">Detail Script </h3></center>
+        </div>
+        
+        <div class="modal-body" >
+            <pre>
+                
+                    <code><span id="isi_kode"></span></code>
+                
+            </pre>
+        </div>
+        
+        <div class="modal-footer">
+
+            <a href="#" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times" ></span> Close</a>
 
         </div>
     </div><!-- /.modal-content -->

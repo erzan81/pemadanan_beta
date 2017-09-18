@@ -157,6 +157,51 @@ class Matching extends CI_Controller {
 
         echo json_encode($get_acuan);
 
+    }
+
+    function get_pemadanan_final(){
+
+        $this->load->model('MMatching');
+
+        $p_id_upload = $this->input->post('p_id_upload');
+
+        $get = $this->MMatching->get_pemadanan($p_id_upload);
+
+
+        echo json_encode($get);
+
+
+    }
+
+    function get_pemadanan_final_detil(){
+
+        $this->load->model('MMatching');
+
+        $p_id_upload = $this->input->post('p_id_upload');
+        $p_step_ke = $this->input->post('p_step_ke');
+
+        $get = $this->MMatching->get_pemadanan_detil($p_id_upload, $p_step_ke);
+
+
+        echo json_encode($get);
+
+
+    }
+
+    function submit_pemadanan_job(){
+
+        $this->load->model('MMatching');
+
+        $p_id_upload = $this->input->post('p_id_upload');
+        $p_step_ke = $this->input->post('p_step_ke');
+
+        $hit = $this->MMatching->main_pemadanan_job($p_id_upload, $p_step_ke);
+
+        $out['out_rowcount'] = $hit["out_rowcount"];
+        $out['msgerror'] = $hit["msgerror"];
+
+        echo json_encode($out);
+
 
     }
 

@@ -31,6 +31,14 @@ $(document).ready(function() {
 
     } );
 
+    $('#detail_kembali').on('click', function () {
+
+        $('#detail_final').hide('slow');
+        $('#main_final').show('slow');
+        
+
+    } );
+
 });
 
 function get_data_final(){
@@ -67,6 +75,151 @@ function get_data_final(){
 
 }
 
+function get_pemadanan_main(id_upload){
+
+    $("#table_final_pemadanan").dataTable().fnDestroy();
+    //$("#table_final_pemadanan").empty();
+    $.ajax({
+        url: BASE_URL+'admin/matching/get_pemadanan_final', // point to server-side controller method
+        dataType: 'text', // what to expect back from the server
+        data: {p_id_upload : id_upload},
+        type: 'post',
+        success: function (response) {
+
+            //console.log(response);
+            data = JSON.parse(response);
+            
+            $('#table_final_pemadanan tbody').empty();
+            var number = 1;
+            $.each(data, function (i, value) {
+
+                
+
+                var ret_valueT =
+                          '<tr>' +
+                          '<td align="center">' + number + '</td>' +
+                          '<td align="center">' + value.ID_UPLOAD + '</td>' +
+                          '<td align="center">' + value.STEP_KE + '</td>' +
+                          '<td align="center">' + value.NAMA_TABEL + '</td>' +
+                          '<td align="center">' + value.STATUS_PEMADANAN + '</td>' +
+                          '<td align="center">' +
+                            '<a href="#" onclick="get_pemadanan_detail(\''+value.ID_UPLOAD+'\',\''+value.STEP_KE+'\')" ><span class="btn btn-success btn-xs">DETAIL</span></a>'+
+                            '  <a href="#" onclick="submit_pemadanan_job(\''+value.ID_UPLOAD+'\',\''+value.STEP_KE+'\')"><span class="btn btn-info btn-xs">Proses</span></a>'+
+                          '</td>' +
+                          '</tr>';
+                $('#table_final_pemadanan tbody').append(ret_valueT);
+
+                number++;
+            });
+            $("#table_final_pemadanan").dataTable();
+        },
+        error: function (response) {
+            alert(response); // display error response from the server
+        }
+    });
+
+}
+
+
+function submit_pemadanan_job(id_upload, step_ke){
+
+    $.ajax({
+        url: BASE_URL+'admin/matching/submit_pemadanan_job', // point to server-side controller method
+        data: {p_id_upload : id_upload, p_step_ke : step_ke},
+        type: 'post',
+        success: function (response) {
+
+            data = JSON.parse(response);
+                //console.log(data);
+
+            if(data.out_rowcount == 1){
+                $('#pesan_notifikasi').html("Proses Pemadanan Sudah Diantrikan Ke Job. Silakan Cek Menu Monitoring Untuk Melihat Proses dan Hasilnya");
+            }
+            else{
+                $('#pesan_notifikasi').html(data.msgerror);
+            }
+
+            $('#modalNotif').modal('show');
+            //$('#msg').html(response); // display success response from the server
+            $('#loadingnya').loading('stop');
+
+            //get_pemadanan_main(id_upload);
+
+        },
+        error: function (response) {
+            alert(response); // display error response from the server
+        }
+    });
+
+}
+
+function get_pemadanan_detail(id_upload, step_ke){
+
+    $("#table_final_pemadanan_detil").dataTable().fnDestroy();
+    //$("#table_final_pemadanan").empty();
+    $.ajax({
+        url: BASE_URL+'admin/matching/get_pemadanan_final_detil', // point to server-side controller method
+        dataType: 'text', // what to expect back from the server
+        data: {p_id_upload : id_upload, p_step_ke : step_ke},
+        type: 'post',
+        success: function (response) {
+
+            //console.log(response);
+            data = JSON.parse(response);
+            
+            $('#table_final_pemadanan_detil tbody').empty();
+            var number = 1;
+            $.each(data, function (i, value) {
+
+                var script = [];
+
+
+                var ret_valueT =
+                          '<tr>' +
+                          '<td align="center">' + number + '</td>' +
+                          '<td align="center">' + value.ID_UPLOAD + '</td>' +
+                          '<td align="center">' + value.ID_MV + '</td>' +
+                          '<td align="center">' + value.STEP_KE + '</td>' +
+                          '<td align="center">' + value.STATUS_PEMADANAN + '</td>' +
+                          '<td align="center"><a href="#" onclick="get_kodenya(\''+i+'\')"><span class="btn btn-info btn-xs">Lihat Script</span></a><span id="kode'+i+'" style="display:none">' +value.SCRIPT+'</span></td>' +
+                          '</tr>';
+                $('#table_final_pemadanan_detil tbody').append(ret_valueT);
+
+                //console.log(script[0].ini);
+
+                script = [];
+                kodenya = "";
+                number++;
+
+
+            });
+            $("#table_final_pemadanan_detil").dataTable();
+
+            $('#main_final').hide('slow');
+            $('#detail_final').show('slow');
+        },
+        error: function (response) {
+            alert(response); // display error response from the server
+        }
+    });
+
+}
+
+function get_kodenya(i){
+    
+    var kodenya = $('#kode'+i+'').html();
+    $("#modal_lihat_kode").modal('show');
+    $("#isi_kode").html(kodenya);
+
+
+    $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+    });
+    //alert(kodenya);
+    //alert("kode : " + kode);
+}
+
+
 function get_proses_pemadanan(){
 
     $("#tabel_proses").dataTable().fnDestroy();
@@ -88,7 +241,7 @@ function get_proses_pemadanan(){
                           '<td align="center">' + value.UPLOAD_KE + '</td>' +
                           '<td align="center">' + value.NAMA_FILE + '</td>' +
                           '<td align="center">' + value.CREATE_DATE + '</td>' +
-                          '<td class="text-center"><input type="radio" name="pilih_proses" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_kolom_pemadanan(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
+                          '<td class="text-center"><input type="radio" name="pilih_proses" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_pemadanan_main(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
                           '</tr>';
                 $('#tabel_proses tbody').append(ret_valueT);
             });
@@ -350,12 +503,12 @@ function get_metode_pemadanan(p_id_upload) {
             $('th').removeClass('sorting_asc');
             //initDataTableInformasiPengadaan();
 
-            var table = $('#table_acuan_step').DataTable();
+            //var table = $('#table_acuan_step').DataTable();
  
             $('#table_acuan_step tbody').on( 'click', 'tr', function () {
 
                 //var this_acuan = $('#table_acuan_step tbody > tr');
-                var data =  table.row( this ).data();
+                var data =  table_jancuk.row( this ).data();
                 
                 //console.log(data);
 
@@ -365,8 +518,15 @@ function get_metode_pemadanan(p_id_upload) {
                 p_step_acuan = $(this).closest('tr').find('.acuan').html();
                 p_is_paralel = "S";
 
-                $("#pesan_inisialisasi").html("Apakah Anda Yakin Akan Proses Inisialisasi "+p_id_upload_init+"");
-                $("#modal_init").modal('show');
+                if(data.FLAG_TOMBOL == 0){
+
+                    $("#pesan_inisialisasi").html("Apakah Anda Yakin Akan Proses Inisialisasi "+p_id_upload_init+"");
+                    $("#modal_init").modal('show');
+
+                }
+
+
+                
             } );
 
             
