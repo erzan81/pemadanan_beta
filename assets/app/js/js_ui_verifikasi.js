@@ -282,7 +282,7 @@ function get_detail_temp_upload(header, id_upload, nama_table) {
                     p_nama_table: p_nama_table
                 },
                 "dataSrc": function (json) {
-                    console.log(json);
+                    //console.log(json);
                     return json.data;
                 }, error: function (request, status, error) {
                     //showMessage(request.responseText);
@@ -532,24 +532,26 @@ function get_data_final(){
 
     $("#tabel_main_final").dataTable().fnDestroy();
     $.ajax({
-        url: BASE_URL+'admin/verifikasi/get_data_final', // point to server-side controller method
+        url: BASE_URL+'admin/verifikasi/get_siap_final', // point to server-side controller method
         dataType: 'text', // what to expect back from the server
         type: 'post',
         success: function (response) {
 
-            //console.log(response);
+            
             data = JSON.parse(response);
             
+            console.log("data : ",data);
+
             $('#tabel_main_final tbody').empty();
             $.each(data, function (i, value) {
                 var ret_valueT =
                           '<tr>' +
-                          '<td align="center">' + value.NAMA_INSTANSI + '</td>' +
-                          '<td align="center">' + value.ID_UPLOAD + '</td>' +
-                          '<td align="center">' + value.UPLOAD_KE + '</td>' +
-                          '<td align="center">' + value.NAMA_FILE + '</td>' +
-                          '<td align="center">' + value.CREATE_DATE + '</td>' +
-                          '<td align="center"><input type="radio" name="pilih_final" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+'" onclick="get_ref_conf(\''+value.ID_UPLOAD+'\')"  /></td>'+
+                          '<td align="center" width="20%">' + value.NAMA_INSTANSI + '</td>' +
+                          '<td align="center" width="20%">' + value.ID_UPLOAD + '</td>' +
+                          '<td align="center" width="20%">' + value.KEGIATAN + '</td>' +
+                          '<td align="center" width="20%">' + value.NAMA_TABEL + '</td>' +
+                          '<td align="center" width="12%">' + value.CREATE_DATE + '</td>' +
+                          '<td align="center" width="8%"><input type="radio" name="pilih_final" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+'" onclick="get_ref_conf(\''+value.ID_UPLOAD+'\')"  /></td>'+
                           '</tr>';
                 $('#tabel_main_final tbody').append(ret_valueT);
             });

@@ -31,10 +31,10 @@
                                 <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_main_final">
                                     <thead>
                                         <tr>
-                                            <th width="20%">INSTANSI</th>
-                                            <th width="20%">ID UPLOAD</th>
-                                            <th>UPLOAD KE</th>
-                                            <th>NAMA FILE</th>
+                                            <th width="15%">INSTANSI</th>
+                                            <th width="15%">ID UPLOAD</th>
+                                            <th>KEGIATAN</th>
+                                            <th>NAMA TABEL</th>
                                             <th>CREATE DATE</th>
                                             <th class="text-center" width="10%">PILIH</th>
                                         </tr>
@@ -144,8 +144,8 @@
                                         <tr>
                                             <th width="20%">INSTANSI</th>
                                             <th width="20%">ID UPLOAD</th>
-                                            <th width="20%">UPLOAD KE</th>
-                                            <th width="20%">NAMA FILE</th>
+                                            <th>KEGIATAN</th>
+                                            <th>NAMA TABEL</th>
                                             <th width="10%">CREATE DATE</th>
                                             <th class="text-center" width="10%">AKSI</th>
                                         </tr>

@@ -158,7 +158,7 @@
                                 </div>
 
 
-                        <a class="btn btn-info" onclick="get_kolom_check()"><i class="fa fa-check" ></i> Cek</a>
+                        <!-- <a class="btn btn-info" onclick="get_kolom_check()"><i class="fa fa-check" ></i> Cek</a> -->
                    
 
                     <a class="btn btn-info" id="upload"><i class="fa fa-upload" ></i> Upload</a>
@@ -361,11 +361,12 @@
                         <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_perubahan" >
                             <thead>
                                 <tr>
-                                    <th class="text-center" width="5%">#</th>
-                                    <th class="text-center" width="27%">NAMA INSTANSI</th>
+                                    <th class="text-center" width="10%">#</th>
+                                    <th class="text-center" width="20%">NAMA INSTANSI</th>
                                     <th class="text-center" width="20%">ID UPLOAD</th>
                                     <th class="text-center" width="20%">UPLOAD KE</th>
-                                    <th class="text-center" width="8%">PILIH</th>
+                                    <th class="text-center" width="20%">KEGIATAN</th>
+                                    <th class="text-center" width="10%">PILIH</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -377,12 +378,13 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" width="5%">#</th>
-                                    <th class="text-center" width="27%">NAMA INSTANSI</th>
-                                    <th class="text-center" width="20%">ID UPLOAD</th>
-                                    <th class="text-center" width="20%">UPLOAD KE</th>
-                                    <th class="text-center" width="20%">NAMA TABEL</th>
-                                    <th class="text-center" width="20%">DETAIL</th>
-                                    <th class="text-center" width="8%">PILIH</th>
+                                    <th class="text-center" width="15%">NAMA INSTANSI</th>
+                                    <th class="text-center" width="15%">ID UPLOAD</th>
+                                    <th class="text-center" width="10%">UPLOAD KE</th>
+                                    <th class="text-center" width="10%">NAMA TABEL</th>
+                                    <th class="text-center" width="25%">KEGIATAN</th>
+                                    <th class="text-center" width="10%">DETAIL</th>
+                                    <th class="text-center" width="10%">PILIH</th>
                                 </tr>
                             </thead>
                             <tbody>

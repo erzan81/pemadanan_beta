@@ -152,6 +152,15 @@ class Verifikasi extends CI_Controller {
 
     }
 
+    function get_siap_final(){
+
+        $this->load->model('Master_model');
+        $main = $this->Master_model->get_siap_final();
+
+        echo json_encode($main);
+
+    }
+
     function get_ref_element(){
 
         $this->load->model('Master_model');

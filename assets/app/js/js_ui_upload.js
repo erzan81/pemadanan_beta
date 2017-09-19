@@ -300,7 +300,7 @@ function get_kolom_check(){
     return str1;
 }
 
-function get_detail_temp_upload(header, id_upload, nama_table) {
+function get_detail_temp_upload(header, id_upload, nama_table, mode_upload) {
 
     $('#loadingnya').loading();
     var valData= header;
@@ -324,7 +324,7 @@ function get_detail_temp_upload(header, id_upload, nama_table) {
         '<th class="text-center">' + valNew[i] + '</th>';
 
         $("#tabel_detail > thead > tr:first").append(strRow);
-        //console.log(valNew[i]);
+        console.log(valNew[i]);
 
         header_kolom.push(valNew[i]);
         var temp="";
@@ -344,6 +344,7 @@ function get_detail_temp_upload(header, id_upload, nama_table) {
 
         var p_id_upload = id_upload;
         var p_nama_table = nama_table;
+        var mode = mode_upload;
 
         $("#tabel_detail").dataTable().fnDestroy();
         $("#tabel_detail > tbody").empty();
@@ -367,7 +368,8 @@ function get_detail_temp_upload(header, id_upload, nama_table) {
                 "data": {
                     header: header_kolom,
                     p_id_upload: p_id_upload,
-                    p_nama_table: p_nama_table
+                    p_nama_table: p_nama_table,
+                    p_mode_upload: mode
                 },
                 "dataSrc": function (json) {
                     console.log(json);
@@ -508,7 +510,7 @@ function formatPSS(d) {
                   '<td >'+value.HEADER_KOLOM+'</td>'+
                   '<td >'+value.NAMA_TABEL+'</td>'+
                   '<td align="center">' + value.CREATE_DATE + '</td>' +
-                  '<td align="center"><a href="javascript:get_detail_temp_upload(\''+value.HEADER_KOLOM+'\',\''+value.ID_UPLOAD+'\',\''+value.NAMA_TABEL+'\')" class="btn btn-info btn-xs")><span class="fa fa-search"></span> See Detail</a></td>'+
+                  '<td align="center"><a href="javascript:get_detail_temp_upload(\''+value.HEADER_KOLOM+'\',\''+value.ID_UPLOAD+'\',\''+value.NAMA_TABEL+'\',\''+value.MODE_UPLOAD+'\')" class="btn btn-info btn-xs")><span class="fa fa-search"></span> See Detail</a></td>'+
                                                                                // "'+value.HEADER_KOLOM+'","'+value.ID_UPLOAD+'","'+value.NAMA_TABEL+'"
                   '</tr>' +
                   '</tbody>';   
@@ -527,6 +529,7 @@ function get_upload_ulang(){
     var strRow="";
     $('#loadingnya').loading();
     $("#tabel_perubahan").dataTable().fnDestroy();
+    $("#tabel_bad").dataTable().fnDestroy();
     $.ajax({
           "url": BASE_URL + "admin/source/get_upload_ulang",
           "type": "POST",
@@ -541,6 +544,7 @@ function get_upload_ulang(){
                   '<td align="left">' + value.NAMA_INSTANSI + '</td>' +
                   '<td align="left">' + value.ID_UPLOAD + '</td>' +
                   '<td align="center">' + value.UPLOAD_KE + '</td>' +
+                  '<td align="left">' + value.KEGIATAN + '</td>' +
                   '<td align="center" style="padding:0px;"><input type="radio" class="radio" name="radio_perubahan" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+','+value.UPLOAD_KE+'" style="height:25px; width:25px;"/></td>' +
                   '</tr>';
                 number++;
@@ -564,12 +568,15 @@ function get_upload_bad(){
     var strRow="";
     $('#loadingnya').loading();
     $("#tabel_bad").dataTable().fnDestroy();
+    $("#tabel_perubahan").dataTable().fnDestroy();
     $.ajax({
           "url": BASE_URL + "admin/source/get_upload_bad",
           "type": "POST",
           success: function (json) {
             var obj = JSON.parse(json);
             var number = 1;
+
+            //console.log(json);
             $("#tabel_bad tbody").empty();
             $.each(obj, function (i, value) {
                 strRow =
@@ -579,7 +586,8 @@ function get_upload_bad(){
                   '<td align="left">' + value.ID_UPLOAD + '</td>' +
                   '<td align="center">' + value.UPLOAD_KE + '</td>' +
                   '<td align="left">' + value.NAMA_TABEL + '</td>' +
-                  '<td align="center"><a href="javascript:get_detail_temp_upload(\''+value.HEADER_KOLOM+'\',\''+value.ID_UPLOAD+'\',\''+value.NAMA_TABEL+'\')" class="btn btn-info btn-xs")><span class="fa fa-search"></span> See Detail</a></td>'+
+                  '<td align="left">' + value.KEGIATAN + '</td>' +
+                  '<td align="center"><a href="javascript:get_detail_temp_upload(\''+value.HEADER_KOLOM+'\',\''+value.ID_UPLOAD+'\',\''+value.NAMA_TABEL+'\',\''+value.MODE_UPLOAD+'\')" class="btn btn-info btn-xs")><span class="fa fa-search"></span> See Detail</a></td>'+
                   '<td align="center" style="padding:0px;"><input type="radio"  name="radio_perubahan_bad" value="'+value.INSTANSI_ID+','+value.ID_UPLOAD+','+value.UPLOAD_KE+'" style="height:25px; width:25px;"/></td>' +
                   '</tr>';
                 number++;

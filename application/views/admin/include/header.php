@@ -166,9 +166,6 @@
                         <a href="<?php echo base_url('admin/matching');?>"><i class="fa fa-bar-chart-o fa-fw"></i> <span class="xn-text">Macthing Data</span></a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('admin/monitoring');?>"><i class="fa fa-laptop fa-fw"></i> <span class="xn-text">Monitoring</span></a>
-                    </li>
-                    <li>
                         <a href="<?php echo base_url('admin/export');?>"><i class="fa fa-file fa-fw"></i> <span class="xn-text">Export Data</span></a>
                     </li>
 

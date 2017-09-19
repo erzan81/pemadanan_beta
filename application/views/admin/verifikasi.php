@@ -163,8 +163,8 @@
                                             <tr>
                                                 <th width="20%">INSTANSI</th>
                                                 <th width="20%">ID UPLOAD</th>
-                                                <th width="10%">UPLOAD KE</th>
-                                                <th width="30%">NAMA FILE</th>
+                                                <th width="20%">KEGIATAN</th>
+                                                <th width="20%">NAMA TABEL</th>
                                                 <th width="10%">CREATE DATE</th>
                                                 <th class="text-center" width="10%">PILIH</th>
                                             </tr>

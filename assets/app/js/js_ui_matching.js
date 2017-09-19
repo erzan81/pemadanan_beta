@@ -59,8 +59,8 @@ function get_data_final(){
                           '<tr>' +
                           '<td align="center">' + value.NAMA_INSTANSI + '</td>' +
                           '<td align="center">' + value.ID_UPLOAD + '</td>' +
-                          '<td align="center">' + value.UPLOAD_KE + '</td>' +
-                          '<td align="center">' + value.NAMA_FILE + '</td>' +
+                          '<td align="center">' + value.KEGIATAN + '</td>' +
+                          '<td align="center">' + value.NAMA_TABEL + '</td>' +
                           '<td align="center">' + value.CREATE_DATE + '</td>' +
                           '<td class="text-center"><input type="radio" name="pilih_main" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_metode_pemadanan(\''+value.ID_UPLOAD+'\'); get_kolom_pemadanan(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
                           '</tr>';
@@ -236,12 +236,12 @@ function get_proses_pemadanan(){
             $.each(data, function (i, value) {
                 var ret_valueT =
                           '<tr>' +
-                          '<td align="center">' + value.NAMA_INSTANSI + '</td>' +
-                          '<td align="center">' + value.ID_UPLOAD + '</td>' +
-                          '<td align="center">' + value.UPLOAD_KE + '</td>' +
-                          '<td align="center">' + value.NAMA_FILE + '</td>' +
-                          '<td align="center">' + value.CREATE_DATE + '</td>' +
-                          '<td class="text-center"><input type="radio" name="pilih_proses" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_pemadanan_main(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
+                          '<td align="center" width="20%">' + value.NAMA_INSTANSI + '</td>' +
+                          '<td align="center" width="20%">' + value.ID_UPLOAD + '</td>' +
+                          '<td align="center" width="20%">' + value.KEGIATAN + '</td>' +
+                          '<td align="center" width="20%">' + value.NAMA_TABEL + '</td>' +
+                          '<td align="center" width="12%">' + value.CREATE_DATE + '</td>' +
+                          '<td class="text-center" width="8%"><input type="radio" name="pilih_proses" value="'+value.ID_UPLOAD+','+value.INSTANSI_ID+'" onclick="get_pemadanan_main(\''+value.ID_UPLOAD+'\')" style="width:25px; height:25px;" /></td>'+
                           '</tr>';
                 $('#tabel_proses tbody').append(ret_valueT);
             });
@@ -436,7 +436,7 @@ function get_metode_pemadanan(p_id_upload) {
 
 
     $('#table_acuan_step').dataTable().fnDestroy();
-    $('#table_acuan_step tbody').empty();
+    $('#table_acuan_step > tbody').empty();
      table_jancuk = $('#table_acuan_step').DataTable({
         "processing": true,
         "serverSide": false,
