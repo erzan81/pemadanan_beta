@@ -237,9 +237,9 @@ function upload_file_lanjutan() {
             return $temp;
         }
 
-        public function readExcelFile($piles, $type) {
+  public function readExcelFile($piles, $type) {
 
-         if($type == "csv"){
+      if($type == "csv"){
           $temp = $this->getAllRowsForFile($piles);
 
       }

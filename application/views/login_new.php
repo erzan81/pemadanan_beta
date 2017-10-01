@@ -101,16 +101,24 @@
                             </div>
                         </div>
 
+                        <?php 
+                            echo form_open('login/do_login'); 
+                        ?>
+
                         <div class="col-md-3">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <center><h2>Login</h2></center>
-                                    <?php 
-                                        echo validation_errors('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button">×</button>','</div>');
-                                        echo form_open('login/do_login'); 
-                                    ?>
+                                    
 
                                     <fieldset>
+                                        <div class="form-group">
+                                            <?php 
+                                                echo validation_errors('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button">×</button>','</div>');
+                                            ?>
+                                            <?php echo $pesan; ?>
+                                        </div>
+
                                         <div class="form-group">
                                             <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
                                         </div>
@@ -121,7 +129,7 @@
                                             <?php echo $this->recaptcha->render(); ?>
                                         </div>
                                         
-                                        <?php echo $this->recaptcha->render(); ?>
+                                        
                                         <!-- Change this to a button or input when using this as a form -->
                                         <button type="submit" class="btn btn-success btn-block"><b>Login</b></button>
                                     </fieldset>

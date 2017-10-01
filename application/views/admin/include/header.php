@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
-        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="#" type="image/x-icon" />
         <!-- END META SECTION -->
         
         <!-- CSS INCLUDE -->        
@@ -104,16 +104,21 @@
                     breadcrumb.find('li:last').attr('class', 'active');
                 }
 
-                var text = $('li:has(a[href="' + window.location.pathname + '"])').parents('li').map(function () {
-                    //console.log('$(this).children(a): ', $(this).children('a'));
+                //console.log(location.href);
+
+                var text = $('li:has(a[href="' + location.href + '"])').parents('li').map(function () {
+                    console.log('$(this).children(a): ', $(this).children('a'));
                     var a = $.trim($(this).children('a').text());
-                    //console.log('a: ', a);
+                    console.log('a: ', a);
         
                     return $.trim($(this).children('a').text());
                 }).get();
-                text.unshift($('li a[href="' + window.location.pathname + '"]').text());
 
-                //console.log('text: ', text);
+                //console.log('text ini : ', text);
+
+                text.unshift($('li a[href="' + location.href + '"]').text());
+
+                //console.log('text: itu : ', text);
 
                 var outputString = text.join('/');
                 //console.log('outputString: ', outputString);
@@ -124,10 +129,10 @@
     </head>
     <body>
         <!-- START PAGE CONTAINER -->
-        <div class="page-container">
+        <div class="page-container page-navigation-top-fixed">
             
             <!-- START PAGE SIDEBAR -->
-            <div class="page-sidebar">
+            <div class="page-sidebar page-sidebar mCustomScrollbar _mCS_1 mCS-autoHide scroll page-sidebar-fixed">
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
@@ -136,14 +141,14 @@
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
-                            <img src="<?=base_url('gambar/user.png');?>" alt="Pemadanan"/>
+                            <img src="<?=base_url('gambar/no-pic.jpeg');?>" alt="Pemadanan"/>
                         </a>
                         <div class="profile">
                             <div class="profile-image">
-                                <img src="<?=base_url('gambar/user.png');?>" alt="Pemadanan"/>
+                                <img src="<?=base_url('uploads/'.$this->session->userdata('photo'));?>" alt="Pemadanan"/>
                             </div>
                             <div class="profile-data">
-                                <div class="profile-data-name">Staff</div>
+                                <div class="profile-data-name"><?php echo $this->session->userdata('nama_user');?></div>
                                 <!-- <div class="profile-data-title">Web Developer/Designer</div> -->
                             </div>
                             <!-- <div class="profile-controls">
@@ -152,7 +157,7 @@
                             </div> -->
                         </div>                                                                        
                     </li>
-                    <li class="xn-title">Navigation</li>
+                    
                     <li class="">
                         <a href="<?php echo base_url('admin/home');?>"><i class="fa fa-desktop fa-fw"></i> <span class="xn-text">Dashboard</span></a>                        
                     </li>
@@ -174,17 +179,30 @@
                         <a href="#"><span class="fa fa-gears"></span> <span class="xn-text">Master</span></a>
                         <ul>
                             <li>
-                                <a href="<?php echo base_url('admin/instansi');?>">Master Instansi</a>
+                                <a href="<?php echo base_url('admin/instansi');?>"><span class="fa fa-building-o"></span> Master Instansi</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('admin/kolom');?>">Master Kolom</a>
+                                <a href="<?php echo base_url('admin/kolom');?>"><span class="fa fa-columns"></span> Master Kolom</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('admin/element');?>">Master Element</a>
+                                <a href="<?php echo base_url('admin/element');?>"><span class="fa fa-compass"></span> Master Element</a>
                             </li>
                             <li>
-                                <a href="#">Master Gelar</a>
+                                <a href="#"><span class="fa fa-trophy"></span> Master Gelar</a>
                             </li>                           
+                        </ul>
+                    </li>
+
+                    <li class="xn-openable">
+                        <a href="#"><span class="fa fa-unlock"></span> <span class="xn-text">Management User</span></a>
+                        <ul>
+                            <li>
+                                <a href="<?php echo base_url('admin/user');?>"><span class="fa fa-user"></span> Master User</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('admin/kolom');?>"><span class="fa fa-users"></span> Master Group</a>
+                            </li>
+                                                      
                         </ul>
                     </li>
                     <li>
@@ -227,10 +245,18 @@
                 <!-- END X-NAVIGATION VERTICAL -->                     
 
                 <!-- START BREADCRUMB -->
-                <ul class="breadcrumb">
+                <!-- <ul class="breadcrumb" id="breadcrumb">
                     <li><a href="#">Home</a></li>                    
                     <li class="active">Dashboard</li>
-                </ul>
+                </ul> -->
+
+
+                <div id="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li> <span class="fa fa-home" style="font-size: 18px;"></span> <a href="javascript:void(0);">Beranda</a></li>
+                        <li class="active">-</li>
+                    </ol>
+                </div>
                 <!-- END BREADCRUMB -->                       
                 
                 <!-- PAGE CONTENT WRAPPER -->

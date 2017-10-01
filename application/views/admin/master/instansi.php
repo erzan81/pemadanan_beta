@@ -79,6 +79,14 @@
                                     <label>KETERANGAN</label>
                                     <input type="text" class="form-control" name="p_ket_instansi" id="p_ket_instansi" />
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Upload Foto</label>
+                                    <input type="file" class="form-control" name="p_file" id="p_file" />
+                                    <input type="hidden" class="form-control" name="file_path" id="file_path" />
+                                </div>
+
+                                
                                 <div class="form-group" id="statusnya" style="display:none">
                                     <label>STATUS : </label>
                                     
@@ -90,6 +98,7 @@
                                     </label>
 
                                 </div>
+                                
                                 
                                 
                             </form>
@@ -125,7 +134,7 @@
         </div>
         
         <div class="modal-footer">
-            <a href="#"  class="btn btn-success btn_submit_instansi" data-dismiss="modal" ><span class="fa fa-check"></span> Submit</a>
+            <a href="#"  class="btn btn-success btn_delete_instansi" data-dismiss="modal" ><span class="fa fa-check"></span> Submit</a>
             <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
 
         </div>
@@ -148,7 +157,7 @@
         
         <div class="modal-footer">
 
-            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+            <button type="button" class="btn btn-danger " data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
 
         </div>
     </div><!-- /.modal-content -->
@@ -182,9 +191,14 @@
         });
 
         $('.btn_submit_instansi').on('click', function () {
-            submit();
+            submit_upload();
         });
 
+        $('.btn_delete_instansi').on('click', function () {
+            submit_delete();
+        });
+
+        
         
         
     });
@@ -247,76 +261,97 @@
 
     // }
 
+    var parseQueryString = function (querystring) {
+        var qsObj = new Object();
+        if (querystring) {
+            var parts = querystring.replace(/\?/, "").split("&");
+            var up = function (k, v) {
+                var a = qsObj[k];
+                if (typeof a == "undefined") {
+                    qsObj[k] = [v];
+                }
+                else if (a instanceof Array) {
+                    a.push(v);
+                }
+            };
+            for (var i in parts) {
+                var part = parts[i];
+                var kv = part.split('=');
+                if (kv.length == 1) {
+                    var v = decodeURIComponent(kv[0] || "");
+                    up(null, v);
+                }
+                else if (kv.length > 1) {
+                    var k = decodeURIComponent(kv[0] || "");
+                    var v = decodeURIComponent(kv[1] || "");
+                    up(k, v);
+                }
+            }
+        }
+        return qsObj;
+    };
 
-    function get_param(mode){
 
-        $(".btn_update").click(function (e) {
-                e.preventDefault();
-                var tds = $(this).closest('tr').children('td');
 
-                console.log(tds[0].innerHTML);
-                $('#p_id_instansi').val(tds[0].innerHTML);
-                $('#p_nama_instansi').val(tds[1].innerHTML);
-                $('#p_alamat_instansi').val(tds[2].innerHTML);
-                $('#p_telp_instansi').val(tds[3].innerHTML);
-                $('#p_ket_instansi').val(tds[4].innerHTML);
-                $('#p_status'+tds[6].innerHTML).prop('checked',true);
-                $('#mode').val("upd");
+    function get_param(mode, data){
 
-                $('#judul_modal').html('Update Data Instansi');
-                $('#statusnya').show('slow');
+        var qsObj = parseQueryString(data);
         
-        });
+        var cek_status;
 
-        //console.log(tds[0].innerHTML)
+        var instansi_id = qsObj.INSTANSI_ID[0].replace(/\+/g, " ");
+        var alamat = qsObj.INSTANSI_ALAMAT[0].replace(/\+/g, " ");
+        var nama = qsObj.INSTANSI_NAMA[0].replace(/\+/g, " ");
+        var telp = qsObj.INSTANSI_TELP[0].replace(/\+/g, " ");
+        var ket = qsObj.INSTANSI_KET[0].replace(/\+/g, " ");
+        var status = qsObj.STATUS[0].replace(/\+/g, " ");
+        var path = qsObj.PATH_FILE[0].replace(/\+/g, " ");
 
-        if(mode == "upd"){
-           $('#modal_insert').modal('show'); 
+        if(status == "AKTIF"){
+            cek_status = 1;
         }
         else{
-           $('#modal_delete').modal('show');
+            cek_status = 0;
+        }
+        //console.log(res);
+        if(mode == "upd"){
+
+            $('#p_id_instansi').val(instansi_id);
+            $('#p_nama_instansi').val(nama);
+            $('#p_alamat_instansi').val(alamat);
+            $('#p_telp_instansi').val(telp);
+            $('#p_ket_instansi').val(ket);
+            $('#p_status'+cek_status).prop('checked',true);
+            $('#mode').val("upd");
+            $('#file_path').val(path);
+
+            $('#judul_modal').html('Update Data Instansi');
+            $('#statusnya').show('slow');
+
+            $('#modal_insert').modal('show'); 
+        }
+        else{
+            
+            $('#p_id_instansi').val(instansi_id);
+            $('#p_nama_instansi').val(nama);
+            $('#p_alamat_instansi').val(alamat);
+            $('#p_telp_instansi').val(telp);
+            $('#p_ket_instansi').val(ket);
+            $('#p_status'+cek_status).prop('checked',true);
+            $('#mode').val("del");
+            $('#file_path').val(path);
+
+            $('#instansi_msg').html(nama);
+    
+            $('#modal_delete').modal('show');
+                
+            
+
+           
         }
     }
 
-    function initTableListener() {
-            
-            $(".btn_update").click(function (e) {
-                //e.preventDefault();
-                var tds = $(this).closest('tr').children('td');
-
-                $('#p_id_instansi').val(tds[0].innerHTML);
-                $('#p_nama_instansi').val(tds[1].innerHTML);
-                $('#p_alamat_instansi').val(tds[2].innerHTML);
-                $('#p_telp_instansi').val(tds[3].innerHTML);
-                $('#p_ket_instansi').val(tds[4].innerHTML);
-                $('#p_status'+tds[6].innerHTML).prop('checked',true);
-                $('#mode').val("upd");
-
-                $('#judul_modal').html('Update Data Instansi');
-                $('#statusnya').show('slow');
-        
-                $('#modal_insert').modal('show');
-                
-            });
-
-            $(".btn_delete").click(function (e) {
-                //e.preventDefault();
-                var tds = $(this).closest('tr').children('td');
-                
-                $('#p_id_instansi').val(tds[0].innerHTML);
-                $('#p_nama_instansi').val(tds[1].innerHTML);
-                $('#p_alamat_instansi').val(tds[2].innerHTML);
-                $('#p_telp_instansi').val(tds[3].innerHTML);
-                $('#p_ket_instansi').val(tds[4].innerHTML);
-                $('#p_status'+tds[6].innerHTML).prop('checked',true);
-                $('#mode').val("del");
-
-                $('#instansi_msg').html(tds[1].innerHTML);
-        
-                $('#modal_delete').modal('show');
-                
-            });
-        }
+    
 
     function get_main_instansi(){
         $('#loading').loading();
@@ -334,6 +369,8 @@
                 $.each(data, function (i, value) {
                     var status = "";
                     var temp_status;
+
+                    var test = [];
                     if(value.STATUS == "AKTIF"){
                         status ='<span class="label label-info">' + value.STATUS + '</span>';
                         temp_status = 1;
@@ -344,6 +381,7 @@
                         temp_status = 0;
                     }
 
+                    //test.push(value);
                     var ret_valueT =
                               '<tr>' +
                               '<td align="center">' + value.INSTANSI_ID + '</td>' +
@@ -354,8 +392,8 @@
                               '<td align="center">'+status+'</td>' +
                               '<td align="center" style="display:none">'+temp_status+'</td>' +
                               '<td align="center">'+
-                                '<a href="#" class="btn btn-success btn-xs btn_update" onclick="get_param(\'upd\')"><span class="fa fa-pencil"></span></a>'+
-                                ' <a href="#" class="btn btn-danger btn-xs btn_delete" onclick="get_param(\'del\')"><span class="fa fa-trash-o"></span></a>'+
+                                '<a href="#" class="btn btn-success btn-xs btn_update" onclick="get_param(\'upd\',\''+$.param(value)+'\')"><span class="fa fa-pencil"></span></a>'+
+                                ' <a href="#" class="btn btn-danger btn-xs btn_delete" onclick="get_param(\'del\',\''+$.param(value)+'\')"><span class="fa fa-trash-o"></span></a>'+
                               '</tr>';
                     $('#tabel_instansi tbody').append(ret_valueT);
                 });
@@ -376,28 +414,37 @@
     }
 
 
-    function submit(){
+    function submit_upload(){
 
         var instansi = $('#p_id_instansi').val();
         var nama_instansi = $('#p_nama_instansi').val();
         var alamat = $('#p_alamat_instansi').val();
         var telp = $('#p_telp_instansi').val();
         var ket = $('#p_ket_instansi').val();
-        var status = $('input[name="p_status"]').val();
+        var status = $('input[name="p_status"]:checked').val();
         var mode = $('#mode').val();
+        var path_file = $('#file_path').val();
+        var file_data = $('#p_file').prop('files')[0];
 
+        var form_data = new FormData();
+            form_data.append('files', file_data);
+            form_data.append('p_instansi_id', instansi);
+            form_data.append('p_instansi_nama', nama_instansi);
+            form_data.append('p_instansi_alamat', alamat);
+            form_data.append('p_instansi_telp', telp);
+            form_data.append('p_instansi_ket', ket);
+            form_data.append('p_instansi_status', status);
+            form_data.append('p_path_file', path_file);
+            form_data.append('mode', mode);
+
+        //console.log(status);
         $.ajax({
-            url: BASE_URL+'admin/instansi/submit', // point to server-side controller method
-            data: {
-                    p_instansi_id : instansi,
-                    p_instansi_nama : nama_instansi,
-                    p_instansi_alamat : alamat,
-                    p_instansi_telp : telp,
-                    p_instansi_ket : ket,
-                    p_instansi_status : status,
-                    mode : mode
-
-                  },
+            url: BASE_URL+'admin/instansi/upload_instansi', // point to server-side controller method
+            dataType: 'text', // what to expect back from the server
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
             type: 'post',
             success: function (response) {
                 //get_upload_temp_tandingan();
@@ -406,7 +453,7 @@
                 //console.log(data);
 
                 if(data.out_rowcount == 1){
-                    $('#pesan_notifikasi').html("Berhasil Disimpan.");
+                    $('#pesan_notifikasi').html("Berhasil Disubmit.");
                 }
                 else{
                     $('#pesan_notifikasi').html(data.msgerror);
@@ -435,7 +482,57 @@
         $('#p_telp_instansi').val("");
         $('#p_ket_instansi').val("");
         $('input[name="p_status"]').val("");
-        $('#mode').val("");
+        $('#file_path').val("");
+        $('#p_file').val("");
+    }
+
+    function submit_delete(){
+
+        var instansi = $('#p_id_instansi').val();
+        var nama_instansi = $('#p_nama_instansi').val();
+        var alamat = $('#p_alamat_instansi').val();
+        var telp = $('#p_telp_instansi').val();
+        var ket = $('#p_ket_instansi').val();
+        var status = $('input[name="p_status"]:checked').val();
+        var mode = 'del';
+
+        $.ajax({
+            url: BASE_URL+'admin/instansi/submit_delete', // point to server-side controller method
+            data: {
+                    p_instansi_id : instansi,
+                    p_instansi_nama : nama_instansi,
+                    p_instansi_alamat : alamat,
+                    p_instansi_telp : telp,
+                    p_instansi_ket : ket,
+                    p_instansi_status : status,
+                    mode : mode
+
+                  },
+            type: 'post',
+            success: function (response) {
+                //get_upload_temp_tandingan();
+
+                data = JSON.parse(response);
+                //console.log(data);
+
+                if(data.out_rowcount == 1){
+                    $('#pesan_notifikasi').html("Berhasil Dihapus.");
+                }
+                else{
+                    $('#pesan_notifikasi').html(data.msgerror);
+                }
+
+                $('#modalNotif').modal('show');
+                //$('#msg').html(response); // display success response from the server
+                $('#loadingnya').loading('stop');
+
+                get_main_instansi();
+            },
+            error: function (response) {
+                $('#msg').html(response); // display error response from the server
+            }
+        });
+
     }
 
 

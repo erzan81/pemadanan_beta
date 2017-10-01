@@ -13,7 +13,8 @@ class Login extends Main_Controller {
     }  
 
     public function index() {
-        $this->load->view('login_new');
+        $data['pesan'] = "";
+        $this->load->view('login_new', $data);
     }    
     
     function do_login(){
@@ -28,35 +29,74 @@ class Login extends Main_Controller {
         
         if($this->form_validation->run() == FALSE)
         {
-            $this->load->view('login_new');
+            $data['pesan'] = "";
+            $this->load->view('login_new', $data);
         }
         else{
-            // $a = $this->musers->check_users($username,md5($password));
-            // if(count($a)>0){
-            //     foreach($a as $key){
-            //             $nama = $key->nama;
-            //             $username = $key->username;
-            //             $level = $key->level;
-            //             $user_id = $key->id_user;
-            //             $time = $key->created_time;
-            //     }
-                
-            $usersession = array(
-                            'username'=>"ERZAN",
-                            'userid'=>"ERZAN",
-                            'nama'=>"Erzan Rosbrianto",
-                            'loginstate'=>1,
-                            'level'=>"ADMINISTRATOR",
-                            'time'=> date('d-m-Y h:i:s'),
-                        );
-            $this->session->set_userdata($usersession);
-            //var_dump($this->session->userdata('loginstate'));exit;
-            redirect('admin/home');
-            // }
-            // else{
-            //     $this->form_validation->set_message('Maaf Username atau Password Anda Salah');
-            //     $this->load->view('access/login');
-            // }
+            $this->load->model('MSecman');
+
+
+            $login = $this->MSecman->get_login($username, $password);
+
+            if($login->out_rowcount == 1){
+                $a = $this->MSecman->get_user_by_id($username);
+
+                $session_id = round(uniqid(rand(), TRUE))."".date("dmyhis");
+
+                if(count($a)>0){
+                    foreach($a as $key){
+                            $user_id = $key->USER_ID;
+                            $nama_user = $key->NAMA_USER;
+                            $group = $key->ID_GROUP;
+                            $photo_path = $key->PATH_FILE;
+                    }
+
+                    $usersession = array(
+                                    'user_id'=> $user_id,
+                                    'nama_user'=> $nama_user,
+                                    'group'=> $group,
+                                    'loginstate'=>1,
+                                    'photo'=>$photo_path,
+                                    'time'=> date('d-m-Y h:i:s'),
+                                    'session_id' => $session_id
+                                );
+                    $this->session->set_userdata($usersession);
+                    
+                    //log login
+                    $this->load->library('user_agent');
+                    
+                    $save['p_id_session'] = $session_id;
+                    $save['p_user_id'] = $user_id;
+                    $save['p_ipaddress'] = $this->input->ip_address();
+
+                    $this->MSecman->log_login($save);
+
+                    //end log login
+
+                    redirect('admin/home');
+
+                }
+                else{
+                    $data['pesan'] = "Kena Error cuy.. jangan maksa";
+                    print_r($a);
+                    print_r($login);
+                    $this->form_validation->set_message( $login->out_message);
+                    $this->load->view('login_new', $data);
+
+                }
+        
+
+            
+            }
+            else{
+
+                //echo $login->out_message." - ".$username." - ".$password;
+
+                $data['pesan'] = $login->out_message;
+
+                $this->form_validation->set_message( $login->out_message);
+                $this->load->view('login_new', $data);
+            }
         }
     }
 

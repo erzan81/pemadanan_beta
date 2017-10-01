@@ -88,7 +88,7 @@
 
                                     <div class="form-group">
                                         <label>File input</label>
-                                        <input type="file" id="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv">
+                                        <input type="file" id="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv">
                                     </div>
 
                                     <div class="pull-right">

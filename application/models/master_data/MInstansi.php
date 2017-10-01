@@ -52,14 +52,16 @@ class MInstansi extends CI_Model {
         $p_instansi_alamat = $save['p_instansi_alamat'];
         $p_instansi_telp = $save['p_instansi_telp'];
         $p_create_by = $save['p_create_by'];
+        $p_path_file = $save['p_path_file'];
            
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_MASTER.INS_INSTANSI(:p_instansi_nama, :p_instansi_ket, :p_instansi_alamat, :p_instansi_telp, :p_create_by, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_MASTER.INS_INSTANSI(:p_instansi_nama, :p_instansi_ket, :p_instansi_alamat, :p_instansi_telp, :p_create_by, :p_path_file, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_instansi_nama', $p_instansi_nama, 1000, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_instansi_ket', $p_instansi_ket, 1000, SQLT_CHR) or die('Error binding string2');
         oci_bind_by_name($stid, ':p_instansi_alamat', $p_instansi_alamat, 1000, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_instansi_telp', $p_instansi_telp, 1000, SQLT_CHR) or die('Error binding string2');
         oci_bind_by_name($stid, ':p_create_by', $p_create_by, 1000, SQLT_CHR) or die('Error binding string1');     
+        oci_bind_by_name($stid, ':p_path_file', $p_path_file, 1000, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':out_rowcount', $OUT_ROWCOUNT,100) or die('Error binding string3');
         oci_bind_by_name($stid, ':msgerror', $OUT_MESSAGE,1000, SQLT_CHR) or die('Error binding string4');      
 
@@ -93,8 +95,10 @@ class MInstansi extends CI_Model {
         $p_instansi_telp = $save['p_instansi_telp'];
         $p_instansi_status = $save['p_instansi_status'];
         $p_create_by = $save['p_create_by'];
+        $p_path_file = $save['p_path_file'];
+
            
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_MASTER.UPD_INSTANSI(:p_instansi_id, :p_instansi_nama, :p_instansi_ket, :p_instansi_alamat, :p_instansi_telp, :p_instansi_status, :p_create_by, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_MASTER.UPD_INSTANSI(:p_instansi_id, :p_instansi_nama, :p_instansi_ket, :p_instansi_alamat, :p_instansi_telp, :p_instansi_status, :p_create_by, :p_path_file, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 1000, SQLT_CHR) or die('Error binding string1');
         oci_bind_by_name($stid, ':p_instansi_nama', $p_instansi_nama, 1000, SQLT_CHR) or die('Error binding string1');     
@@ -102,7 +106,8 @@ class MInstansi extends CI_Model {
         oci_bind_by_name($stid, ':p_instansi_alamat', $p_instansi_alamat, 1000, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_instansi_telp', $p_instansi_telp, 1000, SQLT_CHR) or die('Error binding string2');
         oci_bind_by_name($stid, ':p_instansi_status', $p_instansi_status, 1000, SQLT_CHR) or die('Error binding string2');
-        oci_bind_by_name($stid, ':p_create_by', $p_create_by, 1000, SQLT_CHR) or die('Error binding string1');     
+        oci_bind_by_name($stid, ':p_create_by', $p_create_by, 1000, SQLT_CHR) or die('Error binding string1');  
+        oci_bind_by_name($stid, ':p_path_file', $p_path_file, 1000, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':out_rowcount', $OUT_ROWCOUNT,100) or die('Error binding string3');
         oci_bind_by_name($stid, ':msgerror', $OUT_MESSAGE,1000, SQLT_CHR) or die('Error binding string4');      
 
@@ -134,7 +139,7 @@ class MInstansi extends CI_Model {
            
         $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_MASTER.DEL_INSTANSI(:p_instansi_id, :p_create_by, :out_rowcount, :msgerror); END;');
       
-        oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_nama, 1000, SQLT_CHR) or die('Error binding string1');     
+        oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 1000, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_create_by', $p_create_by, 1000, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':out_rowcount', $OUT_ROWCOUNT,100) or die('Error binding string3');
         oci_bind_by_name($stid, ':msgerror', $OUT_MESSAGE,1000, SQLT_CHR) or die('Error binding string4');      

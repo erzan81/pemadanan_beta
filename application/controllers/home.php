@@ -15,6 +15,8 @@ class Home extends Main_Controller {
         $this->load->view('templates/login');
         $this->load->view('include/footer');
     }  
+
+    
     
 }
 

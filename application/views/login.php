@@ -29,7 +29,10 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
 
-                
+                <?php 
+                    echo validation_errors('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button">×</button>','</div>');
+                    echo form_open('login/do_login'); 
+                ?>
 
                 <div class="login-panel panel panel-info">
                     <div class="panel-heading">
@@ -43,17 +46,16 @@
 
                     <br><br>
                         
-                            <?php 
-                                echo validation_errors('<div class="alert alert-danger"><button class="close" data-dismiss="alert" type="button">×</button>','</div>');
-                                echo form_open('login/do_login'); 
-                            ?>
+                            
+
+                            <?php echo form_error('new_error'); ?>
 
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
+                                    <input class="form-control" placeholder="Username" name="in_id_user" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Password" name="in_password" type="password" value="">
                                 </div>
                                 
                                 <!-- Change this to a button or input when using this as a form -->
