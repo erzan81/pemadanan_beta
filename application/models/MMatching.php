@@ -18,7 +18,7 @@ class MMatching extends CI_Model {
       
         $p_id_upload = $id_upload;
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_PEMADANAN.GET_KOLOM_PEMADANAN(:p_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_PEMADANAN.GET_KOLOM_PEMADANAN(:p_id_upload); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -66,7 +66,7 @@ class MMatching extends CI_Model {
         $p_step_ke = $save['p_step_ke'];
            
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_PEMADANAN.METODE_PEMADANAN(:p_instansi_id, :p_id_upload, :p_id_kolom, :p_is_proses, :p_is_digit, :p_metode, :p_nilai, :p_atribut, :p_digit, :p_create_by, :p_step_ke, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_PEMADANAN.METODE_PEMADANAN(:p_instansi_id, :p_id_upload, :p_id_kolom, :p_is_proses, :p_is_digit, :p_metode, :p_nilai, :p_atribut, :p_digit, :p_create_by, :p_step_ke, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 1000, SQLT_CHR) or die('Error binding string2');
@@ -105,7 +105,7 @@ class MMatching extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_PEMADANAN.GET_METODE_PEMADANAN_DETIL(:p_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_PEMADANAN.GET_METODE_PEMADANAN_DETIL(:p_id_upload); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -138,7 +138,7 @@ class MMatching extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_PEMADANAN.GET_METODE_PEMADANAN(:p_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_PEMADANAN.GET_METODE_PEMADANAN(:p_id_upload); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -172,7 +172,7 @@ class MMatching extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_PEMADANAN.GET_ACUAN_STEP(:p_id_upload, :p_is_paralel, :p_step_ke); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_PEMADANAN.GET_ACUAN_STEP(:p_id_upload, :p_is_paralel, :p_step_ke); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -209,7 +209,7 @@ class MMatching extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_PEMADANAN.GET_STEP_KE(:p_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_PEMADANAN.GET_STEP_KE(:p_id_upload); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -250,7 +250,7 @@ class MMatching extends CI_Model {
         $p_create_by = $save['p_create_by'];
            
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_PEMADANAN.INIT_PEMADANAN(:p_instansi_id, :p_id_upload, :p_step_ke, :p_step_acuan, :p_is_paralel, :p_create_by, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_PEMADANAN.INIT_PEMADANAN(:p_instansi_id, :p_id_upload, :p_step_ke, :p_step_acuan, :p_is_paralel, :p_create_by, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 1000, SQLT_CHR) or die('Error binding string2');
@@ -287,7 +287,7 @@ class MMatching extends CI_Model {
      
         //$p_id_upload = "UPLOAD-20170915-000001";
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_PEMADANAN.GET_PEMADANAN(:p_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_PEMADANAN.GET_PEMADANAN(:p_id_upload); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -325,7 +325,7 @@ class MMatching extends CI_Model {
         // $p_id_upload = "UPLOAD-20170915-000001";
         // $p_step_ke = "1";
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_PEMADANAN.GET_PEMADANAN_DETIL(:p_id_upload, :p_step_ke); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_PEMADANAN.GET_PEMADANAN_DETIL(:p_id_upload, :p_step_ke); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -359,7 +359,7 @@ class MMatching extends CI_Model {
             trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }  
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_PEMADANAN.MAIN_PEMADANAN_JOB(:p_id_upload, :p_step_ke, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_PEMADANAN.MAIN_PEMADANAN_JOB(:p_id_upload, :p_step_ke, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_step_ke', $p_step_ke, 1000, SQLT_CHR) or die('Error binding string2');  

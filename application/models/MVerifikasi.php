@@ -23,7 +23,7 @@ class MVerifikasi extends CI_Model {
         //1 = ignore
         //0 = not ignore
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_VERIFIKASI.MERGE_TEMP(:p_instansi_id, :p_id_upload, :p_create_by, :p_ignore, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_VERIFIKASI.MERGE_TEMP(:p_instansi_id, :p_id_upload, :p_create_by, :p_ignore, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string2');
@@ -60,7 +60,7 @@ class MVerifikasi extends CI_Model {
         $p_nama_tab_fail = $save['p_nama_tab_fail'];
 
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_VERIFIKASI.INSERT_MERGE(:p_instansi_id, :p_id_upload, :p_create_by, :p_nama_tab_ins, :p_nama_tab_fail, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_VERIFIKASI.INSERT_MERGE(:p_instansi_id, :p_id_upload, :p_create_by, :p_nama_tab_ins, :p_nama_tab_fail, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string2');
@@ -95,7 +95,7 @@ class MVerifikasi extends CI_Model {
         $p_id_upload = $save['p_id_upload'];
         $p_instansi_id = $save['p_instansi_id'];
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_VERIFIKASI.REKAP_MERGE(:p_instansi_id, :p_id_upload, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_VERIFIKASI.REKAP_MERGE(:p_instansi_id, :p_id_upload, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string2');
@@ -131,7 +131,7 @@ class MVerifikasi extends CI_Model {
         $p_no_urut = $save['p_no_urut'];
         $p_create_by = $save['p_create_by'];
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_VERIFIKASI.CONF_CLEANSING(:p_instansi_id, :p_id_upload, :p_id_cleansing, :p_id_kolom, :p_no_urut, :p_create_by, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_VERIFIKASI.CONF_CLEANSING(:p_instansi_id, :p_id_upload, :p_id_cleansing, :p_id_kolom, :p_no_urut, :p_create_by, :out_rowcount, :msgerror); END;');
         
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string1');
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string2');
@@ -169,7 +169,7 @@ class MVerifikasi extends CI_Model {
         $p_instansi_id = $save['p_instansi_id'];
         $p_create_by = $save['p_create_by'];  
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_VERIFIKASI.INIT_CLEANSING(:p_instansi_id, :p_id_upload, :p_create_by, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_VERIFIKASI.INIT_CLEANSING(:p_instansi_id, :p_id_upload, :p_create_by, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string2');
@@ -202,7 +202,7 @@ class MVerifikasi extends CI_Model {
         $p_id_upload = $save['p_id_upload'];
         $p_instansi_id = $save['p_instansi_id'];
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_VERIFIKASI.REKAP_CLEAN(:p_instansi_id, :p_id_upload, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_VERIFIKASI.REKAP_CLEAN(:p_instansi_id, :p_id_upload, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string2');
@@ -237,7 +237,7 @@ class MVerifikasi extends CI_Model {
         $p_no_urut = $save['p_no_urut'];  
         $p_create_by = $save['p_create_by'];  
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_VERIFIKASI.INS_ELEMENT(:p_id_upload, :p_id_element, :p_no_urut,:p_create_by, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_VERIFIKASI.INS_ELEMENT(:p_id_upload, :p_id_element, :p_no_urut,:p_create_by, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_id_element', $p_id_element, 100) or die('Error binding string2');
@@ -272,7 +272,7 @@ class MVerifikasi extends CI_Model {
         $p_id_upload = $save['p_id_upload'];
         $p_id_element = $save['p_id_element'];
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_VERIFIKASI.DEL_ELEMENT(:p_id_upload, :p_id_element,  :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_VERIFIKASI.DEL_ELEMENT(:p_id_upload, :p_id_element,  :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_id_element', $p_id_element, 100) or die('Error binding string2');
@@ -304,7 +304,7 @@ class MVerifikasi extends CI_Model {
       
         $p_id_upload = $id_upload;
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_VERIFIKASI.GET_CONF_ELEMENT(:p_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_VERIFIKASI.GET_CONF_ELEMENT(:p_id_upload); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -343,7 +343,7 @@ class MVerifikasi extends CI_Model {
         $p_is_keluarga = $save['p_is_keluarga'];  
         $p_create_by = $save['p_create_by'];  
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_VERIFIKASI.INIT_FINAL(:p_instansi_id, :p_id_upload, :p_create_by, :p_is_keluarga, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_VERIFIKASI.INIT_FINAL(:p_instansi_id, :p_id_upload, :p_create_by, :p_is_keluarga, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string2');

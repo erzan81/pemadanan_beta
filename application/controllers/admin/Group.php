@@ -19,7 +19,56 @@ class Group extends CI_Controller {
         $ref = $this->MSecman->get_mst_group();
 
         echo "<pre>";
-        print_r($ref);
+
+        $data = $ref[0];
+        //echo $data->ID_GROUP;
+
+
+        $detil = $this->MSecman->get_mst_group_detil($data->ID_GROUP);
+        //print_r($detil);
+
+        $menu = $this->MSecman->get_menutab();
+
+        //echo "<br><br>";
+
+        //print_r($menu);
+
+        // $obj_state = new stdObject();
+        // $obj->id = "Nick";
+        // $obj->parent = "Doe";
+        // $obj->state = 20;
+        // $obj->text = null;
+
+        $obj_state = (object) [
+            'opened' => 'true',
+            'selected' => 'false'
+          ];
+
+        $object = (object) [
+            'id' => 'foo',
+            'parent' => 'asdasd',
+            'state' => $obj_state,
+            'text' => 'text'
+          ];
+
+        // $obj_state = {
+        //     opened : true,
+        //     selected : false
+        // };
+
+        // $obj_menu = {
+
+        //     id: 123,
+        //     parent: "parent",
+        //     state : $obj_state,
+        //     text : 'text'
+        // };
+
+        $arr = [];
+
+        array_push($arr,$object);
+
+        print_r($arr);
 
 
     }

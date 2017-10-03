@@ -60,6 +60,7 @@ class Export extends CI_Controller {
                 "NAMA_INSTANSI" => $key->NAMA_INSTANSI,
                 "ID_UPLOAD" => $key->ID_UPLOAD,
                 "INSTANSI_ID" => $key->INSTANSI_ID,
+                "NAMA_TABEL" => $key->NAMA_TABEL,
                 "DETIL" => $detil_fix
                 );
 
@@ -77,6 +78,107 @@ class Export extends CI_Controller {
         echo json_encode($main_fix);    
 
 
+      }
+
+      function export_all(){
+
+        $this->load->model('MExport');
+
+        $save['p_instansi_id'] = $this->input->post('p_instansi_id');
+        $save['p_id_upload'] = $this->input->post('p_id_upload');
+        $save['p_jenis_file'] = $this->input->post('p_jenis_file');
+        $save['p_create_by'] = "ERZAN";
+
+        $cek = $this->check_delete($p_nama_tabel, $p_jenis_file);
+
+        if($cek == 1){
+
+            $ref = $this->MExport->exp_all($save);
+            $ref['pesan'] = "Export Berhasil";
+
+        }   
+        else{
+
+            $ref['pesan'] = "Export Gagal";
+
+        }    
+
+        echo json_encode($ref);
+
+
+      }
+
+      function export_single(){
+
+        $this->load->model('MExport');
+
+        $p_instansi_id = $save['p_instansi_id'];
+        $p_id_upload = $save['p_id_upload'];
+        $p_step_ke = $save['p_step_ke'];
+        $p_nama_tabel = $save['p_nama_tabel'];
+        $p_jenis_file = $save['p_jenis_file'];
+
+
+        $cek = $this->check_delete($p_nama_tabel, $p_jenis_file);
+
+        if($cek == 1){
+
+            $save['p_instansi_id'] = $this->input->post('p_instansi_id');
+            $save['p_id_upload'] = $this->input->post('p_id_upload');
+            $save['p_jenis_file'] = $this->input->post('p_jenis_file');
+            $save['p_step_ke'] = $this->input->post('p_step_ke');       
+            $save['p_nama_tabel'] = $this->input->post('p_nama_tabel');
+
+            $this->MExport->exp_single($save);
+            $ref['pesan'] = "Export Berhasil";
+
+        }
+        else{
+            $ref['pesan'] = "Export Gagal";
+
+        }
+
+
+        echo json_encode($ref);
+
+
+      }
+
+      function check_delete($tabel, $jenis){
+            $this->load->helper('file');
+
+            $ext = "";
+
+            if($jenis == "XLS"){
+                $ext = ".xlsx";
+            }
+            else if($jenis == "CSV"){
+                $ext = ".csv";
+            }
+            else if($jenis == "DMP"){
+                $ext = ".dmp";
+            }
+
+            $image_file_path=FCPATH.'uploads/'.$tabel.'/'.$ext;
+
+            $is_delete = 0;
+           if (file_exists($image_file_path)) //file_exists of a url returns false.It should be real file path
+               {    
+                    
+                    if(unlink($image_file_path)) {
+                         $is_delete = 1;
+                    }
+                    else {
+                         $is_delete = 0;
+                    }
+
+               } 
+           else 
+               {
+                   $is_delete = 1;
+               }
+
+            return $is_delete;
       }
 
 }

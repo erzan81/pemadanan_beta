@@ -78,8 +78,7 @@ class Login extends Main_Controller {
                 }
                 else{
                     $data['pesan'] = "Kena Error cuy.. jangan maksa";
-                    print_r($a);
-                    print_r($login);
+                    
                     $this->form_validation->set_message( $login->out_message);
                     $this->load->view('login_new', $data);
 
@@ -102,9 +101,20 @@ class Login extends Main_Controller {
 
     
     function logout(){
+
+        $this->load->model('MSecman');
+                    
+        $save['p_id_session'] = $this->session->userdata('session_id');
+        $save['p_user_id'] = $this->session->userdata('user_id');
+
+        $this->MSecman->upd_log_login($save);
+
         $this->session->sess_destroy();
         redirect(base_url().'login');
     }
+
+
+    
     
 }
 

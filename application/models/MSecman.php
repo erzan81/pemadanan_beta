@@ -18,7 +18,7 @@ class MSecman extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_SECMAN.GET_LOGIN(:in_id_user, :in_password, :out_message); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_SECMAN.GET_LOGIN(:in_id_user, :in_password, :out_message); END;');
 
         // $in_id_user = $this->input->post('in_id_user');
         // $in_password = $this->input->post('in_password');
@@ -65,7 +65,7 @@ class MSecman extends CI_Model {
         $p_ipaddress = $save['p_ipaddress'];
            
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_SECMAN.LOG_LOGIN(:p_id_session, :p_user_id, :p_ipaddress, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_SECMAN.LOG_LOGIN(:p_id_session, :p_user_id, :p_ipaddress, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_session', $p_id_session, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_user_id', $p_user_id, 1000, SQLT_CHR) or die('Error binding string2');
@@ -101,7 +101,7 @@ class MSecman extends CI_Model {
         $p_id_session = $save['p_id_session'];
         $p_user_id = $save['p_user_id'];           
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_SECMAN.UPD_LOG_LOGIN(:p_id_session, :p_user_id, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_SECMAN.UPD_LOG_LOGIN(:p_id_session, :p_user_id, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_session', $p_id_session, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_user_id', $p_user_id, 1000, SQLT_CHR) or die('Error binding string2');          
@@ -133,7 +133,7 @@ class MSecman extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_SECMAN.GET_MST_USER; END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_SECMAN.GET_MST_USER; END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -176,7 +176,7 @@ class MSecman extends CI_Model {
         $p_create_by = $save['p_create_by'];
 
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_SECMAN.INS_USER(:p_user_id, :p_nama_user, :p_no_telp, :p_email, :p_passwd, :p_path_file, :p_id_group, :p_create_by,  :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_SECMAN.INS_USER(:p_user_id, :p_nama_user, :p_no_telp, :p_email, :p_passwd, :p_path_file, :p_id_group, :p_create_by,  :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_user_id', $p_user_id, 100, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_nama_user', $p_nama_user, 1000, SQLT_CHR) or die('Error binding string2');
@@ -225,7 +225,7 @@ class MSecman extends CI_Model {
         $p_disable_user = $save['p_disable_user'];
 
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_SECMAN.UPD_USER(:p_user_id, :p_nama_user, :p_no_telp, :p_email, :p_passwd, :p_path_file, :p_disable_user, :p_id_group, :p_create_by,  :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_SECMAN.UPD_USER(:p_user_id, :p_nama_user, :p_no_telp, :p_email, :p_passwd, :p_path_file, :p_disable_user, :p_id_group, :p_create_by,  :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_user_id', $p_user_id, 100, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_nama_user', $p_nama_user, 1000, SQLT_CHR) or die('Error binding string2');
@@ -265,7 +265,7 @@ class MSecman extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_SECMAN.GET_MST_GROUP; END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_SECMAN.GET_MST_GROUP; END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -299,7 +299,7 @@ class MSecman extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_SECMAN.GET_USER(:p_user_id); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_SECMAN.GET_USER(:p_user_id); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -335,7 +335,7 @@ class MSecman extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_SECMAN.GET_MST_GROUP_DETIL(:p_id_group); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_SECMAN.GET_MST_GROUP_DETIL(:p_id_group); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -375,7 +375,7 @@ class MSecman extends CI_Model {
         $p_create_by = $save['p_create_by'];
 
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_SECMAN.INS_GROUP(:p_id_group, :p_nama_group, :p_create_by,  :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_SECMAN.INS_GROUP(:p_id_group, :p_nama_group, :p_create_by,  :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_group', $p_id_group, 100, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_nama_group', $p_nama_group, 1000, SQLT_CHR) or die('Error binding string2');    
@@ -412,7 +412,7 @@ class MSecman extends CI_Model {
         $p_create_by = $save['p_create_by'];
 
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_SECMAN.INS_GROUP_DETIL(:p_id_group, :p_id_menu, :p_create_by,  :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_SECMAN.INS_GROUP_DETIL(:p_id_group, :p_id_menu, :p_create_by,  :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_group', $p_id_group, 100, SQLT_CHR) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_id_menu', $p_id_menu, 1000, SQLT_CHR) or die('Error binding string2');    
@@ -432,6 +432,40 @@ class MSecman extends CI_Model {
         oci_close($this->pblmig_db->conn_id);
 
         return $results;
+
+      }
+
+      function get_menutab(){
+
+        $results = '';
+
+        $this->pblmig_db = $this->load->database('pblmig', true);
+        if (!$this->pblmig_db) {
+          $m = oci_error();
+          trigger_error(htmlentities($m['message']), E_USER_ERROR);
+        }
+     
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_SECMAN.GET_MENUTAB; END;');
+
+        $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
+
+        oci_bind_by_name($stid, ':RetVal', $OUT_DATA,-1, OCI_B_CURSOR) or die('Error binding string1');
+
+        if(oci_execute($stid)){
+          oci_execute($OUT_DATA, OCI_DEFAULT);
+          oci_fetch_all($OUT_DATA, $cursor, null, null, OCI_FETCHSTATEMENT_BY_ROW);          
+
+          $results = $cursor;
+ 
+        }else{
+          $e = oci_error($stid);
+          $results =  $e['message'];
+        } 
+
+        oci_free_statement($stid);
+        oci_close($this->pblmig_db->conn_id);
+
+        return json_decode(json_encode($results), FALSE);
 
       }
 

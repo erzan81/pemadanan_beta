@@ -24,7 +24,7 @@ class MUploadUlang extends CI_Model {
         $p_create_by = $save['p_create_by'];
 
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PKG_UPLOAD.UPLOAD_ULANG(:p_instansi_id, :p_id_upload, :p_nama_file, :p_upload_ke, :p_jns_upload, :p_create_by, :out_rowcount, :msgerror, :out_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.UPLOAD_ULANG(:p_instansi_id, :p_id_upload, :p_nama_file, :p_upload_ke, :p_jns_upload, :p_create_by, :out_rowcount, :msgerror, :out_id_upload); END;');
 
 
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 20) or die('Error binding string1');
@@ -67,7 +67,7 @@ class MUploadUlang extends CI_Model {
         $p_create_by = $save['p_create_by'];
 
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PKG_UPLOAD.UPLOAD_BAD(:p_instansi_id, :p_id_upload, :p_upload_ke,  :p_create_by, :out_rowcount, :msgerror, :out_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.UPLOAD_BAD(:p_instansi_id, :p_id_upload, :p_upload_ke,  :p_create_by, :out_rowcount, :msgerror, :out_id_upload); END;');
 
 
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 20) or die('Error binding string1');
@@ -107,7 +107,7 @@ class MUploadUlang extends CI_Model {
         $p_isi_data = $save['p_isi_data'];
         $p_upload_ke = $save['p_upload_ke'];
            
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_UPLOAD.INS_FILE_ULANG(:p_id_upload, :p_isi_data, :p_upload_ke, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.INS_FILE_ULANG(:p_id_upload, :p_isi_data, :p_upload_ke, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_isi_data', $p_isi_data, 1000) or die('Error binding string2');
@@ -143,7 +143,7 @@ class MUploadUlang extends CI_Model {
         $p_upload_ke = $save['p_upload_ke'];
            
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN.PKG_UPLOAD.REKAP_UPLOAD_ULANG(:p_instansi_id, :p_id_upload, :p_upload_ke, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.REKAP_UPLOAD_ULANG(:p_instansi_id, :p_id_upload, :p_upload_ke, :out_rowcount, :msgerror); END;');
       
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 100) or die('Error binding string1');     
         oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 1000) or die('Error binding string2');
@@ -183,7 +183,7 @@ class MUploadUlang extends CI_Model {
 
         $p_create_by = "ERZAN";
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_UPLOAD.GET_UPLOAD_ULANG(:p_create_by); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_UPLOAD.GET_UPLOAD_ULANG(:p_create_by); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -220,7 +220,7 @@ class MUploadUlang extends CI_Model {
         
         $p_create_by = "ERZAN";
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_UPLOAD.GET_UPLOAD_BAD(:p_create_by); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_UPLOAD.GET_UPLOAD_BAD(:p_create_by); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 

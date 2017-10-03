@@ -17,7 +17,7 @@ class Master_model extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_PEMADANAN.GET_DATA_FINAL(:p_create_by); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_PEMADANAN.GET_DATA_FINAL(:p_create_by); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -50,7 +50,7 @@ class Master_model extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_MASTER.GET_REF_KOLOM; END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_MASTER.GET_REF_KOLOM; END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -82,7 +82,7 @@ class Master_model extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_VERIFIKASI.GET_DIM_ELEMENT(:p_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_VERIFIKASI.GET_DIM_ELEMENT(:p_id_upload); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -118,7 +118,7 @@ class Master_model extends CI_Model {
         
         $p_create_by = "ERZAN";
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_UPLOAD.GET_UPLOAD_TEMP(:p_create_by); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_UPLOAD.GET_UPLOAD_TEMP(:p_create_by); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -154,7 +154,7 @@ class Master_model extends CI_Model {
         
         $p_create_by = "ERZAN";
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_UPLOAD.GET_UPLOAD_TEMP_DETIL(:p_create_by); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_UPLOAD.GET_UPLOAD_TEMP_DETIL(:p_create_by); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -188,7 +188,7 @@ class Master_model extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_MASTER.GET_REF_INSTANSI; END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_MASTER.GET_REF_INSTANSI; END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -221,7 +221,7 @@ class Master_model extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_UPLOAD.GET_DETIL_UPLOAD_TEMP(:p_id_upload, :p_nama_table, :p_mode_upload, :p_start, :p_lenght, :p_sort_by, :p_sort_dir, :p_search); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_UPLOAD.GET_DETIL_UPLOAD_TEMP(:p_id_upload, :p_nama_table, :p_mode_upload, :p_start, :p_lenght, :p_sort_by, :p_sort_dir, :p_search); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -277,7 +277,7 @@ class Master_model extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_VERIFIKASI.GET_REF_CLEANSING; END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_VERIFIKASI.GET_REF_CLEANSING; END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -311,7 +311,7 @@ class Master_model extends CI_Model {
       
         $p_id_upload = $id_upload;
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_VERIFIKASI.GET_CONF_CLEANSING(:p_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_VERIFIKASI.GET_CONF_CLEANSING(:p_id_upload); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -347,7 +347,7 @@ class Master_model extends CI_Model {
       
         $p_create_by = "ERZAN";
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN.PKG_VERIFIKASI.GET_SIAP_FINAL(:p_create_by); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_VERIFIKASI.GET_SIAP_FINAL(:p_create_by); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 

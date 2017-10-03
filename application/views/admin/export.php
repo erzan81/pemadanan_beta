@@ -19,8 +19,10 @@
                                         <tr>
                                             <th class="text-center" width="7%">#</th>
                                             <th class="text-center" width="20%">NAMA INSTANSI</th>
-                                            <th class="text-center" width="20%">ID UPLOAD</th>
+                                            <th class="text-center" width="13%">ID UPLOAD</th>
                                             <th class="text-center" width="20%">UPLOAD KE</th>
+                                            <th class="text-center" width="20%">NAMA TABEL</th>
+
                                             <th class="text-center" width="20%">AKSI</th>
                                         </tr>
                                     </thead>
@@ -50,6 +52,27 @@
     </div>
     <!-- /.row -->
 </div>
+
+<div class="modal fade" id="modalNotif">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title">Informasi </h3></center>
+        </div>
+        
+        <div class="modal-body" >
+            <center><p id="pesan_notifikasi"></p></center>
+        </div>
+        
+        <div class="modal-footer">
+
+            <button type="button" class="btn btn-danger " data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <script type="text/javascript">
     
@@ -103,11 +126,15 @@
                     "aTargets": [0,1]
                 },
                 {
-                    "aTargets": [4],
+                    "aTargets": [5],
                     "sClass": "gede",
                     "mRender": function (data, type, full) {
-                        //console.log("full : ",full);
-                        var vEdit = '<center><a href="#" class="btn btn-success btn-xs")><span class="fa fa-download"></span> Export</a><center>';
+                        console.log("full : ",full);
+                        var vEdit = '<center>'+
+                                        '<a href="#" class="btn btn-success btn-xs" onclick="get_param(\'XLS\',\'ALL\',\''+$.param(full)+'\')"><span class="fa fa-download"></span> Excel</a> '+
+                                        '<a href="#" class="btn btn-info btn-xs" onclick="get_param(\'CSV\',\'ALL\',\''+$.param(full)+'\')"><span class="fa fa-download"></span> CSV</a> '+
+                                        '<a href="#" class="btn btn-danger btn-xs" onclick="get_param(\'DMP\',\'ALL\',\''+$.param(full)+'\')"><span class="fa fa-download"></span> DMP</a>'+
+                                    '<center>';
                         
                         return vEdit;
                     }
@@ -133,7 +160,8 @@
                 },
                 {"data": "NAMA_INSTANSI", "defaultContent": ""},
                 {"data": "INSTANSI_ID", "defaultContent": ""},
-                {"data": "ID_UPLOAD", "defaultContent": ""}
+                {"data": "ID_UPLOAD", "defaultContent": ""},
+                {"data": "NAMA_TABEL", "defaultContent": ""}
             ],
             "drawCallback": function () {
                 $('th').removeClass('sorting_asc');
@@ -179,10 +207,10 @@
                 "<th style='text-align:center' width='10%'>INSTANSI ID</th>" +
                 "<th style='text-align:center' width='15%'>NAMA INSTANSI</th>" +
                 "<th style='text-align:center' width='15%'>ID UPLOAD</th>" +
-                "<th style='text-align:center' width='15%'>STEP KE</th>" +
-                "<th style='text-align:center' width='20%'>NAMA TABEL</th>" +
+                "<th style='text-align:center' width='10%'>STEP KE</th>" +
+                "<th style='text-align:center' width='15%'>NAMA TABEL</th>" +
                 "<th style='text-align:center' width='10%'>JUMLAH DATA</th>" +
-                "<th style='text-align:center' width='10%'>AKSI</th>" +
+                "<th style='text-align:center' width='20%'>AKSI</th>" +
                 "</thead>"+
                 "<tbody>";
 
@@ -198,13 +226,143 @@
                       '<td align="center">'+value.STEP_KE+'</td>'+
                       '<td >'+value.NAMA_TABEL+'</td>'+
                       '<td align="center">' + value.JUMLAH_DATA + '</td>' +
-                      '<td align="center"><a href="#" class="btn btn-info btn-xs")><span class="fa fa-download"></span> Export</a></td>'+
+                      '<td align="center">'+
+                        '<a href="#" class="btn btn-success btn-xs" onclick="get_param(\'XLS\',\'NOT\',\''+$.param(value)+'\')"><span class="fa fa-download"></span> Excel</a> '+
+                        '<a href="#" class="btn btn-info btn-xs" onclick="get_param(\'CSV\',\'NOT\',\''+$.param(value)+'\')"><span class="fa fa-download"></span> CSV</a> '+
+                        '<a href="#" class="btn btn-danger btn-xs" onclick="get_param(\'DMP\',\'NOT\',\''+$.param(value)+'\')"><span class="fa fa-download"></span> DMP</a>'+
+                      '</td>'+  
+
+
                       '</tr>';
             number++;
         });
         ret_valueT += "</tbody></table>";
 
         return ret_valueT;
+
+    }
+
+    var parseQueryString = function (querystring) {
+        var qsObj = new Object();
+        if (querystring) {
+            var parts = querystring.replace(/\?/, "").split("&");
+            var up = function (k, v) {
+                var a = qsObj[k];
+                if (typeof a == "undefined") {
+                    qsObj[k] = [v];
+                }
+                else if (a instanceof Array) {
+                    a.push(v);
+                }
+            };
+            for (var i in parts) {
+                var part = parts[i];
+                var kv = part.split('=');
+                if (kv.length == 1) {
+                    var v = decodeURIComponent(kv[0] || "");
+                    up(null, v);
+                }
+                else if (kv.length > 1) {
+                    var k = decodeURIComponent(kv[0] || "");
+                    var v = decodeURIComponent(kv[1] || "");
+                    up(k, v);
+                }
+            }
+        }
+        return qsObj;
+    };
+
+
+    function get_param(jenis, tipe, data){
+
+        var qsObj = parseQueryString(data);
+        
+        var p_tipe = tipe;
+
+        
+
+        console.log(qsObj);
+
+        if(p_tipe == "ALL"){
+
+            var instansi_id = qsObj.INSTANSI_ID[0];
+            var id_upload = qsObj.ID_UPLOAD[0];
+            var p_jenis = jenis;
+            var nama_tabel = qsObj.NAMA_TABEL[0];
+
+            console.log("ALL");
+
+            export_all(instansi_id, id_upload, p_jenis, nama_tabel);
+
+        }
+        else{
+
+            var instansi_id = qsObj.INSTANSI_ID[0];
+            var step_ke = qsObj.STEP_KE[0];
+            var id_upload = qsObj.ID_UPLOAD[0];
+            var nama_tabel = qsObj.NAMA_TABEL[0];
+            var p_jenis = jenis;
+
+            export_single(instansi_id, step_ke, id_upload, nama_tabel, p_jenis);
+
+            console.log("NOT");
+        }
+
+    }
+
+    function export_single(instansi_id, step_ke, id_upload, nama_tabel, p_jenis){
+
+        $.ajax({
+            url: BASE_URL+'admin/export/export_single', // point to server-side controller method
+            data: {
+                    p_instansi_id : instansi_id,
+                    p_id_upload : id_upload,
+                    p_step_ke : step_ke,
+                    p_nama_tabel : nama_tabel,
+                    p_jenis_file : p_jenis
+                  },
+            type: 'post',
+            success: function (response) {
+                
+                $('#pesan_notifikasi').html("Proses Export Sedang Berlangsung. Link Download Akan Muncul Setelah File Berhasil Di Export");
+                $('#modalNotif').modal('show');
+                //$('#msg').html(response); // display success response from the server
+                $('#loadingnya').loading('stop');
+
+                get_main_instansi();
+            },
+            error: function (response) {
+                $('#msg').html(response); // display error response from the server
+            }
+        });
+
+    }
+
+    function export_all(instansi_id, id_upload, p_jenis, tabel){
+
+        $.ajax({
+            url: BASE_URL+'admin/export/export_all', // point to server-side controller method
+            data: {
+                    p_instansi_id : instansi_id,
+                    p_id_upload : id_upload,
+                    p_jenis_file : p_jenis,
+                    p_nama_tabel : tabel
+
+                  },
+            type: 'post',
+            success: function (response) {
+                
+                $('#pesan_notifikasi').html("Proses Export Sedang Berlangsung. Link Download Akan Muncul Setelah File Berhasil Di Export");
+                $('#modalNotif').modal('show');
+                //$('#msg').html(response); // display success response from the server
+                $('#loadingnya').loading('stop');
+
+                get_main_instansi();
+            },
+            error: function (response) {
+                $('#msg').html(response); // display error response from the server
+            }
+        });
 
     }
 
