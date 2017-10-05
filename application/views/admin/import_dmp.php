@@ -36,7 +36,7 @@
                                                             
                                 <div class="task-text ui-sortable-handle">
                                     <pre>
-                                        <span id="text_log"></span>
+                                        <p id="text_log"></p>
                                     </pre>
 
                                 </div>                                 
@@ -164,6 +164,8 @@ $(document).ready(function() {
                             $('#pesan_notifikasi').html("File Berhasil Diupload dan Data Berhasil Disimpan.");
                             $('#log_imp').html($.trim(data.perintah_o));
                             $('#log_imp_v').html($.trim(data.perintah_v));
+                            $('#text_log').html($.trim(data.perintah_v));
+
 
                         }
                         else{
