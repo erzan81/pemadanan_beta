@@ -15,11 +15,7 @@ class Import extends CI_Controller {
 
     $data['dmp'] = $this->MImport->get_table_dmp_file();
 
-    $this->load->helper("url");
-    $file = FCPATH.'uploads/installActions2017-02-18_05-32-54PM.log';
-    // you can change the location of your file wherever you want
-    $data['file'] = file_get_contents($file);
-
+    
 
 		$this->load->view('admin/include/header');
 		$this->load->view('admin/import_dmp', $data);
