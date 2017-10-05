@@ -39,10 +39,12 @@ class Import extends CI_Controller {
   {
     // you need to load the url helper to call base_url()
     $this->load->helper("url");
-    $file = FCPATH.'uploads/installActions2017-02-18_05-32-54PM.log';
+    $file = 'installActions2017-02-18_05-32-54PM.log';
+    $test = basename($file, ".log").PHP_EOL;
     // you can change the location of your file wherever you want
-    $MyFile = file_get_contents($file);
-    
+    //$MyFile = file_get_contents($file);
+    echo $file. "<br>";
+    echo $test;
     //etc...
   }
 
@@ -93,18 +95,20 @@ class Import extends CI_Controller {
 
                         $file = str_replace(' ', '_', $path);
                         $piles = $this->upload->upload_path."".$file;
+                        
+                        $log = basename($path, ".DMP").PHP_EOL;
 
 
 
-                        $perintah = "imp userid=PEMADANAN_DATA/12345678@KONOHA FILE=".$piles." LOG=".$this->upload->upload_path." ignore=Y full=Y 2>&1";
+                        $perintah = "imp userid=PEMADANAN_DATA/12345678@KONOHA FILE=".$piles." LOG=".$log.".LOG ignore=Y full=Y 2>&1";
 
                         //imp userid=PEMADANAN_DATA/12345678@konoha FILE=D:\dmp123\tes2.DMP LOG=D:\dmp123\tes2.log ignore=Y full=Y
                         exec($perintah, $v, $o);
 
                         $out['out_rowcount'] = 1;
                         $out['msgerror'] = 'File successfully uploaded : ' . $_FILES['files']['name'];
-                        $out['perintah_o'] = json_encode($o);
-                        $out['perintah_v'] = json_encode($v);
+                        $out['perintah_o'] = $o;
+                        $out['perintah_v'] = $v[0];
 
                         
 
