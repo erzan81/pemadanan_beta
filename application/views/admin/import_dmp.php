@@ -114,8 +114,10 @@
             </center>
 
             <pre>
-                <span id="log_imp"></span>
-                <span id="log_imp_v"></span>
+                <code>
+                <p id="log_imp"></p>
+                <p id="log_imp_v"></p>
+                </code>
             </pre>
         </div>
         
@@ -160,8 +162,8 @@ $(document).ready(function() {
 
                         if(data.out_rowcount == 1){
                             $('#pesan_notifikasi').html("File Berhasil Diupload dan Data Berhasil Disimpan.");
-                            $('#log_imp').html(data.perintah_o);
-                            $('#log_imp_v').html(data.perintah_v);
+                            $('#log_imp').html($.trim(data.perintah_o));
+                            $('#log_imp_v').html($.trim(data.perintah_v));
 
                         }
                         else{

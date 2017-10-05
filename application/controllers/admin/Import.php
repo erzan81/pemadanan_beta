@@ -97,10 +97,11 @@ class Import extends CI_Controller {
                         $piles = $this->upload->upload_path."".$file;
                         
                         $log = basename($path, ".DMP").PHP_EOL;
+                        $fix_log = $this->upload->upload_path."".$log.".LOG";
 
 
 
-                        $perintah = "imp userid=PEMADANAN_DATA/12345678@KONOHA FILE=".$piles." LOG=".$log.".LOG ignore=Y full=Y 2>&1";
+                        $perintah = "imp userid=PEMADANAN_DATA/12345678@KONOHA FILE=".$piles." LOG=".$fix_log." ignore=Y full=Y 2>&1";
 
                         //imp userid=PEMADANAN_DATA/12345678@konoha FILE=D:\dmp123\tes2.DMP LOG=D:\dmp123\tes2.log ignore=Y full=Y
                         exec($perintah, $v, $o);
