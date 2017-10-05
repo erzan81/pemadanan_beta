@@ -17,6 +17,7 @@ class Import extends CI_Controller {
 
     
 
+
 		$this->load->view('admin/include/header');
 		$this->load->view('admin/import_dmp', $data);
 		$this->load->view('admin/include/footer');
@@ -84,7 +85,7 @@ class Import extends CI_Controller {
 
                       $path = $_FILES['files']['name'];
 
-                      $save = $this->MImport->ins_file_dmp($path);
+                      //$save = $this->MImport->ins_file_dmp($path);
 
                       //if($save['out_rowcount'] != 0){
 
@@ -95,13 +96,17 @@ class Import extends CI_Controller {
 
 
 
-                        $perintah = "imp userid=PEMADANAN_APP/12345678 FILE=".$piles." ignore=Y full=Y";
+                        $perintah = "imp userid=PEMADANAN_DATA/12345678@KONOHA FILE=".$piles." LOG=".$this->upload->upload_path." ignore=Y full=Y 2>&1";
+
+                        //imp userid=PEMADANAN_DATA/12345678@konoha FILE=D:\dmp123\tes2.DMP LOG=D:\dmp123\tes2.log ignore=Y full=Y
                         exec($perintah, $v, $o);
 
                         $out['out_rowcount'] = 1;
                         $out['msgerror'] = 'File successfully uploaded : ' . $_FILES['files']['name'];
                         $out['perintah_o'] = json_encode($o);
                         $out['perintah_v'] = json_encode($v);
+
+                        
 
                       //}
 
