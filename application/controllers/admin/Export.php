@@ -87,9 +87,10 @@ class Export extends CI_Controller {
         $save['p_instansi_id'] = $this->input->post('p_instansi_id');
         $save['p_id_upload'] = $this->input->post('p_id_upload');
         $save['p_jenis_file'] = $this->input->post('p_jenis_file');
+        $save['p_nama_tabel'] = $this->input->post('p_nama_tabel');
         $save['p_create_by'] = "ERZAN";
 
-        $cek = $this->check_delete($p_nama_tabel, $p_jenis_file);
+        $cek = $this->check_delete($save['p_nama_tabel'], $save['p_jenis_file']);
 
         if($cek == 1){
 
@@ -112,23 +113,18 @@ class Export extends CI_Controller {
 
         $this->load->model('MExport');
 
-        $p_instansi_id = $save['p_instansi_id'];
-        $p_id_upload = $save['p_id_upload'];
-        $p_step_ke = $save['p_step_ke'];
-        $p_nama_tabel = $save['p_nama_tabel'];
-        $p_jenis_file = $save['p_jenis_file'];
+        $save['p_instansi_id'] = $this->input->post('p_instansi_id');
+        $save['p_id_upload'] = $this->input->post('p_id_upload');
+        $save['p_jenis_file'] = $this->input->post('p_jenis_file');
+        $save['p_step_ke'] = $this->input->post('p_step_ke');       
+        $save['p_nama_tabel'] = $this->input->post('p_nama_tabel');
 
 
-        $cek = $this->check_delete($p_nama_tabel, $p_jenis_file);
+        $cek = $this->check_delete($save['p_nama_tabel'], $save['p_jenis_file']);
 
         if($cek == 1){
 
-            $save['p_instansi_id'] = $this->input->post('p_instansi_id');
-            $save['p_id_upload'] = $this->input->post('p_id_upload');
-            $save['p_jenis_file'] = $this->input->post('p_jenis_file');
-            $save['p_step_ke'] = $this->input->post('p_step_ke');       
-            $save['p_nama_tabel'] = $this->input->post('p_nama_tabel');
-
+            
             $this->MExport->exp_single($save);
             $ref['pesan'] = "Export Berhasil";
 

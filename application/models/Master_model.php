@@ -372,6 +372,39 @@ class Master_model extends CI_Model {
         return json_decode(json_encode($results), FALSE);
     }
 
+
+    function get_table_dmp(){
+        $results = '';
+
+        $this->pblmig_db = $this->load->database('pblmig', true);
+        if (!$this->pblmig_db) {
+          $m = oci_error();
+          trigger_error(htmlentities($m['message']), E_USER_ERROR);
+        }
+     
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_UPLOAD.GET_TABLE_DMP; END;');
+
+        $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
+
+        oci_bind_by_name($stid, ':RetVal', $OUT_DATA,-1, OCI_B_CURSOR) or die('Error binding string1');
+
+        if(oci_execute($stid)){
+          oci_execute($OUT_DATA, OCI_DEFAULT);
+          oci_fetch_all($OUT_DATA, $cursor, null, null, OCI_FETCHSTATEMENT_BY_ROW);          
+
+          $results = $cursor;
+ 
+        }else{
+          $e = oci_error($stid);
+          $results =  $e['message'];
+        } 
+
+        oci_free_statement($stid);
+        oci_close($this->pblmig_db->conn_id);
+
+        return json_decode(json_encode($results), FALSE);
+    }
+
     
 
 }

@@ -38,12 +38,12 @@
                         <!-- Nav tabs -->
 
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="active"><a href="#home" role="tab" data-toggle="tab">Upload From Excel / CSV</a>
+                            <li class="active"><a href="#home" role="tab" data-toggle="tab">Upload Data Source</a>
                             </li>
-                            <li><a href="#dmp" role="tab" data-toggle="tab">Upload From DMP</a>
-                            </li>
-                            <li><a href="#dbf" role="tab" data-toggle="tab">Upload From DBF</a>
-                            </li>
+                            <!-- <li><a href="#dmp" role="tab" data-toggle="tab">Upload From DMP</a>
+                            </li> -->
+                           <!--  <li><a href="#dbf" role="tab" data-toggle="tab">Upload From DBF</a>
+                            </li> -->
                             <li><a href="#edit" role="tab" data-toggle="tab" id="tab_perubahan_data">Perubahan Data</a>
                             </li>
                         </ul>
@@ -55,6 +55,17 @@
                                 <br>
 
                                 <form role="form">
+
+                                    <div class="form-group">
+                                        <label>Tipe Data :  </label>
+                                        <label class="radio-inline text-danger">
+                                            <input type="radio" name="tipe_data" id="tipe_data1" value="1" checked><i class="fa fa-file-o"></i> Upload From Excel / CSV
+                                        </label>
+                                        <label class="radio-inline text-danger">
+                                            <input type="radio" name="tipe_data" id="tipe_data2" value="2"><i class="fa fa-database"></i> Upload From DMP
+                                        </label>
+
+                                    </div>
 
                                     <div class="form-group">
                                         <label>Jenis Upload Data :  </label>
@@ -84,6 +95,11 @@
                                     <div class="form-group" id="keterangan_form">
                                         <label>Keterangan</label>
                                         <input type="text" id="keterangan" name="keterangan" class="form-control">
+                                    </div>
+
+                                    <div class="form-group" id="nama_tabel" style="display: none">
+                                        <label>Nama Tabel</label>
+                                        <input type="text" id="nama_tabel" name="nama_tabel" class="form-control">
                                     </div>
 
                                     <div class="form-group">
@@ -161,14 +177,15 @@
                         <!-- <a class="btn btn-info" onclick="get_kolom_check()"><i class="fa fa-check" ></i> Cek</a> -->
                    
 
-                    <a class="btn btn-info" id="upload"><i class="fa fa-upload" ></i> Upload</a>
-                    <a class="btn btn-success" id="upload_lanjutan" style="display:none"><i class="fa fa-upload" ></i> Upload</a>
+                    <a class="btn btn-info" id="upload"><i class="fa fa-upload" ></i> Upload Excel / CSV</a>
+                    <a class="btn btn-danger" id="upload_dmp" style="display:none"><i class="fa fa-upload" ></i> Upload DMP</a>
+                    <a class="btn btn-success" id="upload_lanjutan" style="display:none"><i class="fa fa-upload" ></i> Upload Lanjutan</a>
 
                     <div id="prog"></div>
 
                 </form>
             </div>
-            <div class="tab-pane fade" id="dmp">
+            <!-- <div class="tab-pane fade" id="dmp">
                 <br>
                 <form role="form">
 
@@ -190,6 +207,11 @@
                     <div class="form-group" id="keterangan_form">
                         <label>Keterangan</label>
                         <input type="text" id="keterangan_dmp" name="keterangan_dmp" class="form-control">
+                    </div>
+
+                    <div class="form-group" id="nama_tabel">
+                        <label>Nama Tabel</label>
+                        <input type="text" id="nama_tabel" name="nama_tabel" class="form-control">
                     </div>
 
                     <div class="form-group">
@@ -247,8 +269,8 @@
 
             </form>
 
-            </div>
-            <div class="tab-pane fade" id="dbf">
+            </div> -->
+            <!-- <div class="tab-pane fade" id="dbf">
                 <br>
 
                 <form role="form">
@@ -330,7 +352,7 @@
             </form>
 
 
-            </div>
+            </div> -->
             <div class="tab-pane fade" id="edit">
                 <br>
                 <form role="form">

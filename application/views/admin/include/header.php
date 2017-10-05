@@ -161,9 +161,22 @@
                     <li class="">
                         <a href="<?php echo base_url('admin/home');?>"><i class="fa fa-desktop fa-fw"></i> <span class="xn-text">Dashboard</span></a>                        
                     </li>
-                    <li>
-                        <a href="<?php echo base_url('admin/source');?>"><i class="fa fa-upload fa-fw"></i> <span class="xn-text">Upload Data Sumber</span></a>
+
+
+                    <li class="xn-openable">
+                        <a href="#"><span class="fa fa-upload"></span> <span class="xn-text">Upload</span></a>
+                        <ul>
+                            <li>
+                                <a href="<?php echo base_url('admin/source');?>"><i class="fa fa-pencil fa-fw"></i> <span class="xn-text">Upload Data Sumber</span></a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('admin/import');?>"><span class="fa fa-database"></span> Import DMP</a>
+                            </li>                         
+                        </ul>
                     </li>
+
+
+                    
                     <li>
                         <a href="<?php echo base_url('admin/verifikasi');?>"><i class="fa fa-edit fa-fw"></i> <span class="xn-text">Verifikasi dan Cleansing</span></a>
                     </li>
