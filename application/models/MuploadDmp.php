@@ -1,13 +1,13 @@
 <?php
 
-class MUpload extends CI_Model {
+class MUploadDmp extends CI_Model {
 
    public function __construct()
    {
       parent::__construct();
    }
 
-   public function ins_file($save){
+   public function ins_file_dmp($p_nama_file){
         $results = '';
         $this->pblmig_db = $this->load->database('pblmig', true);
         if (!$this->pblmig_db) {
@@ -15,14 +15,9 @@ class MUpload extends CI_Model {
             trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
 
-        $p_id_upload = $save['p_id_upload'];
-        $p_isi_data = $save['p_isi_data'];
-           
-
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.INS_FILE(:p_id_upload, :p_isi_data, :out_rowcount, :msgerror); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.INS_FILE_DMP(:p_nama_file :out_rowcount, :msgerror); END;');
       
-        oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string1');     
-        oci_bind_by_name($stid, ':p_isi_data', $p_isi_data, 1000, SQLT_CHR) or die('Error binding string2');
+        oci_bind_by_name($stid, ':p_nama_file', $p_nama_file, 100) or die('Error binding string1');
         oci_bind_by_name($stid, ':out_rowcount', $OUT_ROWCOUNT,100) or die('Error binding string3');
         oci_bind_by_name($stid, ':msgerror', $OUT_MESSAGE,1000, SQLT_CHR) or die('Error binding string4');      
 
@@ -40,7 +35,8 @@ class MUpload extends CI_Model {
         return $results;
     }
 
-   public function new_upload($save){
+
+   public function new_upload_dmp($save){
         $results = '';
         $this->pblmig_db = $this->load->database('pblmig', true);
         if (!$this->pblmig_db) {
@@ -56,7 +52,7 @@ class MUpload extends CI_Model {
         $p_kegiatan = $save['p_kegiatan'];
 
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.NEW_UPLOAD(:p_instansi_id, :p_nama_file, :p_jns_upload, :p_kolom, :p_create_by, :p_kegiatan, :out_rowcount, :msgerror, :out_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.NEW_UPLOAD_DMP(:p_instansi_id, :p_nama_file, :p_jns_upload, :p_kolom, :p_create_by, :p_kegiatan, :out_rowcount, :msgerror, :out_id_upload); END;');
 
         oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 20) or die('Error binding string1');
         oci_bind_by_name($stid, ':p_nama_file', $p_nama_file, 100, SQLT_CHR) or die('Error binding string2');
@@ -86,40 +82,19 @@ class MUpload extends CI_Model {
 
     
 
-    public function rekap_upload($save){
-        $results = '';
-        $this->pblmig_db = $this->load->database('pblmig', true);
-        if (!$this->pblmig_db) {
-            $m = oci_error();
-            trigger_error(htmlentities($m['message']), E_USER_ERROR);
-        }
+    
 
-        $p_instansi_id = $save['p_instansi_id'];
-        $p_id_upload = $save['p_id_upload'];
-        
-      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.REKAP_UPLOAD(:p_instansi_id, :p_id_upload, :out_rowcount, :msgerror ); END;');
-      
-        oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 20) or die('Error binding string1');
-        oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string2');
-        oci_bind_by_name($stid, ':msgerror', $msgerror,1000, SQLT_CHR) or die('Error binding string5');
-        oci_bind_by_name($stid, ':out_rowcount', $out_rowcount,100) or die('Error binding string5');
+    PROCEDURE next_upload_dmp (
+      p_instansi_id   IN     t_upload.instansi_id%TYPE,
+      p_id_upload     IN     t_upload.id_upload%TYPE,
+      p_nama_file     IN     t_upload.nama_file%TYPE,
+      p_jns_upload    IN     t_upload.jns_upload%TYPE,
+      p_create_by     IN     t_upload.create_by%TYPE,
+      out_rowcount       OUT NUMBER,
+      msgerror           OUT VARCHAR2,
+      out_id_upload      OUT VARCHAR2)
 
-        if(oci_execute($stid)){
-            $results['out_rowcount'] = $out_rowcount;
-            $results['msgerror'] = $msgerror;
-        }else{
-            $e = oci_error($stid);
-            $results =  $e['message'];
-        }
-
-        oci_free_statement($stid);
-        oci_close($this->pblmig_db->conn_id);
-
-        return $results;
-    }
-
-    public function next_upload($save){
+    public function next_upload_dmp($save){
         $results = '';
         $this->pblmig_db = $this->load->database('pblmig', true);
         if (!$this->pblmig_db) {
@@ -134,7 +109,7 @@ class MUpload extends CI_Model {
         $p_create_by = $save['p_create_by'];
 
 
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.NEXT_UPLOAD(:p_instansi_id, :p_id_upload, :p_nama_file, :p_jns_upload, :p_create_by, :out_rowcount, :msgerror, :out_id_upload); END;');
+        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.NEXT_UPLOAD_DMP(:p_instansi_id, :p_id_upload, :p_nama_file, :p_jns_upload, :p_create_by, :out_rowcount, :msgerror, :out_id_upload); END;');
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
@@ -162,47 +137,6 @@ class MUpload extends CI_Model {
 
         return $results;
     }
-    
-    public function hapus_upload($save){
-        $results = '';
-        $this->pblmig_db = $this->load->database('pblmig', true);
-        if (!$this->pblmig_db) {
-            $m = oci_error();
-            trigger_error(htmlentities($m['message']), E_USER_ERROR);
-        }
-
-        $p_instansi_id = $save['p_instansi_id'];
-        $p_id_upload = $save['p_id_upload'];
-        $p_delete_by = $save['p_delete_by'];
-        
-      
-        $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN PEMADANAN_APP.PKG_UPLOAD.HAPUS_UPLOAD(:p_instansi_id, :p_id_upload, :p_delete_by, :msgerror, :out_rowcount); END;');
-      
-        oci_bind_by_name($stid, ':p_instansi_id', $p_instansi_id, 20) or die('Error binding string1');
-        oci_bind_by_name($stid, ':p_id_upload', $p_id_upload, 100) or die('Error binding string2');
-        oci_bind_by_name($stid, ':p_delete_by', $p_id_upload, 100) or die('Error binding string2');
-        oci_bind_by_name($stid, ':msgerror', $msgerror,1000, SQLT_CHR) or die('Error binding string5');
-        oci_bind_by_name($stid, ':out_rowcount', $out_rowcount,100) or die('Error binding string5');
-         
-
-        if(oci_execute($stid)){
-            $results['out_rowcount'] = $out_rowcount;
-            $results['msgerror'] = $msgerror;
-        }else{
-            $e = oci_error($stid);
-            $results =  $e['message'];
-        }
-
-        oci_free_statement($stid);
-        oci_close($this->pblmig_db->conn_id);
-
-        return $results;
-    }
-
-
-    
-
-
 
 
 }
