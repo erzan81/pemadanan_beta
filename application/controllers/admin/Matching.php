@@ -12,6 +12,20 @@ class Matching extends CI_Controller {
         $this->load->view('admin/include/footer');
     }
 
+
+    function get_kolom_pemadanan_upd(){
+
+        $p_id_upload = "ERZAN";
+        $p_step_ke = "ERZAN";
+
+        $this->load->model('MMatching');
+        $main = $this->MMatching->get_metode_pemadanan_upd($p_id_upload, $p_step_ke);
+
+         echo json_encode($main);
+        
+    }
+
+
     function get_data_final(){
 
     	$p_created_by = "ERZAN";

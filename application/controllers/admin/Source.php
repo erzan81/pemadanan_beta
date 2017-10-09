@@ -22,9 +22,11 @@ class Source extends CI_Controller {
 
         $data['instansi'] = $this->Master_model->getInstansi();
         $data['kolom'] = $this->Master_model->get_ref_kolom();
+        $data['dmp'] = $this->Master_model->get_table_dmp();
 
         //$data = [];
-        
+        // echo "<pre>";
+        // print_r($data);
         $this->load->view('admin/include/header');
         $this->load->view('admin/upload_source',$data);
         $this->load->view('admin/include/footer');
@@ -110,7 +112,10 @@ function upload_file_lanjutan() {
 
         if (isset($_FILES['files']['name'])) {
             if (0 < $_FILES['files']['error']) {
-                echo 'Error during file upload' . $_FILES['files']['error'];
+
+                $out['out_rowcount'] = 0;
+                $out['msgerror'] = 'Error during file upload' . $_FILES['files']['error'];
+                //echo 'Error during file upload' . $_FILES['files']['error'];
             } else {
                 // if (file_exists('uploads/' . $_FILES['files']['name'])) {
                 //  echo 'File already exists : uploads/' . $_FILES['files']['name'];
@@ -118,8 +123,37 @@ function upload_file_lanjutan() {
                 // } else {
                 $this->load->library('upload', $config);
                 if (!$this->upload->do_upload('files')) {
-                    echo $this->upload->display_errors();
+
+                    $out['out_rowcount'] = 0;
+                    $out['msgerror'] = $this->upload->display_errors();
+                    //echo $this->upload->display_errors();
                 } else {
+
+
+                    $path = $_FILES['files']['name'];
+
+                    $file = str_replace(' ', '_', $path);
+                    $ext = pathinfo($path, PATHINFO_EXTENSION);
+                    $piles = $this->upload->upload_path."".$file;
+
+                    $coba = $this->readExcelFile($piles, $ext);
+                    //print_r($coba);
+
+                    if($ext == 'csv'){
+                        $ext_fix = 'CSV';
+                    }
+                    else{
+                        $ext_fix = 'XLS';
+                    }
+
+                    $save['p_id_upload'] = $this->input->post('p_id_upload');
+                    $save['p_instansi_id'] = $this->input->post('p_instansi_id');
+                    $save['p_nama_file'] = $_FILES['files']['name'];
+                    $save['p_jns_upload'] = $ext_fix;
+                    //$save['p_kolom'] = $this->input->post('p_kolom');
+                    $save['p_create_by'] = "ERZAN";
+
+                    $this->submit_all_lanjutan($coba,$save);
 
                     //echo 'File successfully uploaded : uploads/' . $_FILES['files']['name'];
                     //echo "<br>";
@@ -127,35 +161,15 @@ function upload_file_lanjutan() {
                 
             }
 
-            $path = $_FILES['files']['name'];
-
-            $file = str_replace(' ', '_', $path);
-            $ext = pathinfo($path, PATHINFO_EXTENSION);
-            $piles = $this->upload->upload_path."".$file;
-
-            $coba = $this->readExcelFile($piles, $ext);
-            //print_r($coba);
-
-            if($ext == 'csv'){
-                $ext_fix = 'CSV';
-            }
-            else{
-                $ext_fix = 'XLS';
-            }
-
-            $save['p_id_upload'] = $this->input->post('p_id_upload');
-            $save['p_instansi_id'] = $this->input->post('p_instansi_id');
-            $save['p_nama_file'] = $_FILES['files']['name'];
-            $save['p_jns_upload'] = $ext_fix;
-            //$save['p_kolom'] = $this->input->post('p_kolom');
-            $save['p_create_by'] = "ERZAN";
-
-            $this->submit_all_lanjutan($coba,$save);
+            
 
 
         } else {
-            echo 'Please choose a file';
+            $out['out_rowcount'] = 0;
+            $out['msgerror'] = 'Please choose a file';
         }
+
+        echo json_encode($out);
     }
 
 
@@ -446,7 +460,7 @@ function get_detil_temp_upload(){
 
     function get_temp_upload(){
 
-        $p_created_by = "ERZAN";
+        $p_created_by = $this->session->userdata('user_id');
         $this->load->model('Master_model');
         $main = $this->Master_model->get_upload_temp($p_created_by);
         $detil = $this->Master_model->get_upload_temp_detil($p_created_by);
@@ -646,6 +660,87 @@ function submit_ulang($data, $save){
     echo json_encode($out);
 
 }
+
+function submit_upload_dmp(){
+        $this->load->model('MUploadDmp');
+
+        $file = $this->input->post('p_nama_file');
+
+        $save['p_instansi_id'] = $this->input->post('p_instansi_id');
+        $save['p_nama_file'] = $file;
+        $save['p_jns_upload'] = "DMP";
+        $save['p_kolom'] = $this->input->post('p_kolom');
+        $save['p_create_by'] = $this->session->userdata('user_id');
+        $save['p_kegiatan'] = $this->input->post('p_kegiatan');
+
+        $dmp = $this->MUploadDmp->new_upload_dmp($save);
+
+        if($dmp["out_rowcount"] == 0){
+            $out['out_rowcount'] = $dmp["out_rowcount"];
+            $out['msgerror'] = $dmp["msgerror"];
+            $out['function'] = "new_upload_dmp";
+        }
+        else{
+
+            $save_ins['p_id_upload'] = $dmp["out_id_upload"];
+            $save_ins['p_tabel_dmp'] = $file;
+            $save_ins['p_create_by'] = $this->session->userdata('user_id');
+            $save_ins['p_kegiatan'] = $this->input->post('p_kegiatan');
+
+
+            $ins = $this->MUploadDmp->ins_from_dmp($save_ins);
+
+                $out['out_rowcount'] = $dmp["out_rowcount"];
+                $out['msgerror'] = $dmp["msgerror"];
+                $out['function'] = "ins_upload_dmp";
+
+        }
+
+        echo json_encode($out);
+
+}
+
+
+function submit_upload_dmp_lanjutan(){
+     
+
+     $this->load->model('MUploadDmp');
+
+        $file = $this->input->post('p_nama_file');
+
+        $save['p_instansi_id'] = $this->input->post('p_instansi_id');
+        $save['p_nama_file'] = $file;
+        $save['p_jns_upload'] = "DMP";
+        $save['p_create_by'] = $this->session->userdata('user_id');
+        $save['p_id_upload'] = $this->input->post('p_id_upload');
+
+        $dmp = $this->MUploadDmp->next_upload_dmp($save);
+
+        if($dmp["out_rowcount"] == 0){
+            $out['out_rowcount'] = $dmp["out_rowcount"];
+            $out['msgerror'] = $dmp["msgerror"];
+            $out['function'] = "next_upload_dmp";
+        }
+        else{
+
+            $save_ins['p_id_upload'] = $this->input->post('p_id_upload');
+            $save_ins['p_tabel_dmp'] = $file;
+            $save_ins['p_create_by'] = $this->session->userdata('user_id');
+            $save_ins['p_kegiatan'] = $this->input->post('p_kegiatan');
+
+
+            $ins = $this->MUploadDmp->ins_from_dmp($save_ins);
+
+                $out['out_rowcount'] = $dmp["out_rowcount"];
+                $out['msgerror'] = $dmp["msgerror"];
+                $out['function'] = "ins_upload_dmp";
+
+        }
+
+        echo json_encode($out);   
+
+}
+
 
 
 }

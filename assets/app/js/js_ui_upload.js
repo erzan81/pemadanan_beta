@@ -11,7 +11,7 @@ $(document).ready(function() {
 
          // 1. Upload Baru
          // 2. Upload Lanjutan
-         $(function() {
+      $(function() {
           $('#jenis_upload1').on('click', function() {
 
             $('#upload_id_combo').hide('slow');
@@ -33,8 +33,37 @@ $(document).ready(function() {
             $('#instansi_form').hide('slow');
             $('#upload').hide('slow');
             $('#init_kolom').hide('slow');
+            $('#upload_dmp').hide('slow');
 
             //get_upload_temp_tandingan();
+            
+        });
+      });
+
+
+      $(function() {
+          $('#tipe_data1').on('click', function() {
+
+            $('#upload_lanjutan').hide('slow');
+
+            
+            $('#nama_tabel').hide('slow');
+            $('#upload_dmp').hide('slow');
+            $('#upload_file_form').show('slow');
+            $('#upload').show('slow');
+            
+
+        });
+      });
+
+         $(function() {
+          $('#tipe_data2').on('click', function() {
+
+            $('#upload_lanjutan').hide('slow');
+            $('#upload_file_form').hide('slow');
+            $('#nama_tabel').show('slow');
+            $('#upload_dmp').show('slow');
+            $('#upload').hide('slow');
             
         });
       });
@@ -72,6 +101,19 @@ $(document).ready(function() {
                 get_upload_ulang();
             });
         });
+
+        $(function() {
+            $('#upload_dmp').on('click', function() {
+                submit_dmp();
+            });
+        });
+
+        $(function() {
+            $('#upload_lanjutan_dmp').on('click', function() {
+                submit_dmp_lanjutan();
+            });
+        });
+        
 
          $('#upload').on('click', function () {
 
@@ -603,6 +645,84 @@ function get_upload_bad(){
           }
       });
 
+}
+
+function submit_dmp(){
+
+    var file_data = $('#p_nama_file').val();
+            var kolom = get_kolom_check();
+            var instansi = $('#cmb_instansi').val();
+            var kegiatan = $('#keterangan').val();
+            
+
+    $.ajax({
+        url: BASE_URL+'admin/source/submit_upload_dmp', // point to server-side controller method
+        data: {'p_nama_file' : file_data,
+               'p_kolom' : kolom,
+               'p_instansi_id' : instansi,
+               'p_kegiatan' : kegiatan
+              },
+        type: 'post',
+        success: function (response) {
+            var data = JSON.parse(response);
+
+            if(data.out_rowcount == 1){
+                $('#pesan_notifikasi').html("Referensi Berhasil Ditambahkan.");
+            }
+            else{
+                $('#pesan_notifikasi').html(data.msgerror);
+            }
+
+            $('#loadingnya').loading('stop');
+
+            $('#modalNotif').modal('show');
+            get_conf_cleansing(id_upload);
+            
+        },
+        error: function (response) {
+            console.log(response); // display error response from the server
+            $('#loadingnya').loading('stop');
+        }
+    });
+}
+
+function submit_dmp_lanjutan(){
+
+    var file_data = $('#p_nama_file').val();
+    var input = $('#table_temp_upload input[name="pilih_lanjutan"]:checked').val();
+    var fields = input.split(',');
+    var id_upload = fields[0];
+    var instansi = fields[1];
+
+
+    $.ajax({
+        url: BASE_URL+'admin/source/submit_upload_dmp_lanjutan', // point to server-side controller method
+        data: {'p_instansi_id' : instansi,
+               'p_id_upload' : id_upload,
+               'p_nama_file' : file_data
+              },
+        type: 'post',
+        success: function (response) {
+            var data = JSON.parse(response);
+
+            if(data.out_rowcount == 1){
+                $('#pesan_notifikasi').html("Referensi Berhasil Ditambahkan.");
+            }
+            else{
+                $('#pesan_notifikasi').html(data.msgerror);
+            }
+
+            $('#loadingnya').loading('stop');
+
+            $('#modalNotif').modal('show');
+            //get_conf_cleansing(id_upload);
+            
+        },
+        error: function (response) {
+            console.log(response); // display error response from the server
+            $('#loadingnya').loading('stop');
+        }
+    });
 }
 
 

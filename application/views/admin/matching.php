@@ -267,6 +267,46 @@
 <!-- /.row -->
 </div>
 
+<div class="modal fade" id="modalEdit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title">Edit Metode Pemadanan </h3></center>
+        </div>
+        
+        <div class="modal-body" >
+                
+        <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_kolom_pemadanan_edit">
+                    <thead>
+                        <tr>
+                            <th>NAMA KOLOM</th>
+                            <th width="11%">IS MATCHING</th>
+                            <th>METODE</th>
+                            <th>ATRIBUT</th>
+                            <th width="10%">NILAI</th>
+                            <th width="10%">IS DIGIT</th>
+                            <th width="10%">DIGIT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         
+                    </tbody>
+            </table>
+
+        </div>
+        
+        <div class="modal-footer">
+
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
 <div class="modal fade" id="modalNotif">
   <div class="modal-dialog">
     <div class="modal-content">

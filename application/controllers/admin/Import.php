@@ -87,7 +87,7 @@ class Import extends CI_Controller {
 
                       $path = $_FILES['files']['name'];
 
-                      //$save = $this->MImport->ins_file_dmp($path);
+                      $save = $this->MImport->ins_file_dmp($path);
 
                       //if($save['out_rowcount'] != 0){
 
