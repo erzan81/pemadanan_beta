@@ -465,7 +465,7 @@ function get_metode_pemadanan(p_id_upload) {
                 "mRender": function (data, type, full) {
                     //console.log("full : ",full.FLAG_TOMBOL);
                     if(full.FLAG_TOMBOL == 0){
-                      var vProses = '<a href="#" class="btn btn-info btn_inisialisasi">Proses</a> <a href="#" class="btn btn-danger" onclick="get_kolom_pemadanan_edit(\''+full.ID_UPLOAD+'\',\''+full.STEP_KE+'\')">Edit Metode</a> ';
+                      var vProses = '<a href="#" class="btn btn-info btn_inisialisasi" onclick="inisialisasi_proses(\''+full.INSTANSI_ID+'\',\''+full.ID_UPLOAD+'\',\''+full.STEP_KE+'\')">Proses</a> <a href="#" class="btn btn-danger" onclick="get_kolom_pemadanan_edit(\''+full.ID_UPLOAD+'\',\''+full.STEP_KE+'\')">Edit Metode</a> ';
                     }
                     else{
                       var vProses = "";
@@ -534,6 +534,19 @@ function get_metode_pemadanan(p_id_upload) {
 
 
     });
+
+
+     function inisialisasi_proses(instansi, id_upload, step_ke){
+                p_instansi_id = instansi;
+                p_id_upload_init = id_upload;
+                p_step_ke = step_ke;
+                p_step_acuan = null;
+                p_is_paralel = "S";
+
+                $("#pesan_inisialisasi").html("Apakah Anda Yakin Akan Proses Inisialisasi "+p_id_upload_init+"");
+                $("#modal_init").modal('show');
+
+     }
 
     $('#table_acuan_step tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
