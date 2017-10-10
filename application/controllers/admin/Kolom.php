@@ -34,7 +34,7 @@ class Kolom extends CI_Controller {
         $save['p_tipe_kolom'] = $this->input->post('p_tipe_kolom');
         $save['p_size_kolom'] = $this->input->post('p_size_kolom');
         $save['p_keterangan'] = $this->input->post('p_keterangan');
-        $save['p_create_by'] = "ERZAN";
+        $save['p_create_by'] = $this->session->userdata('user_id');
 
         if($mode == "upd"){
 

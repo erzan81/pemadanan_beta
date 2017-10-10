@@ -390,8 +390,8 @@ class MMatching extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
      
-        $p_id_upload = "UPLOAD-20171009-000006";
-        $p_step_ke = "1";
+        // $p_id_upload = "UPLOAD-20171009-000006";
+        // $p_step_ke = "1";
 
         $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_PEMADANAN.GET_METODE_PEMADANAN_UPD(:p_id_upload, :p_step_ke); END;');
 

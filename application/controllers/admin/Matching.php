@@ -28,7 +28,7 @@ class Matching extends CI_Controller {
 
     function get_data_final(){
 
-    	$p_created_by = "ERZAN";
+    	$p_created_by = $this->session->userdata('user_id');;
 
         $this->load->model('Master_model');
         $main = $this->Master_model->get_data_final($p_created_by);
@@ -71,7 +71,7 @@ class Matching extends CI_Controller {
             $save['p_nilai'] = $key->p_nilai;
             $save['p_atribut'] = $key->p_atribut;
             $save['p_digit'] = $key->p_digit;
-            $save['p_create_by'] = "ERZAN";
+            $save['p_create_by'] = $this->session->userdata('user_id');;
             $save['p_step_ke'] = $step_ke[0]->STEP_KE;
             
             $hit = $this->MMatching->metode_pemadanan($save);
@@ -94,7 +94,7 @@ class Matching extends CI_Controller {
         $save['p_step_ke'] = $this->input->post('p_step_ke');
         $save['p_step_acuan'] = $this->input->post('p_step_acuan');
         $save['p_is_paralel'] = $this->input->post('p_is_paralel');
-        $save['p_create_by'] = "ERZAN";
+        $save['p_create_by'] = $this->session->userdata('user_id');;
         
         $hit = $this->MMatching->init_pemadanan($save);
         //print_r($save);

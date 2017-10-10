@@ -181,7 +181,7 @@ class MUploadUlang extends CI_Model {
         // $p_instansi_id = $_POST['p_instansi_id'];
         // $p_id_upload = $_POST['p_id_upload'];
 
-        $p_create_by = "ERZAN";
+        $p_create_by = $this->session->userdata('user_id');;
 
         $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_UPLOAD.GET_UPLOAD_ULANG(:p_create_by); END;');
 
@@ -218,7 +218,7 @@ class MUploadUlang extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
         
-        $p_create_by = "ERZAN";
+        $p_create_by = $this->session->userdata('user_id');;
 
         $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_UPLOAD.GET_UPLOAD_BAD(:p_create_by); END;');
 

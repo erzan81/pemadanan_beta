@@ -345,7 +345,7 @@ class Master_model extends CI_Model {
           trigger_error(htmlentities($m['message']), E_USER_ERROR);
         }
       
-        $p_create_by = "ERZAN";
+        $p_create_by = $this->session->userdata('user_id');
 
         $stid = oci_parse($this->pblmig_db->conn_id, 'BEGIN  :RetVal := PEMADANAN_APP.PKG_VERIFIKASI.GET_SIAP_FINAL(:p_create_by); END;');
 

@@ -87,7 +87,7 @@ class Source extends CI_Controller {
         $save['p_nama_file'] = $_FILES['files']['name'];
         $save['p_jns_upload'] = $ext_fix;
         $save['p_kolom'] = $this->input->post('p_kolom');
-        $save['p_create_by'] = "ERZAN";
+        $save['p_create_by'] = $this->session->userdata('user_id');
         $save['p_kegiatan'] = $this->input->post('p_kegiatan');
 
         $this->submit_all($coba,$save);
@@ -151,7 +151,7 @@ function upload_file_lanjutan() {
                     $save['p_nama_file'] = $_FILES['files']['name'];
                     $save['p_jns_upload'] = $ext_fix;
                     //$save['p_kolom'] = $this->input->post('p_kolom');
-                    $save['p_create_by'] = "ERZAN";
+                    $save['p_create_by'] = $this->session->userdata('user_id');
 
                     $this->submit_all_lanjutan($coba,$save);
 
@@ -588,7 +588,7 @@ function get_detil_temp_upload(){
         $save['p_nama_file'] = $_FILES['files']['name'];
         $save['p_jns_upload'] = $ext_fix;
         $save['p_upload_ke'] = $upload_ke;
-        $save['p_create_by'] = "ERZAN";
+        $save['p_create_by'] = $this->session->userdata('user_id');
         $save['jenis'] = $this->input->post('jenis');
 
         $this->submit_ulang($coba,$save);

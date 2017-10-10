@@ -27,7 +27,7 @@ class Verifikasi extends CI_Controller {
 
 
     	$save['p_instansi_id'] = $instansi;
-        $save['p_create_by'] = "ERZAN";
+        $save['p_create_by'] = $this->session->userdata('user_id');
         $save['p_id_upload'] = $id_upload;
         $save['p_ignore'] = $ignore;
 
@@ -61,7 +61,7 @@ class Verifikasi extends CI_Controller {
 
     function get_temp_main(){
 
-    	$p_created_by = "ERZAN";
+    	$p_created_by = $this->session->userdata('user_id');
         $this->load->model('Master_model');
         $main = $this->Master_model->get_upload_temp($p_created_by);
 
@@ -100,7 +100,7 @@ class Verifikasi extends CI_Controller {
             $save['p_id_cleansing'] = $key['p_id_cleansing'];
             $save['p_id_kolom'] = $key['p_id_kolom'];
             $save['p_no_urut'] = $key['p_no_urut'];
-            $save['p_create_by'] = "ERZAN";
+            $save['p_create_by'] = $this->session->userdata('user_id');
             
             $hit = $this->MVerifikasi->conf_cleansing($save);
 
@@ -118,7 +118,7 @@ class Verifikasi extends CI_Controller {
 
         $save['p_instansi_id'] = $this->input->post('p_instansi_id');
         $save['p_id_upload'] = $this->input->post('p_id_upload');
-        $save['p_create_by'] = "ERZAN";
+        $save['p_create_by'] = $this->session->userdata('user_id');
         
         $hit = $this->MVerifikasi->init_cleansing($save);
 
@@ -143,7 +143,7 @@ class Verifikasi extends CI_Controller {
 
     function get_data_final(){
 
-        $p_created_by = "ERZAN";
+        $p_created_by = $this->session->userdata('user_id');
 
         $this->load->model('Master_model');
         $main = $this->Master_model->get_data_final($p_created_by);
@@ -182,7 +182,7 @@ class Verifikasi extends CI_Controller {
             $save['p_id_upload'] = $key['p_id_upload'];
             $save['p_id_element'] = $key['p_id_element'];
             $save['p_no_urut'] = $key['p_no_urut'];
-            $save['p_create_by'] = "ERZAN";
+            $save['p_create_by'] = $this->session->userdata('user_id');
             
             $hit = $this->MVerifikasi->ins_element($save);
 
@@ -248,7 +248,7 @@ class Verifikasi extends CI_Controller {
         $save['p_id_upload'] = $id_upload;
         $save['p_instansi_id'] = $instansi;
         $save['p_is_keluarga'] = $keluarga;
-        $save['p_create_by'] = "ERZAN";
+        $save['p_create_by'] = $this->session->userdata('user_id');
 
         $init = $this->MVerifikasi->init_final($save);
 

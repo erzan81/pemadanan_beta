@@ -60,7 +60,7 @@ class Instansi extends CI_Controller {
         $save['p_instansi_alamat'] = $this->input->post('p_instansi_alamat');
         $save['p_instansi_telp'] = $this->input->post('p_instansi_telp');
         $save['p_instansi_status'] = $this->input->post('p_instansi_status');
-        $save['p_create_by'] = "ERZAN";
+        $save['p_create_by'] = $this->session->userdata('user_id');
 
         $ref = $this->MInstansi->del_instansi($save);
         $ref['tipe'] = "HAPUS";
@@ -120,7 +120,7 @@ class Instansi extends CI_Controller {
                     $save['p_instansi_telp'] = $this->input->post('p_instansi_telp');
                     $save['p_instansi_status'] = $this->input->post('p_instansi_status');
                     $save['p_path_file'] = $file;
-                    $save['p_create_by'] = "ERZAN";
+                    $save['p_create_by'] = $this->session->userdata('user_id');
                     $save['mode'] = $this->input->post('mode');
 
                     $this->submit($save);
@@ -142,7 +142,7 @@ class Instansi extends CI_Controller {
             $save['p_instansi_telp'] = $this->input->post('p_instansi_telp');
             $save['p_instansi_status'] = $this->input->post('p_instansi_status');
             $save['p_path_file'] = $this->input->post('p_path_file');
-            $save['p_create_by'] = "ERZAN";
+            $save['p_create_by'] = $this->session->userdata('user_id');
             $save['mode'] = $this->input->post('mode');
 
             $this->submit($save);
