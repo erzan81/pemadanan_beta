@@ -536,17 +536,7 @@ function get_metode_pemadanan(p_id_upload) {
     });
 
 
-     function inisialisasi_proses(instansi, id_upload, step_ke){
-                p_instansi_id = instansi;
-                p_id_upload_init = id_upload;
-                p_step_ke = step_ke;
-                p_step_acuan = null;
-                p_is_paralel = "S";
-
-                $("#pesan_inisialisasi").html("Apakah Anda Yakin Akan Proses Inisialisasi "+p_id_upload_init+"");
-                $("#modal_init").modal('show');
-
-     }
+    
 
     $('#table_acuan_step tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
@@ -569,6 +559,17 @@ function get_metode_pemadanan(p_id_upload) {
     //     this.child(formatPSS(this.data())).show();
     //     this.nodes().to$().addClass('shown');
     // });
+}
+
+function inisialisasi_proses(instansi, id_upload, step_ke){
+                p_instansi_id = instansi;
+                p_id_upload_init = id_upload;
+                p_step_ke = step_ke;
+                p_step_acuan = null;
+                p_is_paralel = "S";
+
+                $("#pesan_inisialisasi").html("Apakah Anda Yakin Akan Proses Inisialisasi "+p_id_upload_init+"");
+                $("#modal_init").modal('show');
 }
 
 
