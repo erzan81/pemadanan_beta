@@ -115,6 +115,8 @@ function upload_file_lanjutan() {
 
                 $out['out_rowcount'] = 0;
                 $out['msgerror'] = 'Error during file upload' . $_FILES['files']['error'];
+
+                echo json_encode($out);
                 //echo 'Error during file upload' . $_FILES['files']['error'];
             } else {
                 // if (file_exists('uploads/' . $_FILES['files']['name'])) {
@@ -126,6 +128,8 @@ function upload_file_lanjutan() {
 
                     $out['out_rowcount'] = 0;
                     $out['msgerror'] = $this->upload->display_errors();
+
+                    echo json_encode($out);
                     //echo $this->upload->display_errors();
                 } else {
 
@@ -167,9 +171,11 @@ function upload_file_lanjutan() {
         } else {
             $out['out_rowcount'] = 0;
             $out['msgerror'] = 'Please choose a file';
+
+            echo json_encode($out);
         }
 
-        echo json_encode($out);
+        
     }
 
 

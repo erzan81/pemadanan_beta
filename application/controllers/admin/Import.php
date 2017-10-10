@@ -48,6 +48,75 @@ class Import extends CI_Controller {
     //etc...
   }
 
+
+
+  function check_delete($file){
+            $this->load->helper('file');
+    
+            $nama_file = basename($file, ".DMP").PHP_EOL;
+
+            $path_dmp=FCPATH.'uploads/'.$file;
+            $path_log=FCPATH.'uploads/'.$nama_file.'.log';
+
+            $is_delete = 0;
+           if (file_exists($path_dmp)) //file_exists of a url returns false.It should be real file path
+               {    
+                    
+                    if(unlink($path_dmp)) {
+                         unlink($path_log);
+                         $is_delete = 1;
+                    }
+                    else {
+                         $is_delete = 0;
+                    }
+
+               } 
+           else 
+               {
+                   $is_delete = 1;
+               }
+
+            return $is_delete;
+      }
+
+  function upload_ulang_dmp(){
+
+    $this->load->model('MImport');
+
+    $file = $this->input->post('p_nama_file');
+
+
+    $cek = $this->check_delete($file);
+
+    if($cek == 1){
+
+        $nama_file = basename($file, ".DMP").PHP_EOL;
+        $del = $this->MImport->drop_file_dmp($nama_file);
+
+        if($del['out_rowcount'] != 0){
+
+          $this->upload_file();
+
+        }
+        else{
+
+          $out['out_rowcount'] = $del['out_rowcount'];
+          $out['msgerror'] = $del['msgerror'];
+
+        }
+
+    }
+    else{
+      $out['out_rowcount'] = 0;
+      $out['msgerror'] = "Gagal Hapus File";
+
+    }
+
+    echo json_encode($out);
+
+
+  }
+
   function upload_file() {
 
         //upload file

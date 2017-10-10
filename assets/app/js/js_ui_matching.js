@@ -25,6 +25,16 @@ $(document).ready(function() {
 
     });
 
+    $('#btn_proses_kolom_edit').on('click', function () {
+
+         get_all_kolom_value_upd();
+
+    });
+
+    
+
+    
+
     $('#btn_inisialisasi').on('click', function () {
 
         init_pemadanan();
@@ -345,6 +355,29 @@ function aksi_metode(param){
   
 }
 
+
+function aksi_metode_upd(param){
+
+  var metode = $('#upd_metode_'+param).val();
+
+  if(metode == "EM"){
+
+    $('#upd_nilai_'+param).val(100);
+    $('#upd_atribut_'+param).val("=").change();
+    $('#upd_atribut_'+param).prop('disabled', true);
+    $('#upd_nilai_'+param).prop('readonly', true);
+
+  }
+  else{
+
+    $('#upd_nilai_'+param).val(0);
+    $('#upd_atribut_'+param).val("=").change();
+    $('#upd_atribut_'+param).prop('disabled', false);
+    $('#upd_nilai_'+param).prop('readonly', false);
+
+  }
+  
+}
 
 function get_all_kolom_value(){
 
@@ -702,7 +735,7 @@ function get_kolom_pemadanan_edit(id_upload, step_ke){
         type: 'post',
         success: function (response) {
 
-            //console.log(response);
+            console.log(response);
             data = JSON.parse(response);
             
             $('#tabel_kolom_pemadanan_edit tbody').empty();
@@ -714,7 +747,7 @@ function get_kolom_pemadanan_edit(id_upload, step_ke){
                           '<td align="center"><input type="checkbox" name="upd_is_matching_'+i+'" value="YA"/></td>' +
 
                           '<td align="center">'+
-                            '<select class="form-control metode" id="upd_metode_'+i+'" onchange="aksi_metode(\''+i+'\')">'+
+                            '<select class="form-control metode" id="upd_metode_'+i+'" onchange="aksi_metode_upd(\''+i+'\')">'+
                                 '<option value="EM">Exact Match</option>'+
                                 '<option value="JW">Jaro Winkler</option>'+
                                 '<option value="ED">Edit Distance Similarity</option>'+
@@ -722,15 +755,15 @@ function get_kolom_pemadanan_edit(id_upload, step_ke){
                           '</td>' +
 
                           '<td align="center">'+
-                            '<select class="form-control atribut" id="upd_atribut_'+i+'" disabled="disabled">'+
+                            '<select class="form-control atribut" id="upd_atribut_'+i+'" >'+
                                 '<option value="="> = </option>'+
-                                '<option value=">=" > >= </option>'+
+                                '<option value=">="> >= </option>'+
                                 '<option value=">"> > </option>'+
                             '</select>'+ 
                           '</td>' +
 
                           '<td align="center">'+
-                            '<input type="text" class="form-control nilai" id="upd_nilai_'+i+'" value="100" readonly="readonly"/>'+
+                            '<input type="text" class="form-control nilai" id="upd_nilai_'+i+'" value="100"/>'+
                           '</td>'+
 
                           '<td align="center">'+
@@ -738,24 +771,129 @@ function get_kolom_pemadanan_edit(id_upload, step_ke){
                           '</td>'+
 
                           '<td align="center">'+
-                            '<input type="text" class="form-control upd_digit" />'+
+                            '<input type="text" class="form-control digit" id="upd_digit_'+i+'"/>'+
+                          '</td>'+
+
+                          '<td align="center" style="display:none">'+
+                            '<input type="hidden" class="form-control step_ke" value="'+step_ke+'"/>'+
                           '</td>'+
 
                           '</tr>';
                 $('#tabel_kolom_pemadanan_edit tbody').append(ret_valueT);
 
+                var is_matching;
+                var is_digit;
+                if(value.IS_PROSES == 0){ is_matching = false; }else{ is_matching = true }
+                if(value.IS_DIGIT == 0){ is_digit = false; }else{ is_digit = true }
 
-                //exact match boleh "=" saja
-                //else boleh semua
-                $('#modalEdit').modal('show');
+                $('#upd_metode_'+i).val(value.METODE);
+                $('#upd_atribut_'+i).val(value.ATRIBUT);
+                $('#upd_nilai_'+i).val(value.NILAI);
+                $('#upd_digit_'+i).val(value.DIGIT);
+                $('input:checkbox[name=upd_is_matching_'+i+']').prop('checked', is_matching);
+                $('input:checkbox[name=upd_is_digit_'+i+']').prop('checked', is_digit);
+                
+                
                 
             });
+
+            $('#modalEdit').modal('show');
             
         },
         error: function (response) {
             alert(response); // display error response from the server
         }
     });
+
+}
+
+
+function get_all_kolom_value_upd(){
+
+  var temp_id_upload = $('input[name="pilih_main"]:checked').val();
+  var fields = temp_id_upload.split(',');
+  var id_upload = fields[0];
+  var instansi = fields[1];
+
+  var list_pemadanan = [];
+
+  $("#tabel_kolom_pemadanan_edit tbody").find("tr").each(function (index) {
+
+            var tempPemadanan = $(this).find('td').toArray();
+            var id_kolom = $(tempPemadanan[0]).html();
+            var metode = $(this).closest('tr').find('.metode').val();
+            var atribut = $(this).closest('tr').find('.atribut').val();
+            var nilai = $(this).closest('tr').find('.nilai').val();
+            var step_ke = $(this).closest('tr').find('.step_ke').val();
+            var temp_is_digit = $('input[name="upd_is_digit_'+index+'"]:checked').val();
+            var temp_is_matching = $('input[name="upd_is_matching_'+index+'"]:checked').val();
+            var digit = $(this).closest('tr').find('.digit').val();
+
+            var is_digit;
+            var is_matching;
+
+            console.log("temp_is_matching : ", temp_is_matching);
+            if(temp_is_digit == "YA"){
+              is_digit = 1;
+            }
+            else{
+              is_digit = 0;
+            }
+
+            if(temp_is_matching == "YA"){
+              is_matching = 1;
+            }
+            else{
+              is_matching = 0;
+            }
+
+
+            var material = {
+                p_id_kolom: id_kolom,
+                p_metode: metode,
+                p_atribut: atribut,
+                p_nilai: nilai,
+                p_is_digit: is_digit,
+                p_digit: digit,
+                p_is_proses: is_matching,
+                p_id_upload: id_upload,
+                p_instansi_id: instansi,
+                p_step_ke: step_ke
+
+            };
+
+            list_pemadanan.push(material);
+            
+            //console.log(list_pemadanan)
+
+        });
+
+
+        $.ajax({
+            url: BASE_URL+'admin/matching/submit_metode_pemadanan_edit', // point to server-side controller method
+            data: {data : JSON.stringify(list_pemadanan)},
+            type: 'post',
+            success: function (response) {
+                //get_upload_temp_tandingan();
+
+                data = JSON.parse(response);
+                //console.log(data);
+
+                if(data.out_rowcount == 1){
+                    $('#pesan_notifikasi').html("Berhasil Disimpan.");
+                }
+                else{
+                    $('#pesan_notifikasi').html(data.msgerror);
+                }
+
+                $('#modalNotif').modal('show');
+                //$('#msg').html(response); // display success response from the server
+                $('#loadingnya').loading('stop');
+            },
+            error: function (response) {
+                $('#msg').html(response); // display error response from the server
+            }
+        });
 
 }
 

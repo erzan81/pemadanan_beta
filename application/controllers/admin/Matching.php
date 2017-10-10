@@ -15,8 +15,8 @@ class Matching extends CI_Controller {
 
     function get_kolom_pemadanan_upd(){
 
-        $p_id_upload = "ERZAN";
-        $p_step_ke = "ERZAN";
+        $p_id_upload = $this->input->post('p_id_upload');
+        $p_step_ke = $this->input->post('p_step_ke');
 
         $this->load->model('MMatching');
         $main = $this->MMatching->get_metode_pemadanan_upd($p_id_upload, $p_step_ke);
@@ -75,6 +75,41 @@ class Matching extends CI_Controller {
             $save['p_step_ke'] = $step_ke[0]->STEP_KE;
             
             $hit = $this->MMatching->metode_pemadanan($save);
+            //print_r($save);
+
+            $out['out_rowcount'] = $hit["out_rowcount"];
+            $out['msgerror'] = $hit["msgerror"];
+        }
+
+        echo json_encode($out);
+
+    }
+
+    function submit_metode_pemadanan_edit(){
+
+        $this->load->model('MMatching');
+
+        $data = json_decode(stripslashes($_POST['data']));
+
+        $id_upload = $data[0]->p_id_upload;
+        //$step_ke = $this->MMatching->get_step_ke($id_upload);
+
+        foreach ($data as $key) {
+
+            $save['p_instansi_id'] = $key->p_instansi_id;
+            $save['p_id_upload'] = $key->p_id_upload;
+            $save['p_id_kolom'] = $key->p_id_kolom;
+            $save['p_is_proses'] = $key->p_is_proses;
+            $save['p_is_digit'] = $key->p_is_digit;
+
+            $save['p_metode'] = $key->p_metode;
+            $save['p_nilai'] = $key->p_nilai;
+            $save['p_atribut'] = $key->p_atribut;
+            $save['p_digit'] = $key->p_digit;
+            $save['p_create_by'] = $this->session->userdata('user_id');;
+            $save['p_step_ke'] = $key->p_step_ke;
+            
+            $hit = $this->MMatching->metode_pemadanan_upd($save);
             //print_r($save);
 
             $out['out_rowcount'] = $hit["out_rowcount"];

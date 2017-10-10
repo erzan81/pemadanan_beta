@@ -107,10 +107,10 @@
                                                                     <tr>
                                                                         <th width="5%">#</th>
                                                                         <th width="5%">STEP</th>
-                                                                        <th width="20%">INSTANSI</th>
-                                                                        <th width="20%">ID UPLOAD</th>
+                                                                        <th width="15%">INSTANSI</th>
+                                                                        <th width="15%">ID UPLOAD</th>
                                                                         <th width="15%">KETERANGAN</th>
-                                                                        <th width="10%">AKSI</th>
+                                                                        <th width="20%">AKSI</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -267,9 +267,9 @@
 <!-- /.row -->
 </div>
 
-<div class="modal fade" id="modalEdit">
+<div class="modal fade" id="modalEdit" >
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 700px">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <center><h3 class="modal-title">Edit Metode Pemadanan </h3></center>
@@ -282,8 +282,8 @@
                         <tr>
                             <th>NAMA KOLOM</th>
                             <th width="11%">IS MATCHING</th>
-                            <th>METODE</th>
-                            <th>ATRIBUT</th>
+                            <th width="20%">METODE</th>
+                            <th width="10%">ATRIBUT</th>
                             <th width="10%">NILAI</th>
                             <th width="10%">IS DIGIT</th>
                             <th width="10%">DIGIT</th>
@@ -299,6 +299,7 @@
         <div class="modal-footer">
 
             <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+            <a href="#" class="btn btn-info" id="btn_proses_kolom_edit" data-dismiss="modal"><span class="fa fa-check"></span> Update</a>
 
         </div>
     </div><!-- /.modal-content -->

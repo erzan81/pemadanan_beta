@@ -155,7 +155,7 @@ class Export extends CI_Controller {
                 $ext = ".dmp";
             }
 
-            $image_file_path=FCPATH.'uploads/'.$tabel.'/'.$ext;
+            $image_file_path=FCPATH.'uploads/'.$tabel.''.$ext;
 
             $is_delete = 0;
            if (file_exists($image_file_path)) //file_exists of a url returns false.It should be real file path

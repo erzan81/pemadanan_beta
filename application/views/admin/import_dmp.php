@@ -54,7 +54,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" width="7%">#</th>
-                                    <th class="text-center" width="20%">NAMA TABEL</th>
+                                    <th class="text-center" width="20%">NAMA FILE</th>
                                     <th class="text-center" width="20%">CREATED DATE</th>
                                     <th class="text-center" width="10%">UPLOAD ULANG</th>
                                     <th class="text-center" width="10%">LOG</th>
@@ -67,12 +67,14 @@
                                 $i=0;
                                 foreach ($dmp as $key) {
 
+                                    $log = basename($key->NAMA_FILE, ".DMP").PHP_EOL;
+                                    $string = preg_replace('/\s+/', '', $log);
                                     echo "<tr>
                                     <td align='center'>".$i."</td>
                                     <td align='center'>".$key->NAMA_FILE."</td>
                                     <td align='center'>".$key->CREATE_DATE."</td>
-                                    <td align='center'><a href='#' ><span class='btn btn-danger btn-xs'>Upload Ulang</span></a></td>
-                                    <td align='center'><a href='#' ><span class='btn btn-info btn-xs'>Lihat Log</span></a></td>
+                                    <td align='center'><a href='#' onclick='upload_ulang()'><span class='btn btn-danger btn-xs'>Upload Ulang</span></a></td>
+                                    <td align='center'><a href='#' onclick='lihat_log(\"$string\")'><span class='btn btn-info btn-xs'>Lihat Log</span></a></td>
                                    
                                 </tr>";
                                 $i++;
@@ -130,6 +132,34 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
+<div class="modal fade" id="modalUlang">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <center><h3 class="modal-title">Upload Ulang </h3></center>
+        </div>
+        
+        <div class="modal-body" >
+                <div class="form-group">
+                    <label>File DMP</label>
+                    <input type="file" id="file_ulang" name="file_ulang" accept="application/octet-stream, .dmp">
+                </div>
+        </div>
+        
+        <div class="modal-footer">
+
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+            <a class="btn btn-info" id="upload_ulang" data-dismiss="modal"><i class="fa fa-upload" ></i> Upload DMP</a>
+
+        </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
 <script type="text/javascript">
     
 $(document).ready(function() {
@@ -182,10 +212,66 @@ $(document).ready(function() {
                 });
             });
 
+
+    $('#upload_ulang').on('click', function () {
+
+            $('#loadingnya').loading();
+            var file_data = $('#file_ulang').prop('files')[0];
+            //console.log();
+            
+            var form_data = new FormData();
+            form_data.append('files', file_data);
+            form_data.append('p_nama_file',file_data.name );
+            
+                $.ajax({
+                    url: BASE_URL+'admin/import/upload_ulang_dmp', // point to server-side controller method
+                    dataType: 'text', // what to expect back from the server
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: 'post',
+                    success: function (response) {
+                        
+                        
+                        data = JSON.parse(response);
+                        console.log(data);
+
+                        if(data.out_rowcount == 1){
+                            $('#pesan_notifikasi').html("File Berhasil Diupload dan Data Berhasil Disimpan.");
+                            $('#log_imp').html($.trim(data.perintah_o));
+                            $('#log_imp_v').html($.trim(data.perintah_v));
+                            $('#text_log').html($.trim(data.perintah_v));
+
+
+                        }
+                        else{
+                            $('#pesan_notifikasi').html(data.msgerror);
+                        }
+
+                        $('#loadingnya').loading('stop');
+                        $('#modalNotif').modal('show');
+                        
+                    },
+                    error: function (response) {
+                        $('#msg').html(response); // display error response from the server
+                    }
+                });
+            });
+
 });
 
+function upload_ulang(){
+    $('#modalUlang').modal('show');
+}
 
+function lihat_log(log){
 
+    $.get( BASE_URL+'uploads/'+log+'.log', function(data) {
+       $('#text_log').html(data);  
+    }, 'text');
+
+}
 
 
 </script>
