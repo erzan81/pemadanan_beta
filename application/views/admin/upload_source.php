@@ -9,19 +9,8 @@
         background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
     }
 
-    .progress {
-        display: block;
-        text-align: center;
-        width: 0;
-        height: 3px;
-        background: red;
-        transition: width .3s;
-    }
-    .progress.hide {
-        opacity: 0;
-        transition: opacity 1.3s;
-    }
-
+    
+   
 
 </style>
 
@@ -121,7 +110,23 @@
                                     <div class="form-group" id="upload_file_form">
                                         <label>File input</label>
                                         <input type="file" id="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv">
+
+                                        
+                                        <br>
+                                        <div class="progress" id="bar_upload" style="display: none">
+                                            <div class="progress-bar progress-bar-warning progress-bar-striped active myprogress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
+                                        </div>
+                                        <!-- <div class="progress">
+                                            <div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
+                                        </div> -->
+                 
+                                        <div class="msg"></div>
                                     </div>
+
+                                     
+                                        
+                                    
+
 
                                     <div class="pull-right">
                                         <label style="color:red">*Note : Upload file excel dengan extensi (.xlsx) / (.csv)</label>
@@ -156,6 +161,7 @@
                                         <table width="100%" class="table table-striped table-bordered table-hover" id="table_kolom">
                                             <thead>
                                                 <tr>
+                                                    <th style="display: none">NO KOLOM</th>
                                                     <th>NAMA KOLOM</th>
                                                     <th>TIPE KOLOM</th>
                                                     <th>SIZE KOLOM</th>
@@ -172,6 +178,7 @@
                                                 foreach ($kolom as $key) {
 
                                                     echo "<tr>
+                                                    <td style='display: none'>".$i."</td>
                                                     <td>".$key->ID_KOLOM."</td>
                                                     <td>".$key->TIPE_KOLOM."</td>
                                                     <td>".$key->SIZE_KOLOM."</td>
@@ -196,7 +203,7 @@
                     <a class="btn btn-info" id="upload"><i class="fa fa-upload" ></i> Upload Excel / CSV</a>
                     <a class="btn btn-danger" id="upload_dmp" style="display:none"><i class="fa fa-upload" ></i> Upload DMP</a>
                     <a class="btn btn-success" id="upload_lanjutan" style="display:none"><i class="fa fa-upload" ></i> Upload Lanjutan</a>
-                    <a class="btn btn-danger" id="upload_lanjutan_dmp"><i class="fa fa-upload" ></i> Upload Lanjutan DMP</a>
+                    <a class="btn btn-danger" id="upload_lanjutan_dmp" style="display:none"><i class="fa fa-upload" ></i> Upload Lanjutan DMP</a>
 
                     <div id="prog"></div>
 
@@ -220,6 +227,12 @@
                     <div class="form-group">
                         <label>File input</label>
                         <input type="file" id="file_perubahan" name="file_perubahan" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv">
+
+
+                        <br>
+                        <div class="progress" id="bar_upload_rubah" style="display: none">
+                            <div class="progress-bar progress-bar-warning progress-bar-striped active myprogress_rubah" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
+                        </div>
                     </div>
 
                     <div class="pull-right">

@@ -13,6 +13,11 @@
                     <div class="form-group">
                         <label>File DMP</label>
                         <input type="file" id="file" name="file" accept="application/octet-stream, .dmp">
+
+                        <br>
+                        <div class="progress" id="bar_upload" style="display: none">
+                            <div class="progress-bar progress-bar-warning progress-bar-striped active myprogress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -172,44 +177,77 @@ $(document).ready(function() {
             $('#loadingnya').loading();
             var file_data = $('#file').prop('files')[0];
             
-            
-            var form_data = new FormData();
-            form_data.append('files', file_data);
-            
-                $.ajax({
-                    url: BASE_URL+'admin/import/upload_file', // point to server-side controller method
-                    dataType: 'text', // what to expect back from the server
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: 'post',
-                    success: function (response) {
-                        
-                        
-                        data = JSON.parse(response);
-                        console.log(data);
+            $('.myprogress').css('width', '0');
+            $('#upload').prop('disabled', true);
+            $('#bar_upload').show('fast');
 
-                        if(data.out_rowcount == 1){
-                            $('#pesan_notifikasi').html("File Berhasil Diupload dan Data Berhasil Disimpan.");
-                            $('#log_imp').html($.trim(data.perintah_o));
-                            $('#log_imp_v').html($.trim(data.perintah_v));
-                            $('#text_log').html($.trim(data.perintah_v));
+            if($('#file').val() == "" || $('#file').val() == null){
+
+                $('#pesan_notifikasi').html("Anda belum memilih file DMP untuk diupload");
+                $('#modalNotif').modal('show');
+
+            }
+            else{
+
+                var form_data = new FormData();
+                form_data.append('files', file_data);
+                
+                    $.ajax({
+                        url: BASE_URL+'admin/import/upload_file', // point to server-side controller method
+                        dataType: 'text', // what to expect back from the server
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: 'post',
+
+                        xhr: function () {
+                                var xhr = new window.XMLHttpRequest();
+                                xhr.upload.addEventListener("progress", function (evt) {
+                                    if (evt.lengthComputable) {
+                                        var percentComplete = evt.loaded / evt.total;
+                                        percentComplete = parseInt(percentComplete * 100);
+                                        $('.myprogress').text(percentComplete + '%');
+                                        $('.myprogress').css('width', percentComplete + '%');
+
+                                    }
+                                }, false);
+                                return xhr;
+                            },
+                        success: function (response) {
+                            
+                            
+                            data = JSON.parse(response);
+                            console.log(data);
+
+                            if(data.out_rowcount == 1){
+                                $('#pesan_notifikasi').html("File Berhasil Diupload dan Data Berhasil Disimpan.");
+                                $('#log_imp').html($.trim(data.perintah_o));
+                                $('#log_imp_v').html($.trim(data.perintah_v));
+                                $('#text_log').html($.trim(data.perintah_v));
 
 
+                            }
+                            else{
+                                $('#pesan_notifikasi').html(data.msgerror);
+                            }
+
+                            $('#loadingnya').loading('stop');
+                            $('#modalNotif').modal('show');
+
+                            $('#upload').prop('disabled', false);
+
+                            setTimeout(function(){ $('#bar_upload').hide('fast'); }, 3000);
+                            
+                        },
+                        error: function (response) {
+                            $('#msg').html(response); // display error response from the server
                         }
-                        else{
-                            $('#pesan_notifikasi').html(data.msgerror);
-                        }
+                    });
 
-                        $('#loadingnya').loading('stop');
-                        $('#modalNotif').modal('show');
-                        
-                    },
-                    error: function (response) {
-                        $('#msg').html(response); // display error response from the server
-                    }
-                });
+            }
+            
+            
             });
 
 

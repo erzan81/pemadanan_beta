@@ -107,9 +107,9 @@
                 //console.log(location.href);
 
                 var text = $('li:has(a[href="' + location.href + '"])').parents('li').map(function () {
-                    console.log('$(this).children(a): ', $(this).children('a'));
+                    //console.log('$(this).children(a): ', $(this).children('a'));
                     var a = $.trim($(this).children('a').text());
-                    console.log('a: ', a);
+                    //console.log('a: ', a);
         
                     return $.trim($(this).children('a').text());
                 }).get();

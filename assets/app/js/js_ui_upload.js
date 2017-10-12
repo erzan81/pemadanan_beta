@@ -14,12 +14,35 @@ $(document).ready(function() {
       $(function() {
           $('#jenis_upload1').on('click', function() {
 
-            $('#upload_id_combo').hide('slow');
-            $('#upload_lanjutan').hide('slow');
-            $('#instansi_form').show('slow');
-            $('#keterangan_form').show('slow');
-            $('#init_kolom').show('slow');
-            $('#upload').show('slow');
+            var tipe = $('input[name="tipe_data"]:checked').val();
+
+            if(tipe == 1){
+
+                $('#upload_lanjutan').hide('slow');
+                $('#upload_lanjutan_dmp').hide('slow');
+                $('#upload_dmp').hide('slow');     
+                $('#nama_tabel').hide('slow');
+                $('#upload_id_combo').hide('slow');
+
+                $('#init_kolom').show('slow');    
+                $('#upload_file_form').show('slow');
+                $('#upload').show('slow');
+
+            }else{
+
+                $('#upload').hide('slow');
+                $('#upload_lanjutan_dmp').hide('slow');
+                $('#upload_lanjutan').hide('slow');
+                $('#upload_id_combo').hide('slow');
+                $('#upload_file_form').hide('slow');
+
+                $('#upload_dmp').show('slow');
+                $('#init_kolom').show('slow');
+                $('#nama_tabel').show('slow');
+                
+
+            }
+
 
         });
       });
@@ -27,13 +50,35 @@ $(document).ready(function() {
          $(function() {
           $('#jenis_upload2').on('click', function() {
 
-            $('#upload_lanjutan').show('slow');
-            $('#upload_id_combo').show('slow');
-            $('#keterangan_form').hide('slow');
-            $('#instansi_form').hide('slow');
-            $('#upload').hide('slow');
-            $('#init_kolom').hide('slow');
-            $('#upload_dmp').hide('slow');
+            var tipe = $('input[name="tipe_data"]:checked').val();
+
+            if(tipe == 1){
+
+                
+                $('#upload_lanjutan_dmp').hide('slow');
+                $('#upload').hide('slow');  
+                $('#upload_dmp').hide('slow');
+                $('#init_kolom').hide('slow');    
+                $('#nama_tabel').hide('slow');
+
+                $('#upload_id_combo').show('slow');
+                $('#upload_file_form').show('slow');
+                $('#upload_lanjutan').show('slow');
+
+            }else{
+
+                $('#upload_lanjutan').hide('slow');
+                $('#upload_dmp').hide('slow'); 
+                $('#upload').hide('slow');  
+                $('#upload_file_form').hide('slow');
+                $('#init_kolom').hide('slow');  
+
+                $('#upload_id_combo').show('slow');
+                $('#nama_tabel').show('slow');
+                $('#upload_lanjutan_dmp').show('slow');
+                
+
+            }
 
             //get_upload_temp_tandingan();
             
@@ -44,13 +89,35 @@ $(document).ready(function() {
       $(function() {
           $('#tipe_data1').on('click', function() {
 
-            $('#upload_lanjutan').hide('slow');
+            var jenis = $('input[name="jenis_upload"]:checked').val();
+
+            if(jenis == 1){
+
+                $('#upload_lanjutan').hide('slow');
+                $('#upload_lanjutan_dmp').hide('slow');
+                $('#upload_dmp').hide('slow');     
+                $('#nama_tabel').hide('slow');
+                $('#upload_id_combo').hide('slow');
+
+                $('#init_kolom').show('slow');    
+                $('#upload_file_form').show('slow');
+                $('#upload').show('slow');
+
+            }else{
+
+                $('#upload').hide('slow');
+                $('#upload_lanjutan_dmp').hide('slow');
+                $('#upload_dmp').hide('slow');
+                $('#init_kolom').hide('slow');
+                $('#nama_tabel').hide('slow');
+
+                $('#upload_id_combo').show('slow');
+                $('#upload_file_form').show('slow');
+                $('#upload_lanjutan').show('slow');
+
+            }
 
             
-            $('#nama_tabel').hide('slow');
-            $('#upload_dmp').hide('slow');
-            $('#upload_file_form').show('slow');
-            $('#upload').show('slow');
             
 
         });
@@ -59,11 +126,36 @@ $(document).ready(function() {
          $(function() {
           $('#tipe_data2').on('click', function() {
 
-            $('#upload_lanjutan').hide('slow');
-            $('#upload_file_form').hide('slow');
-            $('#nama_tabel').show('slow');
-            $('#upload_dmp').show('slow');
-            $('#upload').hide('slow');
+            var jenis = $('input[name="jenis_upload"]:checked').val();
+
+            if(jenis == 1){
+
+                $('#upload_lanjutan').hide('slow');
+                $('#upload_lanjutan_dmp').hide('slow');
+                $('#upload').hide('slow');  
+                $('#upload_file_form').hide('slow');
+                $('#upload_id_combo').hide('slow');
+
+                $('#init_kolom').show('slow');    
+                $('#nama_tabel').show('slow');
+                $('#upload_dmp').show('slow'); 
+
+            }else{
+
+                $('#upload_lanjutan').hide('slow');
+                $('#upload_dmp').hide('slow'); 
+                $('#upload').hide('slow');  
+                $('#upload_file_form').hide('slow');
+                $('#init_kolom').hide('slow');  
+
+                $('#upload_id_combo').show('slow');
+                $('#nama_tabel').show('slow');
+                $('#upload_lanjutan_dmp').show('slow');
+                
+
+            }
+
+           
             
         });
       });
@@ -115,9 +207,12 @@ $(document).ready(function() {
         });
         
 
+        
+
+
          $('#upload').on('click', function () {
 
-            $('#loadingnya').loading();
+            
             var file_data = $('#file').prop('files')[0];
             var kolom = get_kolom_check();
             var instansi = $('#cmb_instansi').val();
@@ -127,41 +222,77 @@ $(document).ready(function() {
             form_data.append('p_kolom', kolom);
             form_data.append('p_instansi_id', instansi);
             form_data.append('p_kegiatan', kegiatan);
-                
             
-            $.ajax({
+
+            $('.myprogress').css('width', '0');
+            $('#upload').prop('disabled', true);
+            $('#bar_upload').show('fast');
+            
+            //console.log($('#file').val());
+
+            if($('#file').val() == "" || kegiatan == ""){
+                $('#pesan_notifikasi').html("Anda belum melengkapi isian form. Cek kembali file yang akan diupload dan kegiatan");
+                $('#modalNotif').modal('show');
+            }
+            else if(kolom == null || kolom == ""){
+                $('#pesan_notifikasi').html("Anda belum melengkapi isian kolom. Checklist pilihan anda pada tabel dibawah");
+                $('#modalNotif').modal('show');
+            }
+            else{
 
 
-                url: BASE_URL+'admin/source/upload_file', // point to server-side controller method
-                dataType: 'text', // what to expect back from the server
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-                type: 'post',
-                success: function (response) {
+                $.ajax({
+
+                    url: BASE_URL+'admin/source/upload_file', // point to server-side controller method
                     
-                    //console.log(response);
-                    data = JSON.parse(response);
-                    //console.log(data);
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    type: 'post',
+                     xhr: function () {
+                                var xhr = new window.XMLHttpRequest();
+                                xhr.upload.addEventListener("progress", function (evt) {
+                                    if (evt.lengthComputable) {
+                                        var percentComplete = evt.loaded / evt.total;
+                                        percentComplete = parseInt(percentComplete * 100);
+                                        $('.myprogress').text(percentComplete + '%');
+                                        $('.myprogress').css('width', percentComplete + '%');
 
-                    if(data.out_rowcount == 1){
-                        $('#pesan_notifikasi').html("File Berhasil Diupload dan Data Berhasil Disimpan.");
+                                    }
+                                }, false);
+                                return xhr;
+                            },
+                    success: function (response) {
+                        
+                        //console.log(response);
+                        data = JSON.parse(response);
+                        //console.log(data);
+
+                        if(data.out_rowcount == 1){
+                            $('#pesan_notifikasi').html("File Berhasil Diupload dan Data Berhasil Disimpan.");
+                        }
+                        else{
+                            $('#pesan_notifikasi').html(data.msgerror);
+                        }
+
+                        $('#loadingnya').loading('stop');
+
+                        $('#modalNotif').modal('show');
+                        get_upload_temp_tandingan();
+                        $('#upload').prop('disabled', false);
+
+                        setTimeout(function(){ $('#bar_upload').hide('fast'); }, 3000);
+                        
+                    },
+                    error: function (response) {
+                        $('#msg').html(response); // display error response from the server
                     }
-                    else{
-                        $('#pesan_notifikasi').html(data.msgerror);
-                    }
 
-                    $('#loadingnya').loading('stop');
+                });
 
-                    $('#modalNotif').modal('show');
-                    get_upload_temp_tandingan();
-                },
-                error: function (response) {
-                    $('#msg').html(response); // display error response from the server
-                }
+            }
 
-            });
+            
         });
 
 
@@ -178,26 +309,53 @@ $(document).ready(function() {
                 var param = $('#tabel_bad input[name="radio_perubahan_bad"]:checked').val();
             }
 
+            $('.myprogress_rubah').css('width', '0');
+            $('#upload_ulang').prop('disabled', true);
+            $('#bar_upload_rubah').show('fast');
 
-            
-            
             var form_data = new FormData();
             form_data.append('files', file_data);
             form_data.append('param', param);
             form_data.append('jenis', jenis);
             
+            if($('#file_perubahan').val() == ""){
+
+                $('#pesan_notifikasi').html("Anda belum memilih file untuk diupload");
+                $('#modalNotif').modal('show');
+
+            }
+            else if(jenis == "" || jenis == null){
+
+                $('#pesan_notifikasi').html("Anda belum memilih ID UPLOAD ");
+                $('#modalNotif').modal('show');
+
+            }
+            else{
+
                 $.ajax({
                     url: BASE_URL+'admin/source/upload_file_ulang', // point to server-side controller method
-                    dataType: 'text', // what to expect back from the server
                     cache: false,
                     contentType: false,
                     processData: false,
                     data: form_data,
                     type: 'post',
+                    xhr: function () {
+                                var xhr = new window.XMLHttpRequest();
+                                xhr.upload.addEventListener("progress", function (evt) {
+                                    if (evt.lengthComputable) {
+                                        var percentComplete = evt.loaded / evt.total;
+                                        percentComplete = parseInt(percentComplete * 100);
+                                        $('.myprogress_rubah').text(percentComplete + '%');
+                                        $('.myprogress_rubah').css('width', percentComplete + '%');
+
+                                    }
+                                }, false);
+                                return xhr;
+                            },
                     success: function (response) {
                         //$('#msg').html(response);
                         //get_upload_temp_tandingan();
-                        console.log(response);
+                        //console.log(response);
                         data = JSON.parse(response);
                         //console.log(data);
                         
@@ -212,18 +370,27 @@ $(document).ready(function() {
                         $('#loadingnya').loading('stop');
                         $('#modalNotif').modal('show');
                         get_upload_temp_tandingan();
+
+                        $('#upload_ulang').prop('disabled', false);
+
+                        setTimeout(function(){ $('#bar_upload_rubah').hide('fast'); }, 3000);
                     },
                     error: function (response) {
                         $('#msg').html(response); // display error response from the server
                     }
                 });
+
+
+            }
+
+                
             });
 
          $('#upload_lanjutan').on('click', function () {
 
             //$('#table_temp_upload input[name="pilih_lanjutan"]:checked').val();
             //$("#page-wrapper").loading();
-            $('#loadingnya').loading();
+            //$('#loadingnya').loading();
             //page-wrapper
             var file_data = $('#file').prop('files')[0];
             var kolom = get_kolom_check();
@@ -234,21 +401,51 @@ $(document).ready(function() {
             var instansi = fields[1];
 
 
+            $('.myprogress').css('width', '0');
+            $('#upload_lanjutan').prop('disabled', true);
+            $('#bar_upload').show('fast');
+
             var form_data = new FormData();
             form_data.append('files', file_data);
             form_data.append('p_kolom', kolom);
             form_data.append('p_instansi_id', instansi);
             form_data.append('p_id_upload', id_upload);
 
-                    //form_data.append()
+            if($('#file').val() == ""){
+
+                $('#pesan_notifikasi').html("Anda belum memilih file untuk diupload");
+                $('#modalNotif').modal('show');
+
+            }
+            else if(input == "" || input == null){
+
+                $('#pesan_notifikasi').html("Anda belum memilih ID UPLOAD ");
+                $('#modalNotif').modal('show');
+
+            }
+            else{
+
+                //form_data.append()
                     $.ajax({
                         url: BASE_URL+'admin/source/upload_file_lanjutan', // point to server-side controller method
-                        dataType: 'text', // what to expect back from the server
                         cache: false,
                         contentType: false,
                         processData: false,
                         data: form_data,
                         type: 'post',
+                        xhr: function () {
+                                var xhr = new window.XMLHttpRequest();
+                                xhr.upload.addEventListener("progress", function (evt) {
+                                    if (evt.lengthComputable) {
+                                        var percentComplete = evt.loaded / evt.total;
+                                        percentComplete = parseInt(percentComplete * 100);
+                                        $('.myprogress').text(percentComplete + '%');
+                                        $('.myprogress').css('width', percentComplete + '%');
+
+                                    }
+                                }, false);
+                                return xhr;
+                            },
                         success: function (response) {
                             //get_upload_temp_tandingan();
 
@@ -266,12 +463,20 @@ $(document).ready(function() {
                             //$('#msg').html(response); // display success response from the server
                             $('#loadingnya').loading('stop');
                             get_upload_temp_tandingan();
+
+                            $('#upload_lanjutan').prop('disabled', false);
+
+                            setTimeout(function(){ $('#bar_upload').hide('fast'); }, 3000);
                         },
                         error: function (response) {
                             $('#msg').html(response); // display error response from the server
                         }
                     });
-                });
+
+            }
+
+                    
+        });
 
 
 
@@ -303,12 +508,13 @@ function get_kolom_check(){
     $("#table_kolom tbody").find("tr").each(function (index) {
 
         var tempKolom = $(this).find('td').toArray();
-        var kolom = $('input[name="pilih'+index+'"]:checked').val();
-        var pk = $('input[name="pk'+index+'"]:checked').val();
-        var is_score = $('input[name="score'+index+'"]:checked').val();
-        var is_select = $('input[name="is_select'+index+'"]:checked').val();
-        var is_cleansing = $('input[name="is_cleansing'+index+'"]:checked').val();
-        //console.log(kolom);
+        var no_urut = tempKolom[0].innerHTML;
+        var kolom = $('input[name="pilih'+no_urut+'"]:checked').val();
+        var pk = $('input[name="pk'+no_urut+'"]:checked').val();
+        var is_score = $('input[name="score'+no_urut+'"]:checked').val();
+        var is_select = $('input[name="is_select'+no_urut+'"]:checked').val();
+        var is_cleansing = $('input[name="is_cleansing'+no_urut+'"]:checked').val();
+        //console.log(temp);
         if(kolom == NaN || kolom == undefined ){
             //do nothing
         } 
@@ -338,7 +544,7 @@ function get_kolom_check(){
 
     
     str1 = selected.replace(/;$/, "") + "";
-    console.log(str1);
+    //console.log(str1);
     return str1;
 }
 
@@ -366,7 +572,7 @@ function get_detail_temp_upload(header, id_upload, nama_table, mode_upload) {
         '<th class="text-center">' + valNew[i] + '</th>';
 
         $("#tabel_detail > thead > tr:first").append(strRow);
-        console.log(valNew[i]);
+        //console.log(valNew[i]);
 
         header_kolom.push(valNew[i]);
         var temp="";
@@ -414,7 +620,7 @@ function get_detail_temp_upload(header, id_upload, nama_table, mode_upload) {
                     p_mode_upload: mode
                 },
                 "dataSrc": function (json) {
-                    console.log(json);
+                    //console.log(json);
                     return json.data;
                 }, error: function (request, status, error) {
                     //showMessage(request.responseText);
@@ -473,7 +679,7 @@ function get_upload_temp_tandingan() {
             "url": BASE_URL + "admin/source/get_temp_upload",
             "type": "POST",
             "dataSrc": function (json) {
-                console.log(json);
+                //console.log(json);
                 return json.MAIN;
             }
         },
@@ -680,7 +886,7 @@ function submit_dmp(){
             
         },
         error: function (response) {
-            console.log(response); // display error response from the server
+            //console.log(response); // display error response from the server
             $('#loadingnya').loading('stop');
         }
     });
@@ -719,7 +925,7 @@ function submit_dmp_lanjutan(){
             
         },
         error: function (response) {
-            console.log(response); // display error response from the server
+            //console.log(response); // display error response from the server
             $('#loadingnya').loading('stop');
         }
     });

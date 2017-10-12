@@ -280,7 +280,54 @@ function get_kolom_pemadanan(id_upload){
             
             $('#tabel_kolom_pemadanan tbody').empty();
             $.each(data, function (i, value) {
-                var ret_valueT =
+                
+
+                if(value.IS_FLAG == 2){
+
+                  var ret_valueT =
+                          '<tr>' +
+                          
+                          '<td align="left">' + value.ID_KOLOM + '</td>' +
+                          '<td align="center"><input type="checkbox" name="is_matching_'+i+'" value="YA"/></td>' +
+
+                           '<td align="center">'+
+                            '<select class="form-control metode" id="metode_'+i+'" onchange="aksi_metode(\''+i+'\')" disabled="disabled" >'+
+                                '<option value="EM">Exact Match</option>'+
+                                '<option value="JW">Jaro Winkler</option>'+
+                                '<option value="ED">Edit Distance Similarity</option>'+
+                            '</select>'+ 
+                          '</td>' +
+
+                          '<td align="center">'+
+                            '<select class="form-control atribut" id="atribut_'+i+'">'+
+                                '<option value="="> < </option>'+
+                                '<option value=">="> <= </option>'+
+                                
+                            '</select>'+ 
+                          '</td>' +
+
+                          '<td align="center">'+
+                            '<input type="text" class="form-control nilai" id="nilai_'+i+'" value="0" />'+
+                          '</td>'+
+
+                          '<td align="center">'+
+                            '<input class="is_digit" type="checkbox"  name="is_digit_'+i+'" value="YA" disabled="disabled"/>'+
+                          '</td>'+
+
+                          '<td align="center">'+
+                            '<input type="text" class="form-control digit" readonly="readonly"/>'+
+                          '</td>'+
+
+                          '<td align="center" style="display:none">'+
+                            '<input type="hidden" class="form-control flag_ins" value="'+value.IS_FLAG+'"/>'+
+                          '</td>'+
+
+                          '</tr>';
+
+
+                }
+                else{
+                  var ret_valueT =
                           '<tr>' +
                           
                           '<td align="left">' + value.ID_KOLOM + '</td>' +
@@ -314,7 +361,15 @@ function get_kolom_pemadanan(id_upload){
                             '<input type="text" class="form-control digit" />'+
                           '</td>'+
 
+                          '<td align="center" style="display:none">'+
+                            '<input type="hidden" class="form-control flag_ins" value="'+value.IS_FLAG+'"/>'+
+                          '</td>'+
+
                           '</tr>';
+
+                }
+
+
                 $('#tabel_kolom_pemadanan tbody').append(ret_valueT);
 
 
@@ -398,6 +453,7 @@ function get_all_kolom_value(){
             var temp_is_digit = $('input[name="is_digit_'+index+'"]:checked').val();
             var temp_is_matching = $('input[name="is_matching_'+index+'"]:checked').val();
             var digit = $(this).closest('tr').find('.digit').val();
+            var is_usia = $(this).closest('tr').find('.flag_ins').val();
 
             var is_digit;
             var is_matching;
@@ -740,7 +796,55 @@ function get_kolom_pemadanan_edit(id_upload, step_ke){
             
             $('#tabel_kolom_pemadanan_edit tbody').empty();
             $.each(data, function (i, value) {
-                var ret_valueT =
+
+                if(value.IS_FLAG == 2){
+
+                  var ret_valueT =
+                          '<tr>' +
+                          
+                          '<td align="left">' + value.ID_KOLOM + '</td>' +
+                          '<td align="center"><input type="checkbox" name="upd_is_matching_'+i+'" value="YA"/></td>' +
+
+                          '<td align="center">'+
+                            '<select class="form-control metode" id="upd_metode_'+i+'" onchange="aksi_metode_upd(\''+i+'\')" disabled="disabled" >'+
+                                '<option value="EM">Exact Match</option>'+
+                                '<option value="JW">Jaro Winkler</option>'+
+                                '<option value="ED">Edit Distance Similarity</option>'+
+                            '</select>'+ 
+                          '</td>' +
+
+                          '<td align="center">'+
+                            '<select class="form-control atribut" id="upd_atribut_'+i+'" >'+
+                                 '<option value="="> < </option>'+
+                                '<option value=">="> <= </option>'+
+                            '</select>'+ 
+                          '</td>' +
+
+                          '<td align="center">'+
+                            '<input type="text" class="form-control nilai" id="upd_nilai_'+i+'" value="0"/>'+
+                          '</td>'+
+
+                          '<td align="center">'+
+                            '<input class="is_digit" type="checkbox"  name="upd_is_digit_'+i+'" value="YA" disabled="disabled" />'+
+                          '</td>'+
+
+                          '<td align="center">'+
+                            '<input type="text" class="form-control digit" id="upd_digit_'+i+'" readonly="readonly" />'+
+                          '</td>'+
+
+                          '<td align="center" style="display:none">'+
+                            '<input type="hidden" class="form-control step_ke" value="'+step_ke+'"/>'+
+                          '</td>'+
+
+                          '<td align="center" style="display:none">'+
+                            '<input type="hidden" class="form-control flag_upd" value="'+value.IS_FLAG+'"/>'+
+                          '</td>'+
+
+                          '</tr>';
+
+                }
+                else{
+                    var ret_valueT =
                           '<tr>' +
                           
                           '<td align="left">' + value.ID_KOLOM + '</td>' +
@@ -778,7 +882,14 @@ function get_kolom_pemadanan_edit(id_upload, step_ke){
                             '<input type="hidden" class="form-control step_ke" value="'+step_ke+'"/>'+
                           '</td>'+
 
+                          '<td align="center" style="display:none">'+
+                            '<input type="hidden" class="form-control flag_upd" value="'+value.IS_FLAG+'"/>'+
+                          '</td>'+
+
                           '</tr>';
+
+                }
+                
                 $('#tabel_kolom_pemadanan_edit tbody').append(ret_valueT);
 
                 var is_matching;

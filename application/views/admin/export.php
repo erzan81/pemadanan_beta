@@ -129,7 +129,7 @@
                     "aTargets": [5],
                     "sClass": "gede",
                     "mRender": function (data, type, full) {
-                        console.log("full : ",full);
+                        //console.log("full : ",full);
                         var vEdit = '<center>'+
                                         '<a href="#" class="btn btn-success btn-xs" onclick="get_param(\'XLS\',\'ALL\',\''+$.param(full)+'\')"><span class="fa fa-download"></span> Excel</a> '+
                                         '<a href="#" class="btn btn-info btn-xs" onclick="get_param(\'CSV\',\'ALL\',\''+$.param(full)+'\')"><span class="fa fa-download"></span> CSV</a> '+
@@ -281,7 +281,7 @@
 
         
 
-        console.log(qsObj);
+        //console.log(qsObj);
 
         if(p_tipe == "ALL"){
 
@@ -290,7 +290,7 @@
             var p_jenis = jenis;
             var nama_tabel = qsObj.NAMA_TABEL[0];
 
-            console.log("ALL");
+            //console.log("ALL");
 
             export_all(instansi_id, id_upload, p_jenis, nama_tabel);
 
@@ -305,7 +305,7 @@
 
             export_single(instansi_id, step_ke, id_upload, nama_tabel, p_jenis);
 
-            console.log("NOT");
+            //console.log("NOT");
         }
 
     }

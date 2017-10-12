@@ -85,7 +85,7 @@ class Import extends CI_Controller {
 
     $file = $this->input->post('p_nama_file');
 
-
+    echo $_FILES['files']['name'];
     $cek = $this->check_delete($file);
 
     if($cek == 1){
@@ -102,6 +102,7 @@ class Import extends CI_Controller {
 
           $out['out_rowcount'] = $del['out_rowcount'];
           $out['msgerror'] = $del['msgerror'];
+          echo json_encode($out);
 
         }
 
@@ -109,10 +110,11 @@ class Import extends CI_Controller {
     else{
       $out['out_rowcount'] = 0;
       $out['msgerror'] = "Gagal Hapus File";
+      echo json_encode($out);
 
     }
 
-    echo json_encode($out);
+    
 
 
   }

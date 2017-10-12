@@ -25,13 +25,14 @@ class Group extends CI_Controller {
 
 
         $detil = $this->MSecman->get_mst_group_detil($data->ID_GROUP);
-        //print_r($detil);
+        print_r($ref);
 
         $menu = $this->MSecman->get_menutab();
+        print_r($menu);
+        echo "<br><br>";
 
-        //echo "<br><br>";
+        print_r($menu);
 
-        //print_r($menu);
 
         // $obj_state = new stdObject();
         // $obj->id = "Nick";
