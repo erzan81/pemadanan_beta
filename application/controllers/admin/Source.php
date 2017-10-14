@@ -271,6 +271,8 @@ function upload_file_lanjutan() {
   }
 
   function submit_all($data, $save){
+
+   ini_set('max_execution_time', 0); // to get unlimited php script execution time
    $this->load->model('MUpload');
    $hit = $this->MUpload->new_upload($save);
 
@@ -299,6 +301,9 @@ function upload_file_lanjutan() {
                 $p_isi_data .= $key.";";
 
             }
+
+
+           
             //echo "<pre>";
             // $kar = "'";
 

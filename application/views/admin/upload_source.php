@@ -116,10 +116,20 @@
                                         <div class="progress" id="bar_upload" style="display: none">
                                             <div class="progress-bar progress-bar-warning progress-bar-striped active myprogress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
                                         </div>
+
+                                        <div class="progress" id="bar_upload_lagi" >
+                                            <div class="progress-bar progress-bar-warning progress-bar-striped active myprogress_lagi" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
+                                        </div>
                                         <!-- <div class="progress">
                                             <div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
                                         </div> -->
-                 
+                                        <br>
+
+
+  
+                                        <!-- Progress information -->
+                                        <br>
+                                        <div id="information" ></div>
                                         <div class="msg"></div>
                                     </div>
 

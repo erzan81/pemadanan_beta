@@ -249,7 +249,7 @@ $(document).ready(function() {
                     contentType: false,
                     data: form_data,
                     type: 'post',
-                     xhr: function () {
+                    xhr: function () {
                                 var xhr = new window.XMLHttpRequest();
                                 xhr.upload.addEventListener("progress", function (evt) {
                                     if (evt.lengthComputable) {
@@ -260,8 +260,21 @@ $(document).ready(function() {
 
                                     }
                                 }, false);
+
+                                xhr.addEventListener("progress", function (evt) {
+                                    if (evt.lengthComputable) {
+                                        var percentComplete = evt.loaded / evt.total;
+                                        console.log(percentComplete);
+                                        $('.myprogress_lagi').css({
+                                            width: percentComplete * 100 + '%'
+                                        });
+                                        $('.myprogress_lagi').text(percentComplete + '%');
+                                    }
+                                }, false);
+
                                 return xhr;
                             },
+                    
                     success: function (response) {
                         
                         //console.log(response);

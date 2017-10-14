@@ -11,7 +11,8 @@
         <!-- END META SECTION -->
         
         <!-- CSS INCLUDE -->  
-        <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url()?>new_asset/css/theme-default.css"/>      
+        <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url()?>new_asset/css/theme-default.css"/>   
+        <link type="text/css" rel="Stylesheet" href="<?php echo CaptchaUrls::LayoutStylesheetUrl()?>" />   
         <!-- EOF CSS INCLUDE -->                                    
     </head>
     <body class="page-container-boxed">
@@ -126,7 +127,10 @@
                                             <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                         </div>
                                         <div class="form-group">
-                                            <?php echo $this->recaptcha->render(); ?>
+                                            <label for="CaptchaCode">Please retype the characters from the image:</label>
+                                            <?php echo $captchaHtml; ?>
+                                            <input type="text" class="form-control" name="CaptchaCode" id="CaptchaCode" value="" size="50" />
+
                                         </div>
                                         
                                         

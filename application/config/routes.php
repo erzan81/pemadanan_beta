@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "login";
+$route['botdetect/captcha-handler'] = 'botdetect/captcha_handler/index';
 $route['404_override'] = '';
 
 

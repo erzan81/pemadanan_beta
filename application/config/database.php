@@ -48,28 +48,14 @@
 $active_group = "pblmig";
 $active_record = TRUE;
 
-// $tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =192.168.10.24)(PORT = 1521))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = cisqa)))';
-//$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =10.68.35.15)(PORT = 1581))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = AP2T)))';
 
-//$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =10.14.152.4)(PORT = 1598))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = CISQA)))';
-
-$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =10.14.161.199)(PORT = 1521))(CONNECT_DATA =(SID = KONOHA)))';
-//$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =192.168.88.253)(PORT = 1521))(CONNECT_DATA =(SID = KONOHA)))';
-
-// $tnsname = "
-// (DESCRIPTION =
-//     (ADDRESS_LIST =
-//       (ADDRESS = (PROTOCOL = TCP)(HOST = 10.14.161.187)(PORT = 1521))
-//     )
-//     (CONNECT_DATA =
-//       (SID = KONOHA)
-//     )
-//   )
-//        ";
+$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =10.14.160.174)(PORT = 1521))(CONNECT_DATA =(SID = KONOHA)))';
+//$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =36.71.184.117)(PORT = 1521))(CONNECT_DATA =(SID = KONOHA)))';
+//$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =192.168.3.26)(PORT = 1521))(CONNECT_DATA =(SID = KONOHA)))';
 
 
 $db['pblmig']['hostname'] = $tnsname;
-$db['pblmig']['username'] = 'pemadanan';
+$db['pblmig']['username'] = 'pemadanan_app';
 $db['pblmig']['password'] = '12345678';
 $db['pblmig']['database'] = '';
 $db['pblmig']['dbdriver'] = 'oci8';
