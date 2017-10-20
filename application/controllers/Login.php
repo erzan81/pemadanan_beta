@@ -10,17 +10,26 @@ class Login extends Main_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
         
-        $this->load->library('botdetect/BotDetectCaptcha', array('captchaConfig' => 'ExampleCaptcha'
-  ));
+        $this->load->library('botdetect/BotDetectCaptcha', array('captchaConfig' => 'ExampleCaptcha'));
+
+        log_message('error', 'error message in this line');
+        log_message('debug', 'debug message in this line');
+        log_message('info', 'info message in this line');
+        
     }  
 
     public function index() {
+
+        
+
         $data['pesan'] = "";
         $data['captchaHtml'] = $this->botdetectcaptcha->Html();
         $this->load->view('login_new', $data);
     }    
     
     function do_login(){
+
+
 
         $code = $this->input->post("CaptchaCode");
 

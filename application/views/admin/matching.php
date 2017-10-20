@@ -197,45 +197,8 @@
 
 
 
-                                    <div class="panel-body" id="detail_final">
-                                        <div class="row">
-
-
-                                            <div class="col-lg-12">
-
-                                                <form role="form">
-                                                    <div class="form-group" >
-                                                            
-                                                            <table width="100%" class="table table-striped table-bordered table-hover" id="table_final_pemadanan_detil">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th width="7%">#</th>
-                                                                        <th width="20%">ID UPLOAD</th>
-                                                                        <th width="10%">ID MV</th>
-                                                                        <th width="10%">STEP</th>
-                                                                        <th width="20%">STATUS</th>
-                                                                        <th width="10%">SCRIPT</th>
-                        
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                     
-                                                                    
-                                                                </tbody>
-                                                        </table>
-                                                    </div>
-
-                                                    <div class="form-group" >
-                                                        <a href="#" class="btn btn-danger pull-right" id="detail_kembali"><i class="fa fa-times"></i> Kembali</a>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <!-- /.col-lg-6 (nested) -->
-
-                                        </div>
-                                        <!-- /.row (nested) -->
-                                    </div>
-                                    <!-- /.panel-body -->
+                                    
+                                     
 
 
                                 </div>

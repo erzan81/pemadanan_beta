@@ -19,6 +19,8 @@
         <!-- <link href="<?php //echo base_url('assets/sb-admin-v2/css/select2.min.css') ?>" rel="stylesheet"> -->
         <link href="<?php echo base_url('assets/plugins/loading/loading.css') ?>" rel="stylesheet">
 
+        <link href="<?php echo base_url('new_asset/js/plugins/jstree/dist/themes/default/style.min.css')?>" rel="stylesheet">
+
 
         <!-- START PRELOADS -->
         <audio id="audio-alert" src="<?php echo base_url()?>new_asset/audio/alert.mp3" preload="auto"></audio>
@@ -64,6 +66,8 @@
          -->
 
         
+
+
         
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-timepicker.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-colorpicker.js"></script>
@@ -213,7 +217,7 @@
                                 <a href="<?php echo base_url('admin/user');?>"><span class="fa fa-user"></span> Master User</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('admin/kolom');?>"><span class="fa fa-users"></span> Master Group</a>
+                                <a href="<?php echo base_url('admin/group');?>"><span class="fa fa-users"></span> Master Group</a>
                             </li>
                                                       
                         </ul>

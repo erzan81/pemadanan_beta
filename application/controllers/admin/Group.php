@@ -8,7 +8,7 @@ class Group extends CI_Controller {
     public function index() {
 
         $this->load->view('admin/include/header');
-        $this->load->view('admin/secman/user');
+        $this->load->view('admin/secman/group');
         $this->load->view('admin/include/footer');
     }
 
@@ -16,60 +16,141 @@ class Group extends CI_Controller {
 
         $this->load->model('MSecman');
 
-        $ref = $this->MSecman->get_mst_group();
+        //$id_group = "ERZ001";
+        $id_group = $this->input->post('id_group');
 
-        echo "<pre>";
-
-        $data = $ref[0];
-        //echo $data->ID_GROUP;
-
-
-        $detil = $this->MSecman->get_mst_group_detil($data->ID_GROUP);
-        print_r($ref);
-
-        $menu = $this->MSecman->get_menutab();
-        print_r($menu);
-        echo "<br><br>";
-
-        print_r($menu);
-
-
-        // $obj_state = new stdObject();
-        // $obj->id = "Nick";
-        // $obj->parent = "Doe";
-        // $obj->state = 20;
-        // $obj->text = null;
-
-        $obj_state = (object) [
-            'opened' => 'true',
-            'selected' => 'false'
-          ];
-
-        $object = (object) [
-            'id' => 'foo',
-            'parent' => 'asdasd',
-            'state' => $obj_state,
-            'text' => 'text'
-          ];
-
-        // $obj_state = {
-        //     opened : true,
-        //     selected : false
-        // };
-
-        // $obj_menu = {
-
-        //     id: 123,
-        //     parent: "parent",
-        //     state : $obj_state,
-        //     text : 'text'
-        // };
-
+        $ref = $this->MSecman->get_mst_group_detil($id_group);
         $arr = [];
+        foreach ($ref as $key ) {
+            array_push($arr, $key->ID_MENU);
+        }
 
-        array_push($arr,$object);
+       
+        $os = $arr;
+        
+        $menu = $this->MSecman->get_menutab();
+        $root = array();
+        $detail = array();
+        $main_temp = [];
 
-        print_r($arr);
+        
+
+        foreach ($menu as $key_root) {
+            
+            if($key_root->SEC_ID_MENU != null || $key_root->SEC_ID_MENU != ""){
+
+
+                if (in_array($key_root->ID_MENU, $os)) {
+
+                    if($key_root->EXPANDED == 1){
+
+                        $output = array(
+                            "id" => $key_root->ID_MENU,
+                            "parent" => $key_root->SEC_ID_MENU,
+                            "text" => $key_root->DESKRIPSI_MENU,
+                            "state" => array(
+                                            "opened" => true,
+                                            "selected" => false
+                                            )
+                        );
+                    }
+                    else{
+
+                        $output = array(
+                            "id" => $key_root->ID_MENU,
+                            "parent" => $key_root->SEC_ID_MENU,
+                            "text" => $key_root->DESKRIPSI_MENU,
+                            "state" => array(
+                                            "opened" => true,
+                                            "selected" => true
+                                            )
+                        );
+
+                    }
+
+                    
+                }
+                else{
+
+                    $output = array(
+                        "id" => $key_root->ID_MENU,
+                        "parent" => $key_root->SEC_ID_MENU,
+                        "text" => $key_root->DESKRIPSI_MENU,
+                        "state" => array(
+                                        "opened" => true,
+                                        "selected" => false
+                                        )
+                    );
+                }
+                
+
+                array_push($main_temp,$output); 
+
+            }
+
+        }
+
+        $state = array(
+            "opened" => true,
+            "selected" => false
+            );
+
+        $output = array(
+                "id" => "mnuRoot",
+                "parent" => "#",
+                "text" => "PEMADANAN",
+                "state" => $state
+                );
+
+        array_push($main_temp,$output); 
+
+        echo json_encode($main_temp);
+        
+    }
+
+
+    function get_menu_tab(){
+
+        $this->load->model('MSecman');
+        $menu = $this->MSecman->get_menutab();
+        $root = array();
+        $detail = array();
+        $main_temp = [];
+
+        $state = array(
+            "opened" => true,
+            "selected" => false
+            );
+
+        $output = array(
+                "id" => "mnuRoot",
+                "parent" => "#",
+                "text" => "PEMADANAN",
+                "state" => $state
+                );
+
+        array_push($main_temp,$output); 
+
+        foreach ($menu as $key_root) {
+            
+            if($key_root->SEC_ID_MENU != null || $key_root->SEC_ID_MENU != ""){
+
+
+
+                $output = array(
+                "id" => $key_root->ID_MENU,
+                "parent" => $key_root->SEC_ID_MENU,
+                "text" => $key_root->DESKRIPSI_MENU,
+                "state" => $state
+                );
+
+                array_push($main_temp,$output); 
+
+            }
+
+        }
+
+        echo json_encode($main_temp);
 
 
     }
@@ -84,13 +165,28 @@ class Group extends CI_Controller {
 
     }
 
-    function submit($save){
+    function get_mst_group_detil(){
 
         $this->load->model('MSecman');
 
-        $mode = $save['mode'];
+        $id_group = "ERZ001";
 
-        $ref['save'] = $save;
+        $ref = $this->MSecman->get_mst_group_detil($id_group);
+        
+        echo json_encode($ref);
+
+    }
+
+    function submit(){
+
+        $this->load->model('MSecman');
+        $menu = $this->input->post('menu');
+        $mode = $this->input->post('mode');
+        //$id_group = $this->input->post('id_group');
+
+        $save['p_id_group'] = $this->input->post('id_group');
+        $save['p_nama_group'] = $this->input->post('nama_group');
+        $save['p_create_by'] = $this->session->userdata('user_id');
 
         if($mode == "upd"){
 
@@ -100,13 +196,44 @@ class Group extends CI_Controller {
         }
         else{
 
-            $ref = $this->MSecman->ins_user($save);
+            $ref = $this->MSecman->ins_group($save);
             $ref['tipe'] = "SIMPAN";
+
+            if($ref['out_rowcount'] == 1){
+
+                for ($i=0; $i < count($menu) ; $i++) { 
+            
+                    $save_detil['p_id_group'] = $this->input->post('id_group');
+                    $save_detil['p_id_menu'] = $menu[$i];
+                    $save_detil['p_create_by'] = $this->session->userdata('user_id');
+
+                    $ref = $this->MSecman->ins_group_detil($save_detil);
+                    $ref['tipe'] = "DETIL";
+
+                }
+
+            }
+
+            
+            
 
         }
 
 
         echo json_encode($ref);
+
+    }
+
+    function get_post_data(){
+
+        //$id_group = $this->input->post('id_group');
+        $menu = $this->input->post('menu');
+
+        for ($i=0; $i < count($menu) ; $i++) { 
+            
+            echo $menu[$i]."<br>";
+
+        }
 
     }
 

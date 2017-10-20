@@ -62,7 +62,7 @@
                                 </div>
 
 
-                                <a href="#" class="btn btn-primary" id="btn_gabung"><i class="fa fa-archive"></i> Penggabungan</a>
+                                <a href="#" class="btn btn-primary" id="btn_gabung_modal"><i class="fa fa-archive"></i> Penggabungan</a>
                                 
                             </form>
 
@@ -317,6 +317,29 @@
             <div class="modal-footer">
 
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Kembali</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="modalGabung">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <center><h3 class="modal-title">Informasi </h3></center>
+            </div>
+            <div class="modal-body" >
+                
+                <center><p>Apakah Anda Yakin Akan Menggabungkan Data Ini ?</p></center>
+                        
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn btn-success" id="btn_gabung"><i class="fa fa-check"></i> Ya</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Tidak</button>
 
             </div>
         </div><!-- /.modal-content -->

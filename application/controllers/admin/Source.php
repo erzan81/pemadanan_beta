@@ -8,13 +8,132 @@ if (!defined('BASEPATH'))
 require_once APPPATH.'/third_party/spout/src/Spout/Autoloader/autoload.php';
 require_once APPPATH.'/libraries/CSV.php';
 
+require_once APPPATH.'/libraries/Logging.php';
+require_once APPPATH.'/third_party/Cocur/src/BackgroundProcess.php';
+
 //lets Use the Spout Namespaces
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
 use Box\Spout\Common\Helper\EncodingHelper;
 use Box\Spout\TestUsingResource;
 
+use Cocur\BackgroundProcess\BackgroundProcess;
+
 class Source extends CI_Controller {
+
+    function coba_aja(){
+
+        $temp1=array();  
+        $temp2=array();
+        $temp_all = array();
+        $string_kolom;
+        try {
+            $piles = dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/1.xlsx";
+            $file_path = $piles;                     
+               $reader = ReaderFactory::create(Type::XLSX); //set Type file xlsx
+               $reader->setShouldFormatDates(true); // will return formatted dates
+               $reader->open($file_path); //open the file             
+
+               //echo "<pre>";            
+               $i = 0; 
+
+                /**                  
+                * Sheets Iterator. Kali aja multiple sheets                  
+                **/           
+                foreach ($reader->getSheetIterator() as $sheet) {
+
+                    //Rows iterato
+                    //$jml_data = count($sheet->getRowIterator());               
+                    foreach ($sheet->getRowIterator() as $row) {
+
+                        if($i % 2 == 0){
+
+                            array_push($temp1,$row);
+                        }
+                        else{
+                            array_push($temp2,$row);
+
+                        }
+                        
+                        //$string_kolom .= $row[$i].";";
+                        //$temp += $row;
+                        ++$i;
+                    }
+                }
+
+                //echo "<br> Total Rows : ".$i." <br>";               
+                $reader->close();
+
+
+                //echo "Peak memory:", (memory_get_peak_usage(true) / 1024 / 1024), " MB" ,"<br>";
+
+            } catch (Exception $e) {
+
+                echo $e->getMessage();
+                exit;     
+            }
+            array_push($temp_all,$temp1);
+            array_push($temp_all,$temp2);
+
+            echo "<pre>";
+            print_r($temp_all[0]);
+
+    }
+
+    function coba_bp(){
+
+        $process = new BackgroundProcess('sleep 100');
+        $process->run();
+
+        $log = new Logging();
+ 
+        $path = dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/mylog_123.txt";
+        $path_excel = dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/1.xlsx";
+        $data_excel = $this->readExcel($path_excel);
+        $j = 1;
+        $log->lwrite('total data : '. $path_excel);
+            
+
+            for ($i=0; $i < 100; $i++) { 
+                if ($process->isRunning()) {
+                    //echo '.';
+                    $data = array(
+                        'test_aja' => "test - ".$j,
+                        'masuk_ngaa' => "masuk - ".$j
+                    );
+                    $this->db->insert('erzan', $data);
+
+
+                    // set path and name of log file (optional)
+                    $log->lfile($path);
+                     
+                    // write message to the log file
+                    $log->lwrite('data ke - '. $j);
+                    
+                     
+                    //close log file
+                    $log->lclose();
+
+                    //sleep(1);
+                    $j++;
+
+                }
+            }
+                //echo sprintf('Crunching numbers in process %d', $process->getPid());
+                
+                
+                //$process->stop();
+                //echo "<br>";
+                
+            
+             
+             //echo "total data : ".count($data_excel);
+        $log->lwrite('total data : '. count($data_excel));
+        $log->lwrite('Done');
+        $log->lclose();
+        echo "\nDone.\n";
+        $process->stop();
+    }
 
 	public function index() {
 
@@ -182,6 +301,7 @@ function upload_file_lanjutan() {
     public function getAllRowsForFile($fileName)
     {
     	
+        ini_set('max_execution_time', 0);
     	$comma = new CSV($fileName);
 
     	$fieldDelimiter = $comma->getDelimiter();
@@ -215,7 +335,12 @@ function upload_file_lanjutan() {
 
 
     function readExcel($piles){
+
+        ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '-1');
+
     	$temp=array();  
+        $temp2=array();
         $string_kolom;
         try {
          $file_path = $piles;              	      
@@ -231,13 +356,11 @@ function upload_file_lanjutan() {
                 **/	          
                 foreach ($reader->getSheetIterator() as $sheet) {
 
-                    //Rows iterator	               
+                    //Rows iterato
+                    //$jml_data = count($sheet->getRowIterator());               
                 	foreach ($sheet->getRowIterator() as $row) {
 
-                    	   //print_r($row); 
-                		array_push($temp,$row);
-                        //$string_kolom .= $row[$i].";";
-	                 	//$temp += $row;
+                        array_push($temp,$row);
                 		++$i;
                 	}
                 }
@@ -253,6 +376,7 @@ function upload_file_lanjutan() {
             	echo $e->getMessage();
             	exit;	  
             }
+            
 
             return $temp;
         }
@@ -273,10 +397,11 @@ function upload_file_lanjutan() {
   function submit_all($data, $save){
 
    ini_set('max_execution_time', 0); // to get unlimited php script execution time
+   ini_set('memory_limit', '-1');
    $this->load->model('MUpload');
    $hit = $this->MUpload->new_upload($save);
 
-
+   $j=0;
    $instansi = $save['p_instansi_id'];
    $id_upload = $hit["out_id_upload"];
    $p_isi_data = "";
@@ -284,6 +409,11 @@ function upload_file_lanjutan() {
    $out = [];
    $temp=array();  
 
+   $path_log = dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/mylog_".$id_upload.".txt";
+   $process = new BackgroundProcess('sleep '.count($data));
+   $process->run();
+
+   $log = new Logging();
 
    if($hit["out_rowcount"] != 1){
 
@@ -303,41 +433,59 @@ function upload_file_lanjutan() {
             }
 
 
-           
-            //echo "<pre>";
-            // $kar = "'";
+           if ($process->isRunning()) {
+                    //echo '.';
+                    
+                    $log->lfile($path_log);
+                    
+                    $save_ins['p_id_upload'] = $id_upload;
+                    $save_ins['p_isi_data'] = $p_isi_data;
 
-            // if (strpos($p_isi_data, $kar) !== false) {
-            //     $p_isi_data = str_replace("'", "", $p_isi_data);
-            // }
-            //print_r($p_isi_data);
-            $save_ins['p_id_upload'] = $id_upload;
-            $save_ins['p_isi_data'] = $p_isi_data;
+                    $ins_file = $this->MUpload->ins_file($save_ins);
 
-            $ins_file = $this->MUpload->ins_file($save_ins);
+                    if($ins_file['out_rowcount'] != 1){
 
-            if($ins_file['out_rowcount'] != 1){
+                            $out['out_rowcount'] = $ins_file["out_rowcount"];
+                            $out['msgerror'] = $ins_file["msgerror"];
+                            $out['function'] = "break ins_file";
+
+                            $log->lwrite('ERROR : '. $out['msgerror']);
+                            break;
+                            
+
+                        }
+
+                    $p_isi_data = "";
+                    $save_ins = array();
 
                     $out['out_rowcount'] = $ins_file["out_rowcount"];
                     $out['msgerror'] = $ins_file["msgerror"];
-                    $out['function'] = "break ins_file";
-                    break;
+                    $out['function'] = "ins_file";
+
+
+                    // write message to the log file
+                    $log->lwrite('data ke - '. $j++);
                     
 
-                }
+                     
+                    //close log file
+                    $log->lclose();
 
-            $p_isi_data = "";
-            $save_ins = array();
+                    //usleep(100);
+                    
 
-            $out['out_rowcount'] = $ins_file["out_rowcount"];
-            $out['msgerror'] = $ins_file["msgerror"];
-            $out['function'] = "ins_file";
+            }
+
+            
             //array_push($temp,$out);
         }
 
         if($ins_file['out_rowcount'] != 1){
 
             $out;
+
+            $log->lwrite('ERROR : '. $out['msgerror']);
+            $log->lclose();
 
         }
         else{
@@ -350,6 +498,8 @@ function upload_file_lanjutan() {
             $out['out_rowcount'] = $rekap_upload["out_rowcount"];
             $out['msgerror'] = $rekap_upload["msgerror"];
             $out['function'] = "rekap_upload";
+
+            $log->lwrite('REKAP - BERHASIL');
 
         }
 
@@ -388,11 +538,7 @@ function submit_all_lanjutan($data, $save){
 
             }
 
-            // $kar = "'";
-
-            // if (strpos($p_isi_data, $kar) !== false) {
-            //     $p_isi_data = str_replace("'", "", $p_isi_data);
-            // }
+            
 
             $save_ins['p_id_upload'] = $id_upload;
             $save_ins['p_isi_data'] = $p_isi_data;
@@ -433,6 +579,12 @@ function submit_all_lanjutan($data, $save){
         
     }
 
+
+    $log->lwrite('total data : '. count($data));
+    $log->lwrite('Done');
+    $log->lclose();
+    
+    $process->stop();
     
     echo json_encode($out);
 
