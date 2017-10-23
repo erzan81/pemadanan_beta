@@ -557,7 +557,7 @@ function get_kolom_check(){
 
     
     str1 = selected.replace(/;$/, "") + "";
-    //console.log(str1);
+    console.log(str1);
     return str1;
 }
 

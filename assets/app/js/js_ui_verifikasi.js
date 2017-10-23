@@ -1,3 +1,5 @@
+var table_temp_upload;
+
 $(document).ready(function() {
 
 	get_upload_temp_tandingan();
@@ -14,12 +16,19 @@ $(document).ready(function() {
     get_data_final();
     //get_ref_element();
 
-	$('#btn_gabung').on('click', function () {
+	$('#btn_gabung_modal').on('click', function () {
 
-         submit_penggabungan();
-
+        $('#modalGabung').modal('show');
+         
     });
 
+    $('#btn_gabung').on('click', function () {
+
+        submit_penggabungan();
+         
+    });
+
+    
     $('#btn_tambah_conf').on('click', function () {
 
          get_param();
@@ -32,7 +41,6 @@ $(document).ready(function() {
 
     });
 
-    
 
     $('#btn_submit_conf').on('click', function () {
 
@@ -64,41 +72,54 @@ function submit_penggabungan(){
     form_data.append('param', param);
     form_data.append('ignore_bad', ignore);
     
-    $('#loadingnya').loading();
+    if(param == null || param == ""){
 
-    $.ajax({
-        url: BASE_URL+'admin/verifikasi/submit_penggabungan', // point to server-side controller method
-        dataType: 'text', // what to expect back from the server
-        cache: false,
-        contentType: false,
-        processData: false,
-        data: form_data,
-        type: 'post',
-        success: function (response) {
-            data = JSON.parse(response);
-         
-            if(data.out_rowcount == 1){
-                $('#pesan_notifikasi').html("Data Berhasil Digabung.");
+        $('#pesan_notifikasi').html("Anda belum memilih ID Upload.");
+        $('#modalNotif').modal('show');
+
+    }
+    else{
+
+        $('#loadingnya').loading();
+
+        $.ajax({
+            url: BASE_URL+'admin/verifikasi/submit_penggabungan', // point to server-side controller method
+            dataType: 'text', // what to expect back from the server
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function (response) {
+                data = JSON.parse(response);
+             
+                if(data.out_rowcount == 1){
+                    $('#pesan_notifikasi').html("Data Berhasil Digabung.");
+                }
+                else{
+                    $('#pesan_notifikasi').html(data.msgerror);
+                }
+
+                $('#loadingnya').loading('stop');
+
+                $('#modalNotif').modal('show');
+                get_upload_temp_tandingan();
+            },
+            error: function (response) {
+                alert(response); // display error response from the server
             }
-            else{
-                $('#pesan_notifikasi').html(data.msgerror);
-            }
+        });
 
-            $('#loadingnya').loading('stop');
+    }
 
-            $('#modalNotif').modal('show');
-            get_upload_temp_tandingan();
-        },
-        error: function (response) {
-            alert(response); // display error response from the server
-        }
-    });
+
+    
 
 }
 
 function get_upload_temp_tandingan() {
     $('#table_temp_upload').dataTable().fnDestroy();
-    table_jancuk = $('#table_temp_upload').DataTable({
+    table_temp_upload = $('#table_temp_upload').DataTable({
         "processing": true,
         "serverSide": false,
         "autoWidth": false,
@@ -123,7 +144,7 @@ function get_upload_temp_tandingan() {
             "url": BASE_URL + "admin/source/get_temp_upload",
             "type": "POST",
             "dataSrc": function (json) {
-                console.log(json);
+                //console.log(json);
                 return json.MAIN;
             }
         },
@@ -151,7 +172,7 @@ function get_upload_temp_tandingan() {
 
     $('#table_temp_upload').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
-        var row = table_jancuk.row(tr);
+        var row = table_temp_upload.row(tr);
         if (row.child.isShown()) {
             // This row is already open - close it
             row.child.hide();
@@ -366,11 +387,11 @@ function get_main_temp(){
     $("#cleansing_main").dataTable().fnDestroy();
     $.ajax({
         url: BASE_URL+'admin/verifikasi/get_temp_main', // point to server-side controller method
-        dataType: 'text', // what to expect back from the server
+        //dataType: 'text', // what to expect back from the server
         type: 'post',
         success: function (response) {
 
-            //console.log(response);
+            console.log(response);
             data = JSON.parse(response);
             
             $('#cleansing_main tbody').empty();
@@ -540,7 +561,7 @@ function get_data_final(){
             
             data = JSON.parse(response);
             
-            console.log("data : ",data);
+            //console.log("data : ",data);
 
             $('#tabel_main_final tbody').empty();
             $.each(data, function (i, value) {
@@ -575,7 +596,7 @@ function get_ref_element(id_upload){
         type: 'post',
         success: function (response) {
 
-            //console.log(response);
+            console.log(response);
             data = JSON.parse(response);
             
             $('#tabel_element tbody').empty();
@@ -681,36 +702,45 @@ function init_final(){
     var is_keluarga = $('input[name="is_keluarga"]:checked').val();
 
 
+    if(param_main == null || param_main == ""){
 
-    $('#loadingnya').loading();
-    $.ajax({
-        url: BASE_URL+'admin/verifikasi/init_final', // point to server-side controller method
-        data: {'p_id_upload' : id_upload,
-               'p_instansi_id' : instansi,
-               'p_is_keluarga' : is_keluarga
-              },
-        type: 'post',
-        success: function (response) {
-            var data = JSON.parse(response);
+        $('#pesan_notifikasi').html("Anda Belum Memilih ID Upload");
+        $('#modalNotif').modal('show');
 
-            if(data.out_rowcount == 1){
-                $('#pesan_notifikasi').html("Init Final Berhasil Disubmit.");
+    }
+    else{
+
+        $('#loadingnya').loading();
+        $.ajax({
+            url: BASE_URL+'admin/verifikasi/init_final', // point to server-side controller method
+            data: {'p_id_upload' : id_upload,
+                   'p_instansi_id' : instansi,
+                   'p_is_keluarga' : is_keluarga
+                  },
+            type: 'post',
+            success: function (response) {
+                var data = JSON.parse(response);
+
+                if(data.out_rowcount == 1){
+                    $('#pesan_notifikasi').html("Init Final Berhasil Disubmit.");
+                }
+                else{
+                    $('#pesan_notifikasi').html(data.msgerror);
+                }
+
+                $('#loadingnya').loading('stop');
+
+                $('#modalNotif').modal('show');
+                //get_conf_element(id_upload);
+                
+            },
+            error: function (response) {
+                console.log(response); // display error response from the server
+                $('#loadingnya').loading('stop');
             }
-            else{
-                $('#pesan_notifikasi').html(data.msgerror);
-            }
+        });
 
-            $('#loadingnya').loading('stop');
-
-            $('#modalNotif').modal('show');
-            //get_conf_element(id_upload);
-            
-        },
-        error: function (response) {
-            console.log(response); // display error response from the server
-            $('#loadingnya').loading('stop');
-        }
-    });
+    }
    
 }
 

@@ -96,7 +96,7 @@ function get_pemadanan_main(id_upload){
         type: 'post',
         success: function (response) {
 
-            //console.log(response);
+            console.log(response);
             data = JSON.parse(response);
             
             $('#table_final_pemadanan tbody').empty();
@@ -113,8 +113,8 @@ function get_pemadanan_main(id_upload){
                           '<td align="center">' + value.NAMA_TABEL + '</td>' +
                           '<td align="center">' + value.STATUS_PEMADANAN + '</td>' +
                           '<td align="center">' +
-                            '<a href="#" onclick="get_pemadanan_detail(\''+value.ID_UPLOAD+'\',\''+value.STEP_KE+'\')" ><span class="btn btn-success btn-xs">DETAIL</span></a>'+
-                            '  <a href="#" onclick="submit_pemadanan_job(\''+value.ID_UPLOAD+'\',\''+value.STEP_KE+'\')"><span class="btn btn-info btn-xs">Proses</span></a>'+
+                            '<a href="#" onclick="get_kodenya(\''+i+'\')"><span class="btn btn-info btn-xs">Lihat Script</span></a><span id="kode'+i+'" style="display:none">' +value.SCRIPT+'</span>'+
+                            
                           '</td>' +
                           '</tr>';
                 $('#table_final_pemadanan tbody').append(ret_valueT);
