@@ -27,11 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-
-                                
-
-                            ?>
+                            
                         </tbody>
                     </table>
                     <!-- /.table-responsive -->
@@ -123,6 +119,10 @@ $(document).ready(function() {
     $('.btn_tambah').on('click', function () {
 
             //reset_form();
+
+            $('#p_id_group').val("");
+            $('#p_nama_group').val("");
+
             $('#form_main').hide('slow');
             $('#ins_upd').show('slow');
             $('#mode').val("ins");
@@ -279,7 +279,7 @@ function get_ms_group(){
                           '<td align="left" width="15%">' + value.ID_GROUP + '</td>' +
                           '<td align="left" width="30%">' + value.NAMA_GROUP + '</td>' +
                           '<td align="center" width="20%">' + value.CREATE_DATE + '</td>' +
-                          '<td align="center" width="8%"><a href="#" class="btn btn-info btn-xs btn_edit" data-group="'+value.ID_GROUP+'"><span class="fa fa-search"></span> Detail</a></td>'+
+                          '<td align="center" width="8%"><a href="#" class="btn btn-info btn-xs btn_edit" data-group="'+value.ID_GROUP+'" data-nama="'+value.NAMA_GROUP+'"><span class="fa fa-search"></span> Detail</a></td>'+
                           '</tr>';
                 $('#tabel_group tbody').append(ret_valueT);
 
@@ -296,6 +296,10 @@ function get_ms_group(){
                 $('.btn_submit').hide();
 
                 var id_group = $(this).data("group");
+                var nama_group = $(this).data("nama");
+
+                $('#p_id_group').val(id_group);
+                $('#p_nama_group').val(nama_group);
 
                 getMenuByIdGroup(id_group);
 

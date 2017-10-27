@@ -302,7 +302,7 @@ function get_kolom_pemadanan(id_upload){
                             '<select class="form-control atribut" id="atribut_'+i+'">'+
                                 '<option value="="> < </option>'+
                                 '<option value=">="> <= </option>'+
-                                
+                                '<option value="="> = </option>'+
                             '</select>'+ 
                           '</td>' +
 
@@ -344,7 +344,7 @@ function get_kolom_pemadanan(id_upload){
                           '<td align="center">'+
                             '<select class="form-control atribut" id="atribut_'+i+'" disabled="disabled">'+
                                 '<option value="="> = </option>'+
-                                '<option value=">=" > >= </option>'+
+                                '<option value=">="> >= </option>'+
                                 '<option value=">"> > </option>'+
                             '</select>'+ 
                           '</td>' +

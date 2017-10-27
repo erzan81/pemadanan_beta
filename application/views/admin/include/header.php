@@ -149,7 +149,7 @@
                         </a>
                         <div class="profile">
                             <div class="profile-image">
-                                <img src="<?=base_url('uploads/'.$this->session->userdata('photo'));?>" alt="Pemadanan"/>
+                                <img src="<?=base_url('uploads/'.$this->session->userdata('photo'));?>" alt="Pemadanan" width="100" height="100"/>
                             </div>
                             <div class="profile-data">
                                 <div class="profile-data-name"><?php echo $this->session->userdata('nama_user');?></div>
@@ -162,6 +162,8 @@
                         </div>                                                                        
                     </li>
                     
+
+
                     <li class="">
                         <a href="<?php echo base_url('admin/home');?>"><i class="fa fa-desktop fa-fw"></i> <span class="xn-text">Dashboard</span></a>                        
                     </li>
@@ -250,7 +252,7 @@
                     </li>
 
                     <!-- END TOGGLE NAVIGATION -->
-                    >
+                    
                     <!-- SIGN OUT -->
                     <li class="xn-icon-button pull-right">
                         <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
@@ -259,14 +261,8 @@
                     <!-- MESSAGES -->
                     
                 </ul>
-                <!-- END X-NAVIGATION VERTICAL -->                     
-
-                <!-- START BREADCRUMB -->
-                <!-- <ul class="breadcrumb" id="breadcrumb">
-                    <li><a href="#">Home</a></li>                    
-                    <li class="active">Dashboard</li>
-                </ul> -->
-
+               
+               
 
                 <div id="breadcrumb">
                     <ol class="breadcrumb">
@@ -274,13 +270,13 @@
                         <li class="active">-</li>
                     </ol>
                 </div>
-                <!-- END BREADCRUMB -->                       
-                
-                <!-- PAGE CONTENT WRAPPER -->
+               
                 <div class="page-content-wrap">
-                    
-                   
-                    
+            
+                
+               
+
+
                 
 
 

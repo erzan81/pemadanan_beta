@@ -9,6 +9,7 @@ class Login extends Main_Controller {
         parent::__construct();
         $this->load->helper('form');
         $this->load->library('form_validation');
+        $this->load->library('session');
         
         $this->load->library('botdetect/BotDetectCaptcha', array('captchaConfig' => 'ExampleCaptcha'));
 
@@ -20,11 +21,64 @@ class Login extends Main_Controller {
 
     public function index() {
 
-        
-
         $data['pesan'] = "";
         $data['captchaHtml'] = $this->botdetectcaptcha->Html();
         $this->load->view('login_new', $data);
+    }
+
+
+    function coba(){
+
+        $this->session->sess_destroy();
+
+        $this->load->model('MSecman');
+
+        $this->session->sess_destroy();
+
+        $username = "erzan1";
+        $password = "12345";
+        $group = "ERZ001";
+
+        $login = $this->MSecman->get_login($username, $password);
+
+        $a = $this->MSecman->get_user_by_id($username);
+
+        $menu = $this->MSecman->get_mst_group_detil($group);
+
+        echo "<pre>";
+
+        //print_r($menu);
+
+
+        $a = $this->MSecman->get_user_by_id($username);
+                    
+
+        $session_id = round(uniqid(rand(), TRUE))."".date("dmyhis");
+
+        
+            foreach($a as $key){
+                    $user_id = $key->USER_ID;
+                    $nama_user = $key->NAMA_USER;
+                    $group = $key->ID_GROUP;
+                    $photo_path = $key->PATH_FILE;
+            }
+
+            $menu = $this->MSecman->get_mst_group_detil($group);
+
+            $usersession = array(
+                            'user_id'=> $user_id,
+                            'nama_user'=> $nama_user,
+                            'group'=> $group,
+                            'loginstate'=>1,
+                            'photo'=>$photo_path,
+                            'time'=> date('d-m-Y h:i:s'),
+                            'session_id' => $session_id,
+                            'menu' => $menu
+                        );
+            $this->session->set_userdata($usersession);
+           
+            print_r($this->session->all_userdata());
+
     }    
     
     function do_login(){
@@ -60,7 +114,7 @@ class Login extends Main_Controller {
 
                 if($login->out_rowcount == 1){
                     $a = $this->MSecman->get_user_by_id($username);
-
+                    
                     $session_id = round(uniqid(rand(), TRUE))."".date("dmyhis");
 
                     if(count($a)>0){
@@ -80,8 +134,10 @@ class Login extends Main_Controller {
                                         'time'=> date('d-m-Y h:i:s'),
                                         'session_id' => $session_id
                                     );
-                        $this->session->set_userdata($usersession);
                         
+                        $this->session->set_userdata($usersession);
+
+
                         //log login
                         $this->load->library('user_agent');
                         
@@ -92,12 +148,15 @@ class Login extends Main_Controller {
                         $this->MSecman->log_login($save);
 
                         //end log login
-
+                        //echo "<pre>";
+                        //echo $this->session->userdata('user_id');
                         redirect('admin/home');
 
                     }
                     else{
-                        $data['pesan'] = "Kena Error cuy.. jangan maksa";
+
+                        //print_r($a);
+                        $data['pesan'] = "User Tidak Terdaftar";
                         $data['captchaHtml'] = $this->botdetectcaptcha->Html();
                         
                         $this->form_validation->set_message( $login->out_message);
