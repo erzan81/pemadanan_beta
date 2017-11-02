@@ -24,62 +24,7 @@ class Login extends Main_Controller {
         $data['pesan'] = "";
         $data['captchaHtml'] = $this->botdetectcaptcha->Html();
         $this->load->view('login_new', $data);
-    }
-
-
-    function coba(){
-
-        $this->session->sess_destroy();
-
-        $this->load->model('MSecman');
-
-        $this->session->sess_destroy();
-
-        $username = "erzan1";
-        $password = "12345";
-        $group = "ERZ001";
-
-        $login = $this->MSecman->get_login($username, $password);
-
-        $a = $this->MSecman->get_user_by_id($username);
-
-        $menu = $this->MSecman->get_mst_group_detil($group);
-
-        echo "<pre>";
-
-        //print_r($menu);
-
-
-        $a = $this->MSecman->get_user_by_id($username);
-                    
-
-        $session_id = round(uniqid(rand(), TRUE))."".date("dmyhis");
-
-        
-            foreach($a as $key){
-                    $user_id = $key->USER_ID;
-                    $nama_user = $key->NAMA_USER;
-                    $group = $key->ID_GROUP;
-                    $photo_path = $key->PATH_FILE;
-            }
-
-            $menu = $this->MSecman->get_mst_group_detil($group);
-
-            $usersession = array(
-                            'user_id'=> $user_id,
-                            'nama_user'=> $nama_user,
-                            'group'=> $group,
-                            'loginstate'=>1,
-                            'photo'=>$photo_path,
-                            'time'=> date('d-m-Y h:i:s'),
-                            'session_id' => $session_id,
-                            'menu' => $menu
-                        );
-            $this->session->set_userdata($usersession);
-           
-            print_r($this->session->all_userdata());
-
-    }    
+    }  
     
     function do_login(){
 
@@ -156,7 +101,7 @@ class Login extends Main_Controller {
                     else{
 
                         //print_r($a);
-                        $data['pesan'] = "User Tidak Terdaftar";
+                        $data['pesan'] = "<div class='alert alert-danger'><span class='fa fa-warning'></span> User Tidak Terdaftar<button class='close' data-dismiss='alert' type='button'>×</button></div>";
                         $data['captchaHtml'] = $this->botdetectcaptcha->Html();
                         
                         $this->form_validation->set_message( $login->out_message);
@@ -171,7 +116,7 @@ class Login extends Main_Controller {
 
                     //echo $login->out_message." - ".$username." - ".$password;
 
-                    $data['pesan'] = $login->out_message;
+                    $data['pesan'] = "<div class='alert alert-danger'><span class='fa fa-warning'></span> ".$login->out_message."<button class='close' data-dismiss='alert' type='button'>×</button></div>";
                     $data['captchaHtml'] = $this->botdetectcaptcha->Html();
 
                     $this->form_validation->set_message( $login->out_message);
@@ -182,10 +127,10 @@ class Login extends Main_Controller {
 
         } else {
 
-            $data['pesan'] = "Capcaynya salah cuy atuh";
+            $data['pesan'] = "<div class='alert alert-danger'><span class='fa fa-warning'></span> Captcha Anda Salah<button class='close' data-dismiss='alert' type='button'>×</button></div>";
             $data['captchaHtml'] = $this->botdetectcaptcha->Html();
 
-            $this->form_validation->set_message("Capcaynya salah cuy atuh");
+            $this->form_validation->set_message("Captcha Anda Salah");
             $this->load->view('login_new', $data);
           // TODO: Captcha validation failed:
           // abort sensitive action, return an error message

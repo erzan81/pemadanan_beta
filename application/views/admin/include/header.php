@@ -45,11 +45,7 @@
         <script src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     
         <script src="<?php echo base_url('assets/plugins/loading/loading.js') ?>"></script>
-        
-        <script type="text/javascript">
-            var BASE_URL = "<?php echo base_url()?>";
-        </script>
-
+      
         <!-- START THIS PAGE PLUGINS-->        
         <script type='text/javascript' src='<?php echo base_url()?>new_asset/js/plugins/icheck/icheck.min.js'></script>        
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
@@ -61,14 +57,6 @@
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/daterangepicker/daterangepicker.js"></script>
         <!-- END THIS PAGE PLUGINS-->        
 
-        <!-- START TEMPLATE -->
-        <!-- <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/settings.js"></script>
-         -->
-
-        
-
-
-        
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-timepicker.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-colorpicker.js"></script>
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap-file-input.js"></script>
@@ -76,12 +64,23 @@
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins.js"></script>        
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/actions.js"></script>
+
+        
+        
         
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->  
 
     <script type="text/javascript">
+            var BASE_URL = "<?php echo base_url()?>";
+
+            // $(window).load(function(){
+            //     get_menu();
+            // });
+
             $(document).ready(function () {
+
+                //get_menu();
      
                 var current_page_URL = location.href;
                 $("a").each(function () {
@@ -128,6 +127,9 @@
                 //console.log('outputString: ', outputString);
                 setBreadcrumb(outputString);
             });
+
+            
+
         </script> 
 
     </head>
@@ -162,77 +164,57 @@
                         </div>                                                                        
                     </li>
                     
+                    <?php 
 
+                    if($this->session->userdata('loginstate') == 1){
 
-                    <li class="">
-                        <a href="<?php echo base_url('admin/home');?>"><i class="fa fa-desktop fa-fw"></i> <span class="xn-text">Dashboard</span></a>                        
-                    </li>
+                        for ($i=0; $i < count($menu) ; $i++) { 
 
+                            if(count($menu[$i]['DETIL']) != 0 ){
+                            ?>
+                                <li class="xn-openable">
+                                    <a href="#"><span class="<?php echo $menu[$i]['ICON_STYLE'];?>"></span> <span class="xn-text"><?php echo $menu[$i]['DESKRIPSI_MENU'];?></span></a>
+                                    <ul>
+                                        <?php
+                                            $submenu = $menu[$i]['DETIL'];
 
-                    <li class="xn-openable">
-                        <a href="#"><span class="fa fa-upload"></span> <span class="xn-text">Upload</span></a>
-                        <ul>
-                            <li>
-                                <a href="<?php echo base_url('admin/source');?>"><i class="fa fa-pencil fa-fw"></i> <span class="xn-text">Upload Data Sumber</span></a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url('admin/import');?>"><span class="fa fa-database"></span> Import DMP</a>
-                            </li>                         
-                        </ul>
-                    </li>
+                                            foreach ($submenu as $key ) {
+                                               ?>    
+                                                <li>
+                                                    <a href="<?php echo base_url($key->NAMA_FORM);?>" class="text-warning"><i class="<?php echo $key->ICON_STYLE;?> fa-fw"></i> <span class="xn-text"><?php echo $key->DESKRIPSI_MENU;?></span></a>
+                                                </li>
+                                            <?php   
+                                            
+                                            }
+            
 
+                                        ?>                        
+                                    </ul>
+                                </li>
+                            <?php
+                            }
+                            else{
+                            ?>
+                                <li class="">
+                                    <a href="<?php echo base_url($menu[$i]['NAMA_FORM']);?>"><i class="<?php echo $menu[$i]['ICON_STYLE'];?> fa-fw"></i> <span class="xn-text"><?php echo $menu[$i]['DESKRIPSI_MENU'];?></span></a>                        
+                                </li>
 
+                            <?php
+                            }
+                           
+                        }
+
+                    }
+                    else{
+                        redirect(base_url().'login');
+                    } 
+
+                    ?>
                     
-                    <li>
-                        <a href="<?php echo base_url('admin/verifikasi');?>"><i class="fa fa-edit fa-fw"></i> <span class="xn-text">Verifikasi dan Cleansing</span></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('admin/matching');?>"><i class="fa fa-bar-chart-o fa-fw"></i> <span class="xn-text">Macthing Data</span></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('admin/export');?>"><i class="fa fa-file fa-fw"></i> <span class="xn-text">Export Data</span></a>
-                    </li>
-
-
-                    <li class="xn-openable">
-                        <a href="#"><span class="fa fa-gears"></span> <span class="xn-text">Master</span></a>
-                        <ul>
-                            <li>
-                                <a href="<?php echo base_url('admin/instansi');?>"><span class="fa fa-building-o"></span> Master Instansi</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url('admin/kolom');?>"><span class="fa fa-columns"></span> Master Kolom</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url('admin/element');?>"><span class="fa fa-compass"></span> Master Element</a>
-                            </li>
-                            <li>
-                                <a href="#"><span class="fa fa-trophy"></span> Master Gelar</a>
-                            </li>                           
-                        </ul>
-                    </li>
-
-                    <li class="xn-openable">
-                        <a href="#"><span class="fa fa-unlock"></span> <span class="xn-text">Management User</span></a>
-                        <ul>
-                            <li>
-                                <a href="<?php echo base_url('admin/user');?>"><span class="fa fa-user"></span> Master User</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url('admin/group');?>"><span class="fa fa-users"></span> Master Group</a>
-                            </li>
-                                                      
-                        </ul>
-                    </li>
                     <li>
                         <a href="#" class="text-danger mb-control" data-box="#mb-signout"><i class="fa fa-power-off fa-fw text-danger" ></i> <span class="xn-text ">Logout</span></a>
                     </li>
                                        
-                    
-                    
-                                      
-                   
-                    
                 </ul>
                 <!-- END X-NAVIGATION -->
             </div>

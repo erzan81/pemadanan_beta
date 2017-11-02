@@ -7,19 +7,21 @@ if (!defined('BASEPATH'))
 
 class Import extends CI_Controller {
 
-	
+	function __construct() {
+    parent::__construct();
+    $this->load->model('Master_model');
+      //$this->load->database('pblmig', true);
+      
+  }
 
 	public function index() {
 
     $this->load->model('MImport');
 
     $data['dmp'] = $this->MImport->get_table_dmp_file();
-
-    
-
-
-		$this->load->view('admin/include/header');
-		$this->load->view('admin/import_dmp', $data);
+    $data['menu'] = $this->Master_model->get_menu();
+		$this->load->view('admin/include/header', $data);
+		$this->load->view('admin/import_dmp');
 		$this->load->view('admin/include/footer');
 	}
 

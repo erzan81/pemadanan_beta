@@ -138,16 +138,15 @@ class Source extends CI_Controller {
 	public function index() {
 
         $this->load->model('Master_model');
+        $data['menu'] = $this->Master_model->get_menu();
 
         $data['instansi'] = $this->Master_model->getInstansi();
         $data['kolom'] = $this->Master_model->get_ref_kolom();
         $data['dmp'] = $this->Master_model->get_table_dmp();
 
-        //$data = [];
-        // echo "<pre>";
-        // print_r($data);
-        $this->load->view('admin/include/header');
-        $this->load->view('admin/upload_source',$data);
+        
+        $this->load->view('admin/include/header',$data);
+        $this->load->view('admin/upload_source');
         $this->load->view('admin/include/footer');
     }
 

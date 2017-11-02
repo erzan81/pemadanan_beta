@@ -391,7 +391,7 @@ function get_main_temp(){
         type: 'post',
         success: function (response) {
 
-            console.log(response);
+            //console.log(response);
             data = JSON.parse(response);
             
             $('#cleansing_main tbody').empty();

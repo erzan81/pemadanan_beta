@@ -5,9 +5,17 @@ if (!defined('BASEPATH'))
 
 class Matching extends CI_Controller {
 
-    public function index() {
+    function __construct() {
+        parent::__construct();
+        $this->load->model('Master_model');
+            //$this->load->database('pblmig', true);
+            
+    }
 
-        $this->load->view('admin/include/header');
+    public function index() {
+        $data['menu'] = $this->Master_model->get_menu();
+
+        $this->load->view('admin/include/header',$data);
         $this->load->view('admin/matching');
         $this->load->view('admin/include/footer');
     }

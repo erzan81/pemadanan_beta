@@ -148,17 +148,18 @@
                 $('#monitoring_finish').empty();
                 if(data.length == 0){
                     var ret_valueT = 
-                    '<div class="messages messages-img">'+
+                   '<div class="messages messages-img">'+
                         '<div class="item item-visible">'+
                             '<div class="image">'+
-                                '<img src="assets/images/users/user.jpg" alt="Dmitry Ivaniuk">'+
+                                '<img src="<?php echo base_url();?>/gambar/no-pic.jpeg" alt="Dmitry Ivaniuk">'+
                             '</div>'+                                
                             '<div class="text">'+
                                 '<div class="heading">'+
-                                    '<a href="#">Dmitry Ivaniuk</a>'+
-                                    '<span class="date">08:27</span>'+
+                                    '<a href="#">ADMINISTRATOR</a>'+
+                                    '<span class="date"></span>'+
                                 '</div>'+                                    
-                                'Quisque ultricies turpis pulvinar lectus semper, eget fringilla purus tincidunt.'+
+                                'Tidak Ada Proses Pemadanan. Silakan Cek Kembali Setelah Proses Matching Data Sudah Dilakukan<br><br>'+
+                                'Terima Kasih'+
                             '</div>'+
                         '</div>'+                      
                     '</div>';

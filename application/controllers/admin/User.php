@@ -6,13 +6,14 @@ if (!defined('BASEPATH'))
 class User extends CI_Controller {
 
     public function index() {
-
+        
         $this->load->model('MSecman');
-
+        $this->load->model('Master_model');
+        $data['menu'] = $this->Master_model->get_menu();
         $data['group'] = $this->MSecman->get_mst_group();
 
-        $this->load->view('admin/include/header');
-        $this->load->view('admin/secman/user', $data);
+        $this->load->view('admin/include/header', $data);
+        $this->load->view('admin/secman/user');
         $this->load->view('admin/include/footer');
     }
 

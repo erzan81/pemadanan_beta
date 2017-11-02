@@ -53,7 +53,7 @@
                     
 
                     <div class="form-group">
-
+                    
                         <label>List Tabel DMP</label>
                         <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_dmp" >
                             <thead>
@@ -70,6 +70,7 @@
                             <tbody>
                             <?php
                                 $i=0;
+
                                 foreach ($dmp as $key) {
 
                                     $log = basename($key->NAMA_FILE, ".DMP").PHP_EOL;

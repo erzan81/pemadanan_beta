@@ -405,6 +405,63 @@ class Master_model extends CI_Model {
         return json_decode(json_encode($results), FALSE);
     }
 
+
+    //menu
+
+    function get_menu(){
+
+      $this->load->model('MSecman');
+
+      $id_group = $this->session->userdata('group');
+      $ref = $this->MSecman->get_mst_group_detil($id_group);
+
+      $main = [];
+      $detil = [];
+
+      $menu = [];
+      $menu_detil = [];
+
+      foreach ($ref as $key) {
+        if($key->SEC_ID_MENU == "mnuRoot"){
+
+          array_push($main, $key);
+
+        }
+        else{
+
+          array_push($detil, $key);
+        }
+      }
+
+
+      foreach ($main as $m ) {
+
+        foreach ($detil as $d) {
+          if($m->ID_MENU == $d->SEC_ID_MENU){
+
+            array_push($menu_detil,$d); 
+
+          }
+          
+        }
+
+        $output = array(
+                          "ID_MENU" => $m->ID_MENU,
+                          "DESKRIPSI_MENU" => $m->DESKRIPSI_MENU,
+                          "NAMA_FORM" => $m->NAMA_FORM,
+                          "ICON_STYLE" => $m->ICON_STYLE,
+                          "DETIL" => $menu_detil,
+                      );
+            
+        array_push($menu,$output); 
+
+        $menu_detil = [];
+      }
+
+     return $menu;
+    
+  }
+
     
 
 }

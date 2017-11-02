@@ -207,7 +207,7 @@
                                 </div>
 
 
-                        <a class="btn btn-info" onclick="get_kolom_check()"><i class="fa fa-check" ></i> Cek</a>
+                        <!-- <a class="btn btn-info" onclick="get_kolom_check()"><i class="fa fa-check" ></i> Cek</a> -->
                    
 
                     <a class="btn btn-info" id="upload"><i class="fa fa-upload" ></i> Upload Excel / CSV</a>

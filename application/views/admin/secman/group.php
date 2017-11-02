@@ -127,6 +127,8 @@ $(document).ready(function() {
             $('#ins_upd').show('slow');
             $('#mode').val("ins");
 
+            $('.btn_submit').show();
+
             getMenu();
 
         });
