@@ -31,10 +31,6 @@ $(document).ready(function() {
 
     });
 
-    
-
-    
-
     $('#btn_inisialisasi').on('click', function () {
 
         init_pemadanan();

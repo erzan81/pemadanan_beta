@@ -338,7 +338,7 @@
             </div>
 
             <div class="modal-footer">
-                <a href="#" class="btn btn-success" id="btn_gabung"><i class="fa fa-check"></i> Ya</a>
+                <a href="#" class="btn btn-success" id="btn_gabung" data-dismiss="modal"><i class="fa fa-check"></i> Ya</a>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Tidak</button>
 
             </div>

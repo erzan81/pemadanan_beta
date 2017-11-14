@@ -54,13 +54,14 @@
                         <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_detail" >
                             <thead>
                                 <tr>
-                                    <th class="text-center" width="10%">STEP KE</th>
+                                    <th class="text-center" width="7%">STEP KE</th>
                                     <th class="text-center" width="15%">NAMA_TABEL</th>
                                     <th class="text-center" width="20%">WAKTU PROSES AWAL</th>
                                     <th class="text-center" width="20%">WAKTU PROSES AKHIR</th>
                                     <th class="text-center" width="15%">LAMA PROSES</th>
+                                    <th class="text-center" width="15%">JUMLAH DATA</th>
                                     <th class="text-center" width="15%">STATUS</th>
-                                    <th class="text-center" width="10%">AKSI</th>   
+                                    <th class="text-center" width="7%">AKSI</th>   
                                 </tr>
                             </thead>
                             <tbody>
@@ -337,6 +338,7 @@
                               '<td align="center">' + value.WAKTU_PROSES_AWAL + '</td>' +
                               '<td align="center">' + value.WAKTU_PROSES_AKHIR + '</td>' +
                               '<td align="center">' + value.LAMA_PROSES + '</td>' +
+                              '<td align="center">' + value.JML_DATA + '</td>' +
                               '<td align="center">' + value.STATUS + '</td>' +
                               '<td align="center">' +
                                 '<a href="#" onclick="get_kodenya(\''+i+'\')"><span class="btn btn-info btn-xs">Lihat Script</span></a><span id="kode'+i+'" style="display:none">' +value.SCRIPT+'</span>'+

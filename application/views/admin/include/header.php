@@ -231,6 +231,7 @@
                     </li>
                     <li class="">
                         <a href="#" class="">Aplikasi Pemadanan Ver. 1.0</a>
+                        <!-- <a href="#" class="">Latihan</a> -->
                     </li>
 
                     <!-- END TOGGLE NAVIGATION -->
