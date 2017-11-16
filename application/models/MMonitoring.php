@@ -155,8 +155,8 @@ class MMonitoring extends CI_Model {
 
         $header = $_POST['header'];
 
-        //$p_nama_table = $_POST['p_nama_table'];
-        $p_nama_table = "T_PMD_137_14112017_0501";
+        $p_nama_table = $_POST['p_nama_table'];
+        //$p_nama_table = "T_PMD_137_14112017_0501";
         $p_start = (($_POST['start'] / $_POST['length']) + 1);
         $p_lenght = $_POST['length'];
         $p_sort_by = $header[$_POST['order'][0]['column']];
