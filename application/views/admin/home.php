@@ -56,12 +56,12 @@
                                 <tr>
                                     <th class="text-center" width="7%">STEP KE</th>
                                     <th class="text-center" width="15%">NAMA_TABEL</th>
-                                    <th class="text-center" width="20%">WAKTU PROSES AWAL</th>
-                                    <th class="text-center" width="20%">WAKTU PROSES AKHIR</th>
-                                    <th class="text-center" width="15%">LAMA PROSES</th>
+                                    <th class="text-center" width="15%">WAKTU PROSES AWAL</th>
+                                    <th class="text-center" width="15%">WAKTU PROSES AKHIR</th>
+                                    <th class="text-center" width="10%">LAMA PROSES</th>
                                     <th class="text-center" width="15%">JUMLAH DATA</th>
-                                    <th class="text-center" width="15%">STATUS</th>
-                                    <th class="text-center" width="7%">AKSI</th>   
+                                    <th class="text-center" width="10%">STATUS</th>
+                                    <th class="text-center" width="10%">AKSI</th>   
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,9 +79,48 @@
             </div>
 
         </div>
-    </div>          
+    </div>
+
+
+           
     
-</div>    
+</div> 
+
+ <div class="row" style="display:none" id="detail_row">
+
+        <div class="col-md-12">
+            <div class="panel panel-success active">
+                <div class="panel-heading">
+                    Detail Tabel : #<label id="label_nama_tabel">nama tabel</label>
+                    
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_detail_data">
+                                <thead>
+                                    <tr></tr> 
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <div class="panel-footer">
+
+                    <a class="btn btn-danger" id="kembali_detail"><i class="fa fa-rotate-left" ></i> Kembali</a>
+
+                </div>
+
+            </div>
+            
+        </div>
+    </div>     
 
 
 <div class="modal fade" id="modal_lihat_kode">
@@ -131,6 +170,13 @@
             $('#detail_monitoring').hide('slow');
             $('#main_monitoring').show('slow');
 
+        });
+
+        $(function() {
+            $('#kembali_detail').on('click', function() {
+                $('#detail_row').hide('slow');
+                $('#detail_monitoring').show('slow');
+            });
         });
 
     });
@@ -321,6 +367,8 @@
             success: function (response) {
 
                 data = JSON.parse(response);
+
+                console.log(data);
                 
                 $('#id_upload').val(data[0].ID_UPLOAD);
                 $('#nama_instansi').val(data[0].NAMA_INSTANSI);
@@ -341,7 +389,8 @@
                               '<td align="center">' + value.JML_DATA + '</td>' +
                               '<td align="center">' + value.STATUS + '</td>' +
                               '<td align="center">' +
-                                '<a href="#" onclick="get_kodenya(\''+i+'\')"><span class="btn btn-info btn-xs">Lihat Script</span></a><span id="kode'+i+'" style="display:none">' +value.SCRIPT+'</span>'+
+                                '<a href="#" onclick="get_kodenya(\''+i+'\')"><span class="btn btn-info btn-xs">Script</span></a><span id="kode'+i+'" style="display:none">' +value.SCRIPT+'</span> '+
+                                '<a href="javascript:get_detail(\''+value.HEADER_KOLOM+'\',\''+value.NAMA_TABEL+'\')"><span class="btn btn-warning btn-xs">Detail</span></a>'+
                               '</td>' +
                               
                               '</tr>';
@@ -373,6 +422,102 @@
             hljs.highlightBlock(block);
         });
         
+    }
+
+
+    function get_detail(header, nama_table) {
+
+        $('#loadingnya').loading();
+        var valData= header;
+        var valNew = valData.split(',');
+        var header_kolom = [];
+        var kolom_data =[];
+
+        //console.log(header);
+        $('#label_nama_tabel').html(nama_table);
+
+        $("#tabel_detail_data > thead > tr").empty();
+        //$("#tabel_detail > thead").append("<tr><tr>");
+
+
+        for(var i=0;i<valNew.length;i++){
+
+            var strRow =
+
+            '<th class="text-center">' + valNew[i] + '</th>';
+
+            $("#tabel_detail_data > thead > tr:first").append(strRow);
+            //console.log(valNew[i]);
+
+            header_kolom.push(valNew[i]);
+            var temp="";
+
+            temp = {"mData": valNew[i], "defaultContent": ""};
+                
+            kolom_data.push(temp)
+
+            temp = ""    
+
+
+        }
+
+        //console.log(kolom_data);
+        setTimeout(function(){ 
+
+            var p_nama_table = nama_table;
+            
+
+            $("#tabel_detail_data").dataTable().fnDestroy();
+            $("#tabel_detail_data > tbody").empty();
+            tableTemplate = $('#tabel_detail_data').DataTable({
+
+                "processing": true,
+                "language": {
+                    "loadingRecords": "&nbsp;",
+                    "processing": "Loading..."
+                },
+                "serverSide": true,
+                "aoColumnDefs": [
+                {
+                    "aTargets": [0],
+                    "bSortable": false
+                }
+                ],
+                "ajax": {
+                    "url": BASE_URL+'admin/monitoring/get_pemadanan_now_detil_pss',
+                    "type": "POST",
+                    "data": {
+                        header: header_kolom,
+                        p_nama_table: p_nama_table
+                    },
+                    "dataSrc": function (json) {
+                        //console.log(json);
+                        return json.data;
+                    }, error: function (request, status, error) {
+                        //showMessage(request.responseText);
+                        //closeLoader();
+                    }
+                },
+                "columns": kolom_data,
+                
+                "drawCallback": function (settings) {
+                    $('th').removeClass('sorting_asc');
+
+                }
+            });
+
+            tableTemplate.on('error', function () {
+                alert('error');
+            });
+
+        }, 100);
+
+        //$("#tabel_detail").append("<tbody> </tbody>");
+        $('#detail_monitoring').hide('slow');
+        $('#detail_row').show('slow');
+        $('#loadingnya').loading('stop');
+        
+
     }
 
 </script>      

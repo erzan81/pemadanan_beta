@@ -92,6 +92,38 @@ class Monitoring extends CI_Controller {
 
     }
 
+
+    function get_pemadanan_now_detil_pss(){
+        $this->load->model('MMonitoring');
+        $hit = $this->MMonitoring->get_pemadanan_now_detil_pss();
+
+        $recordsTotal = "";
+        $recordsFiltered = "";
+
+        //print_r($hit);
+
+        if(count($hit) > 0){
+            //print_r($hit[0]['TOTAL_COUNT']);
+            $recordsTotal = $hit[0]['TOTAL_COUNT'];
+            $recordsFiltered = $hit[0]['TOTAL_COUNT'];
+        }
+        else{
+            //echo "masuk sini";
+            $recordsTotal = 0;
+            $recordsFiltered = 0;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $recordsTotal,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $hit,
+            );
+
+
+        echo json_encode($output);
+    }
+
 }
 
 /* End of file home.php */
