@@ -477,6 +477,7 @@
                     "processing": "Loading..."
                 },
                 "serverSide": true,
+                "scrollX": true,
                 "aoColumnDefs": [
                 {
                     "aTargets": [0],

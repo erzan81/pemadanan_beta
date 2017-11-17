@@ -15,9 +15,9 @@
                 <div class="panel-body tabs">
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#inisialisasi" role="tab" data-toggle="tab">Inisialisasi Pemadanan</a>
+                        <li class="active"><a href="#inisialisasi" role="tab" data-toggle="tab">Proses Pemadanan</a>
                         </li>
-                        <li><a href="#final" role="tab" data-toggle="tab" id="proses_pemadanan">Proses Pemadanan</a>
+                        <li><a href="#final" role="tab" data-toggle="tab" id="proses_pemadanan">Monitoring Pemadanan</a>
                         </li>
                         
                     </ul>
