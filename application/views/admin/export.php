@@ -131,9 +131,7 @@
                     "mRender": function (data, type, full) {
                         //console.log("full : ",full);
                         var vEdit = '<center>'+
-                                        '<a href="#" class="btn btn-success btn-xs" onclick="get_param(\'XLS\',\'ALL\',\''+$.param(full)+'\')"><span class="fa fa-download"></span> Excel</a> '+
-                                        '<a href="#" class="btn btn-info btn-xs" onclick="get_param(\'CSV\',\'ALL\',\''+$.param(full)+'\')"><span class="fa fa-download"></span> CSV</a> '+
-                                        '<a href="#" class="btn btn-danger btn-xs" onclick="get_param(\'DMP\',\'ALL\',\''+$.param(full)+'\')"><span class="fa fa-download"></span> DMP</a>'+
+                                        '<a href="#" class="btn btn-danger btn-xs" onclick="get_param(\'DMP\',\'ALL\',\''+$.param(full)+'\')"><span class="fa fa-download"></span> FINAL</a>'+
                                     '<center>';
                         
                         return vEdit;
@@ -210,7 +208,6 @@
                 "<th style='text-align:center' width='10%'>STEP KE</th>" +
                 "<th style='text-align:center' width='15%'>NAMA TABEL</th>" +
                 "<th style='text-align:center' width='10%'>JUMLAH DATA</th>" +
-                "<th style='text-align:center' width='20%'>AKSI</th>" +
                 "</thead>"+
                 "<tbody>";
 
@@ -226,12 +223,6 @@
                       '<td align="center">'+value.STEP_KE+'</td>'+
                       '<td >'+value.NAMA_TABEL+'</td>'+
                       '<td align="center">' + value.JUMLAH_DATA + '</td>' +
-                      '<td align="center">'+
-                        '<a href="#" class="btn btn-success btn-xs" onclick="get_param(\'XLS\',\'NOT\',\''+$.param(value)+'\')"><span class="fa fa-download"></span> Excel</a> '+
-                        '<a href="#" class="btn btn-info btn-xs" onclick="get_param(\'CSV\',\'NOT\',\''+$.param(value)+'\')"><span class="fa fa-download"></span> CSV</a> '+
-                        '<a href="#" class="btn btn-danger btn-xs" onclick="get_param(\'DMP\',\'NOT\',\''+$.param(value)+'\')"><span class="fa fa-download"></span> DMP</a>'+
-                      '</td>'+  
-
 
                       '</tr>';
             number++;
@@ -324,7 +315,7 @@
             type: 'post',
             success: function (response) {
                 
-                $('#pesan_notifikasi').html("Proses Export Sedang Berlangsung. Link Download Akan Muncul Setelah File Berhasil Di Export");
+                $('#pesan_notifikasi').html("Proses Final Berhasil Disubmit");
                 $('#modalNotif').modal('show');
                 //$('#msg').html(response); // display success response from the server
                 $('#loadingnya').loading('stop');
@@ -352,7 +343,7 @@
             type: 'post',
             success: function (response) {
                 
-                $('#pesan_notifikasi').html("Proses Export Sedang Berlangsung. Link Download Akan Muncul Setelah File Berhasil Di Export");
+                $('#pesan_notifikasi').html("Proses Final Berhasil Disubmit");
                 $('#modalNotif').modal('show');
                 //$('#msg').html(response); // display success response from the server
                 $('#loadingnya').loading('stop');

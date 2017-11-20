@@ -308,8 +308,15 @@
                            string_img =  '<span class="fa fa-university"></span>';
                         }
                         else{
-                            string_img = '<img src="<?php echo base_url();?>/uploads/thumbs/50x50/'+ value.PATH_FILE +'" alt="Pemadanan" width="50" height="50"/>';
+
+                            var s = value.PATH_FILE;
+                            var new_string = s.substring(0, s.lastIndexOf(".")) + "_50x50" + s.substring(s.lastIndexOf("."));
+
+
+                            string_img = '<img src="<?php echo base_url();?>uploads/thumbs/50x50/'+ decodeURIComponent(new_string) +'" alt="Pemadanan" width="50" height="50"/>';
                         }
+
+                        //console.log(decodeURIComponent(new_string));
 
                         var ret_valueT = 
                         '<div class="col-md-4">'+
