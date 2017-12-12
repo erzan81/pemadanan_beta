@@ -18,12 +18,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Range Umur</label>
-                                                <select class="form-control">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <select class="form-control" id="p_umur">
+                                                    <?php 
+
+                                                    foreach ($umur as $row  ) {
+                                                        //print_r ($row);
+                                                        echo "<option value='".$row->ID_UMUR."'>". $row->KETERANGAN."</option>";
+                                                    }
+
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -44,8 +47,8 @@
                 </div>
 
                 <div class="panel-footer">
-                    
-                        <button type="submit" class="btn btn-info"><i class="fa fa-search"></i> Cari</button>
+
+                    <a id="btn_cari" class="btn btn-info"><i class="fa fa-search"></i> Cari</a>
                     
                     
 
@@ -63,7 +66,7 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <table width="100%" class="table table-striped table-bordered table-hover table-responsive" id="dataTables-example">
+                    <table width="100%" class="table table-striped table-bordered table-hover table-responsive" id="table_umur">
                         <thead>
                             <tr>
                                 <th>ID STAT</th>
@@ -102,8 +105,83 @@
 
 <script>
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
+        
+        //get_stat_umur();
+
+        $('#btn_cari').on('click', function () {
+
+            get_stat_umur();
+
         });
+
     });
+
+    function get_stat_umur() {
+
+        //$('#loadingnya').loading();
+        
+        var header_kolom = [];
+        var p_umur = $('#p_umur').val();
+
+        $("#table_umur").dataTable().fnDestroy();
+        var tableTemplate = $('#table_umur').DataTable({
+
+            "processing": true,
+            "language": {
+                "loadingRecords": "&nbsp;",
+                "processing": "Loading..."
+            },
+            "serverSide": true,
+            "aoColumnDefs": [
+            {
+                "aTargets": [0],
+                "bSortable": false
+            }
+            ],
+            "ajax": {
+                "url": BASE_URL+'admin/statistik/get_stat_umur',
+                "type": "POST",
+                "data": {
+                    header: header_kolom,
+                    p_umur: p_umur
+                },
+                "dataSrc": function (json) {
+                    //console.log(json);
+                    return json.data;
+                }, error: function (request, status, error) {
+                    //showMessage(request.responseText);
+                    //closeLoader();
+                }
+            },
+            "columns": [
+                {"data": "ID_STAT", "defaultContent": ""},
+                {"data": "ID_REKAP", "defaultContent": ""},
+                {"data": "ID_PERIODE", "defaultContent": ""},
+                {"data": "KELOMPOK_UMUR", "defaultContent": ""},
+                {"data": "JML_LAKI_J", "defaultContent": ""},
+                {"data": "JML_LAKI_P", "defaultContent": ""},
+                {"data": "JML_PEREMPUAN_J", "defaultContent": ""},
+                {"data": "JML_PEREMPUAN_P", "defaultContent": ""},
+                {"data": "JML_TOTAL", "defaultContent": ""},
+                {"data": "JML_TOTAL_PROSEN", "defaultContent": ""},
+                {"data": "JML_IS_AKTA", "defaultContent": ""},
+                {"data": "JML_IS_AKTA_PROSEN", "defaultContent": ""},
+                {"data": "JML_NOT_AKTA", "defaultContent": ""},
+                {"data": "JML_NOT_AKTA_PROSEN", "defaultContent": ""}
+
+                ],
+            
+            "drawCallback": function (settings) {
+                $('th').removeClass('sorting_asc');
+
+            }
+        });
+
+        tableTemplate.on('error', function () {
+            alert('error');
+        });
+    
+
+    }
+
 </script>

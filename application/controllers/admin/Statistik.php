@@ -8,6 +8,7 @@ class Statistik extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('MCombo');
+        $this->load->model('MStatistik');
             //$this->load->database('pblmig', true);
             
     }
@@ -76,6 +77,130 @@ class Statistik extends CI_Controller {
         $kelurahan = $this->MCombo->get_kelurahan($p_kode_prop, $p_kode_kab, $p_kode_kec);
 
         echo json_encode($kelurahan);
+    }
+
+    function get_stat_data_keluarga(){
+        
+        $hit = $this->MStatistik->get_stat_data_keluarga();
+
+        $recordsTotal = "";
+        $recordsFiltered = "";
+
+        //print_r($hit);
+
+        if(count($hit) > 0){
+            //print_r($hit[0]['TOTAL_COUNT']);
+            $recordsTotal = $hit[0]['TOTAL_COUNT'];
+            $recordsFiltered = $hit[0]['TOTAL_COUNT'];
+        }
+        else{
+            //echo "masuk sini";
+            $recordsTotal = 0;
+            $recordsFiltered = 0;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $recordsTotal,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $hit,
+            );
+
+
+        echo json_encode($output);
+    }
+
+    function get_stat_jenis_kelamin(){
+        
+        $hit = $this->MStatistik->get_stat_jenis_kelamin();
+
+        $recordsTotal = "";
+        $recordsFiltered = "";
+
+        //print_r($hit);
+
+        if(count($hit) > 0){
+            //print_r($hit[0]['TOTAL_COUNT']);
+            $recordsTotal = $hit[0]['TOTAL_COUNT'];
+            $recordsFiltered = $hit[0]['TOTAL_COUNT'];
+        }
+        else{
+            //echo "masuk sini";
+            $recordsTotal = 0;
+            $recordsFiltered = 0;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $recordsTotal,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $hit,
+            );
+
+
+        echo json_encode($output);
+    }
+
+    function get_stat_umur(){
+        
+        $hit = $this->MStatistik->get_stat_umur();
+
+        $recordsTotal = "";
+        $recordsFiltered = "";
+
+        //print_r($hit);
+
+        if(count($hit) > 0){
+            //print_r($hit[0]['TOTAL_COUNT']);
+            $recordsTotal = $hit[0]['TOTAL_COUNT'];
+            $recordsFiltered = $hit[0]['TOTAL_COUNT'];
+        }
+        else{
+            //echo "masuk sini";
+            $recordsTotal = 0;
+            $recordsFiltered = 0;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $recordsTotal,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $hit,
+            );
+
+
+        echo json_encode($output);
+    }
+
+    function get_stat_pendidikan(){
+        
+        $hit = $this->MStatistik->get_stat_pendidikan();
+
+        $recordsTotal = "";
+        $recordsFiltered = "";
+
+        //print_r($hit);
+
+        if(count($hit) > 0){
+            //print_r($hit[0]['TOTAL_COUNT']);
+            $recordsTotal = $hit[0]['TOTAL_COUNT'];
+            $recordsFiltered = $hit[0]['TOTAL_COUNT'];
+        }
+        else{
+            //echo "masuk sini";
+            $recordsTotal = 0;
+            $recordsFiltered = 0;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $recordsTotal,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $hit,
+            );
+
+
+        echo json_encode($output);
     }
     
 

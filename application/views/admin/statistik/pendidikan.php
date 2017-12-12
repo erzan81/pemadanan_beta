@@ -18,12 +18,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Pedidikan</label>
-                                                <select class="form-control">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <select class="form-control" id="p_pendidikan">
+                                                    <?php 
+
+                                                        foreach ($umur as $row  ) {
+                                                        //print_r ($row);
+                                                            echo "<option value='".$row->ID_PENDIDIKAN."'>". $row->KETERANGAN."</option>";
+                                                        }
+
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -44,11 +47,7 @@
                 </div>
 
                 <div class="panel-footer">
-                    
-                        <button type="submit" class="btn btn-info"><i class="fa fa-search"></i> Cari</button>
-                    
-                    
-
+                    <a id="btn_cari" class="btn btn-info"><i class="fa fa-search"></i> Cari</a>
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -63,7 +62,7 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <table width="100%" class="table table-striped table-bordered table-hover table-responsive" id="dataTables-example">
+                    <table width="100%" class="table table-striped table-bordered table-hover table-responsive" id="table_pendidikan">
                         <thead>
                             <tr>
                                 
@@ -104,8 +103,80 @@
 
 <script>
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
+        
+        //get_stat_umur();
+
+        $('#btn_cari').on('click', function () {
+
+            get_stat_pendidikan();
+
         });
+
     });
+
+    function get_stat_pendidikan() {
+
+        //$('#loadingnya').loading();
+        
+        var header_kolom = [];
+        var p_pendidikan = $('#p_pendidikan').val();
+
+        $("#table_pendidikan").dataTable().fnDestroy();
+        var tableTemplate = $('#table_pendidikan').DataTable({
+
+            "processing": true,
+            "language": {
+                "loadingRecords": "&nbsp;",
+                "processing": "Loading..."
+            },
+            "serverSide": true,
+            "aoColumnDefs": [
+            {
+                "aTargets": [0],
+                "bSortable": false
+            }
+            ],
+            "ajax": {
+                "url": BASE_URL+'admin/statistik/get_stat_pendidikan',
+                "type": "POST",
+                "data": {
+                    header: header_kolom,
+                    p_pendidikan: p_pendidikan
+                },
+                "dataSrc": function (json) {
+                    //console.log(json);
+                    return json.data;
+                }, error: function (request, status, error) {
+                    //showMessage(request.responseText);
+                    //closeLoader();
+                }
+            },
+            "columns": [
+                {"data": "ID_REKAP", "defaultContent": ""},
+                {"data": "ID_STAT", "defaultContent": ""},
+                {"data": "ID_PERIODE", "defaultContent": ""},
+                {"data": "PENDIDIKAN_AKHIR", "defaultContent": ""},
+                {"data": "JML_PDDK", "defaultContent": ""},
+                {"data": "BELUM_KAWIN_J", "defaultContent": ""},
+                {"data": "BELUM_KAWIN_P", "defaultContent": ""},
+                {"data": "KAWIN_J", "defaultContent": ""},
+                {"data": "KAWIN_P", "defaultContent": ""},
+                {"data": "CERAI_HIDUP_J", "defaultContent": ""},
+                {"data": "CERAI_HIDUP_P", "defaultContent": ""},
+                {"data": "CERAI_MATI_J", "defaultContent": ""},
+                {"data": "CERAI_MATI_P", "defaultContent": ""}
+                ],
+            
+            "drawCallback": function (settings) {
+                $('th').removeClass('sorting_asc');
+
+            }
+        });
+
+        tableTemplate.on('error', function () {
+            alert('error');
+        });
+    
+
+    }
 </script>
