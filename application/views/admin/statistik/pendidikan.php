@@ -19,9 +19,10 @@
                                             <div class="form-group">
                                                 <label>Pedidikan</label>
                                                 <select class="form-control" id="p_pendidikan">
+                                                    <option>-- Pilih Pendidikan --</option>
                                                     <?php 
 
-                                                        foreach ($umur as $row  ) {
+                                                        foreach ($pendidikan as $row  ) {
                                                         //print_r ($row);
                                                             echo "<option value='".$row->ID_PENDIDIKAN."'>". $row->KETERANGAN."</option>";
                                                         }

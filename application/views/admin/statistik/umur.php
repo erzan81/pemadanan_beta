@@ -19,6 +19,7 @@
                                             <div class="form-group">
                                                 <label>Range Umur</label>
                                                 <select class="form-control" id="p_umur">
+                                                    <option>-- Pilih Umur --</option>
                                                     <?php 
 
                                                     foreach ($umur as $row  ) {

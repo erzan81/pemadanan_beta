@@ -13,7 +13,7 @@
         <!-- CSS INCLUDE -->  
         <link rel="stylesheet" type="text/css" id="theme" href="<?php echo base_url()?>new_asset/css/theme-default.css"/>   
         <link type="text/css" rel="Stylesheet" href="<?php echo CaptchaUrls::LayoutStylesheetUrl()?>" />   
-        <!-- EOF CSS INCLUDE -->                                    
+        <!-- EOF CSS INCLUDE -->                                  
     </head>
     <body class="page-container-boxed">
         <!-- START PAGE CONTAINER -->
@@ -26,89 +26,23 @@
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
                 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="col-md-1">
-                                        <center><img src="<?=base_url('gambar/logo.png');?>" alt="User Image"/> </center>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h1><strong>Aplikasi Pemadanan Data</strong></h1>
-                                        <h4>Direktorat Jenderal Kependudukan dan Pencatatan Sipil</h4>
-                                    </div>
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>  
+                   
 
                     <div class="row">
-                        <div class="col-md-9">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    
-                                    <div class="panel panel-default">
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <div class="panel-title-box">
-                                                    <h3>Users Activity</h3>
-                                                    <span>Users vs returning</span>
-                                                </div>                                    
-                                                <ul class="panel-controls" style="margin-top: 2px;">
-                                                    <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                                                    <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                                    <li class="dropdown">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>                                        
-                                                        <ul class="dropdown-menu">
-                                                            <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                                                            <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                                                        </ul>                                        
-                                                    </li>                                        
-                                                </ul>                                    
-                                            </div>                                
-                                            <div class="panel-body padding-0">
-                                                <div class="chart-holder" id="dashboard-bar-1" style="height: 200px;"></div>
-                                            </div>                                    
-                                        </div>
-
-
-                                        <div class="panel-heading">
-                                            <div class="panel-title-box">
-                                                <h3>Sales & Event</h3>
-                                                <span>Event "Purchase Button"</span>
-                                            </div>
-                                            <ul class="panel-controls" style="margin-top: 2px;">
-                                                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                                                <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>                                        
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                                                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                                                    </ul>                                        
-                                                </li>                                        
-                                            </ul>
-                                        </div>
-                                        <div class="panel-body padding-0">
-                                            <div class="chart-holder" id="dashboard-line-1" style="height: 200px;"></div>
-                                        </div>
-                                    </div>
-                                    
-    
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <?php 
                             echo form_open('login/do_login'); 
                         ?>
+                        <br><br>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4 col-md-offset-4">
                             <div class="panel panel-default">
                                 <div class="panel-body">
+                                    
+                                    <center>
+                                        <img src="<?=base_url('gambar/logo.png');?>" alt="User Image"/>
+                                    <center>
                                     <center><h2>Login</h2></center>
                                     
 
@@ -141,6 +75,12 @@
                                     <?php echo form_close();?> 
     
                                 </div>
+                                <div class="panel-footer text-center">
+                                    
+                                      Kementerian Dalam Negeri &copy; 2017<br>
+                                      Versi 1.0.0
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -171,13 +111,6 @@
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
         <!-- END PAGE PLUGINS -->         
         <script type='text/javascript' src='<?php echo base_url()?>new_asset/js/plugins/icheck/icheck.min.js'></script>   
-
-        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/morris/raphael-min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/morris/morris.min.js"></script>   
-
-        <!-- START TEMPLATE -->
-
-        
         
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins.js"></script>        
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/actions.js"></script>  
