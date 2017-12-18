@@ -31,25 +31,17 @@
                                         <div class="form-group">
                                             <label>Kab / Kota</label>
                                             <select class="form-control" id="p_kode_kab">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                                
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         
-                                        <div class="form-group" id="p_kode_kec">
+                                        <div class="form-group" >
                                             <label>Kecamatan</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" id="p_kode_kec">
+                                                
                                             </select>
                                         </div>
 
@@ -59,27 +51,12 @@
                                        <div class="form-group">
                                             <label>Kelurahan</label>
                                             <select class="form-control" id="p_kode_kel">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                                
                                             </select>
                                         </div> 
 
                                     </div>
-                                    <div class="col-md-6">
-                                        
-                                       <div class="form-group" id="p_jenis_kelamin">
-                                            <label>Jenis Kelamin</label>
-                                            <select class="form-control">
-                                                <option>Laki - Laki</option>
-                                                <option>Perempuan</option>
-                                               
-                                            </select>
-                                        </div> 
-
-                                    </div>
+                                    
                                     
                                 </div>
                             </form>
@@ -168,6 +145,80 @@
         });
 
     });
+
+    function get_kab_kota() {
+        var prop = $('#p_kode_prop').val();
+        $.ajax({
+            type: "GET",
+            url: BASE_URL+'admin/statistik/get_kabupaten',
+            data: {p_kode_prop: prop},
+            success: function (data) {
+            //console.log(data);
+            $('#p_kode_kab').empty();
+            $.each(data, function (key, val) {
+                $('#p_kode_kab').append('<option value="' + val.NO_KAB + '">' + val.NAMA_KAB + '</option>');
+            });
+            $('#p_kode_kab').selectpicker('refresh');
+            },
+            error: function () {
+                $('#p_kode_kab').append('<option id="-1">Tidak Ada Data</option>');
+            }
+        });
+    }
+
+    function get_kecamatan(){
+
+        var prop = $('#p_kode_prop').val();
+        var kab = $('#p_kode_kab').val();
+        $.ajax({
+            type: "GET",
+            url: BASE_URL+'admin/statistik/get_kecamatan',
+            data: {
+                    p_kode_prop: prop,
+                    p_kode_kab: kab 
+                  },
+            success: function (data) {
+            //console.log(data);
+            $('#p_kode_kec').empty();
+            $.each(data, function (key, val) {
+                $('#p_kode_kec').append('<option value="' + val.NO_KEC + '">' + val.NAMA_KEC + '</option>');
+            });
+            $('#p_kode_kec').selectpicker('refresh');
+            },
+            error: function () {
+                $('#p_kode_kec').append('<option id="-1">Tidak Ada Data</option>');
+            }
+        });
+
+    }
+
+    function get_kelurahan(){
+
+        var prop = $('#p_kode_prop').val();
+        var kab = $('#p_kode_kab').val();
+        var kec = $('#p_kode_kec').val();
+        $.ajax({
+            type: "GET",
+            url: BASE_URL+'admin/statistik/get_kelurahan',
+            data: {
+                    p_kode_prop: prop,
+                    p_kode_kab: kab,
+                    p_kode_kec: kec 
+                  },
+            success: function (data) {
+            //console.log(data);
+            $('#p_kode_kel').empty();
+            $.each(data, function (key, val) {
+                $('#p_kode_kel').append('<option value="' + val.NO_KEL + '">' + val.NAMA_KEL + '</option>');
+            });
+            $('#p_kode_kel').selectpicker('refresh');
+            },
+            error: function () {
+                $('#p_kode_kel').append('<option id="-1">Tidak Ada Data</option>');
+            }
+        });
+
+    }
 
     function get_stat_jenis_kelamin() {
 

@@ -24,7 +24,7 @@
 
                                                         foreach ($pendidikan as $row  ) {
                                                         //print_r ($row);
-                                                            echo "<option value='".$row->ID_PENDIDIKAN."'>". $row->KETERANGAN."</option>";
+                                                            echo "<option value='".$row->ID_PENDIDIKAN."'>".$row->KETERANGAN."</option>";
                                                         }
 
                                                     ?>

@@ -20,7 +20,7 @@ class MStatistik extends CI_Model {
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
-        $header = $_POST['header'];
+        //$header = $_POST['header'];
 
         $p_kode_prop = $_POST['p_kode_prop'];
         $p_kode_kab = $_POST['p_kode_kab'];
@@ -28,8 +28,8 @@ class MStatistik extends CI_Model {
         $p_kode_kel = $_POST['p_kode_kel'];
         $p_start = (($_POST['start'] / $_POST['length']) + 1);
         $p_lenght = $_POST['length'];
-        $p_sort_by = $header[$_POST['order'][0]['column']];
-        $p_sort_dir = $_POST['order'][0]['dir'];
+        $p_sort_by = "";
+        $p_sort_dir = "";
         $p_search = $_POST['search']['value'];
 
         //Send parameters variable  value  lenght
@@ -75,7 +75,7 @@ class MStatistik extends CI_Model {
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
-        $header = $_POST['header'];
+        //$header = $_POST['header'];
 
         $p_kode_prop = $_POST['p_kode_prop'];
         $p_kode_kab = $_POST['p_kode_kab'];
@@ -83,8 +83,10 @@ class MStatistik extends CI_Model {
         $p_kode_kel = $_POST['p_kode_kel'];
         $p_start = (($_POST['start'] / $_POST['length']) + 1);
         $p_lenght = $_POST['length'];
-        $p_sort_by = $header[$_POST['order'][0]['column']];
-        $p_sort_dir = $_POST['order'][0]['dir'];
+        // $p_sort_by = $header[$_POST['order'][0]['column']];
+        // $p_sort_dir = $_POST['order'][0]['dir'];
+        $p_sort_by = "";
+        $p_sort_dir = "";
         $p_search = $_POST['search']['value'];
 
         //Send parameters variable  value  lenght
@@ -130,13 +132,15 @@ class MStatistik extends CI_Model {
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
-        $header = $_POST['header'];
+        //$header = $_POST['header'];
 
         $p_umur = $_POST['p_umur'];
         $p_start = (($_POST['start'] / $_POST['length']) + 1);
         $p_lenght = $_POST['length'];
-        $p_sort_by = $header[$_POST['order'][0]['column']];
-        $p_sort_dir = $_POST['order'][0]['dir'];
+        // $p_sort_by = $header[$_POST['order'][0]['column']];
+        // $p_sort_dir = $_POST['order'][0]['dir'];
+        $p_sort_by = "";
+        $p_sort_dir = "";
         $p_search = $_POST['search']['value'];
 
         //Send parameters variable  value  lenght
@@ -182,13 +186,15 @@ class MStatistik extends CI_Model {
 
         $OUT_DATA = oci_new_cursor($this->pblmig_db->conn_id);
 
-        $header = $_POST['header'];
+        //$header = $_POST['header'];
 
         $p_pendidikan = $_POST['p_pendidikan'];
         $p_start = (($_POST['start'] / $_POST['length']) + 1);
         $p_lenght = $_POST['length'];
-        $p_sort_by = $header[$_POST['order'][0]['column']];
-        $p_sort_dir = $_POST['order'][0]['dir'];
+        // $p_sort_by = $header[$_POST['order'][0]['column']];
+        // $p_sort_dir = $_POST['order'][0]['dir'];
+        $p_sort_by = "";
+        $p_sort_dir = "";
         $p_search = $_POST['search']['value'];
 
         //Send parameters variable  value  lenght
