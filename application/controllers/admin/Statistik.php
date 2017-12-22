@@ -48,6 +48,8 @@ class Statistik extends CI_Controller {
 
         $data['pendidikan'] = $this->MCombo->get_pendidikan();
         $data['menu'] = $this->Master_model->get_menu();
+
+        //print_r($data);
         
         $this->load->view('admin/include/header', $data);
         $this->load->view('admin/statistik/pendidikan');

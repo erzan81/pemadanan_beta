@@ -18,13 +18,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Pedidikan</label>
-                                                <select class="form-control" id="p_pendidikan">
+                                                <select class="form-control select" data-live-search="true" id="p_pendidikan">
                                                     <option>-- Pilih Pendidikan --</option>
                                                     <?php 
 
                                                         foreach ($pendidikan as $row) {
                                                         
-                                                            echo "<option value='".$row->ID_PENDIDIKAN."'>".$row->KETERANGAN."</option>";
+                                                            echo "<option value='".$row->ID_PENDIDIKAN."'>".$row->PENDIDIKAN_AKHIR."</option>";
                                                         }
 
                                                     ?>
