@@ -83,7 +83,7 @@
                                 <th>JML IS AKTA</th>
                                 <th>JML IS AKTA PROSEN</th>
                                 <th>JML NOT AKTA</th>
-                                <th>JML JML NOT AKTA PROSEN</th>
+                                <th>JML NOT AKTA PROSEN</th>
 
                             </tr>
                         </thead>
