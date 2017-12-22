@@ -9,6 +9,7 @@ class Statistik extends CI_Controller {
         parent::__construct();
         $this->load->model('MCombo');
         $this->load->model('MStatistik');
+        $this->load->model('Master_model');
             //$this->load->database('pblmig', true);
             
     }
@@ -16,6 +17,7 @@ class Statistik extends CI_Controller {
     public function data_keluarga() {
 
         $data['propinsi'] = $this->MCombo->get_propinsi();
+        $data['menu'] = $this->Master_model->get_menu();
         
         $this->load->view('admin/include/header', $data);
         $this->load->view('admin/statistik/data_keluarga');
@@ -25,6 +27,7 @@ class Statistik extends CI_Controller {
     public function jenis_kelamin() {
 
         $data['propinsi'] = $this->MCombo->get_propinsi();
+        $data['menu'] = $this->Master_model->get_menu();
         
         $this->load->view('admin/include/header', $data);
         $this->load->view('admin/statistik/jenis_kelamin');
@@ -34,6 +37,7 @@ class Statistik extends CI_Controller {
     public function umur() {
 
         $data['umur'] = $this->MCombo->get_umur();
+        $data['menu'] = $this->Master_model->get_menu();
         
         $this->load->view('admin/include/header', $data);
         $this->load->view('admin/statistik/umur');
@@ -43,6 +47,7 @@ class Statistik extends CI_Controller {
     public function pendidikan() {
 
         $data['pendidikan'] = $this->MCombo->get_pendidikan();
+        $data['menu'] = $this->Master_model->get_menu();
         
         $this->load->view('admin/include/header', $data);
         $this->load->view('admin/statistik/pendidikan');
@@ -53,7 +58,7 @@ class Statistik extends CI_Controller {
 
         $id = $this->input->post("p_kode_prop");
 
-        $kabupaten = $this->MCombo->get_propinsi($id);
+        $kabupaten = $this->MCombo->get_kabupaten($id);
 
         echo json_encode($kabupaten);
     }
