@@ -22,8 +22,8 @@
                                                     <option>-- Pilih Pendidikan --</option>
                                                     <?php 
 
-                                                        foreach ($pendidikan as $row  ) {
-                                                        //print_r ($row);
+                                                        foreach ($pendidikan as $row) {
+                                                        
                                                             echo "<option value='".$row->ID_PENDIDIKAN."'>".$row->KETERANGAN."</option>";
                                                         }
 

@@ -18,7 +18,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Range Umur</label>
-                                                <select class="form-control" id="p_umur">
+                                                <select class="form-control select" data-live-search="true" id="p_umur">
                                                     <option>-- Pilih Umur --</option>
                                                     <?php 
 

@@ -11,60 +11,69 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form class="form-horizontal">
-                                <div class="form-group">
+                               
+                                <div class="row">
+
                                     <div class="col-md-6">
+
                                         <div class="form-group">
-                                            <label>Propinsi</label>
-                                            <select class="form-control" id="p_kode_prop" onchange="get_kab_kota();"> 
-                                                <?php 
+                                            <label class="col-md-2 control-label">Propinsi</label>
+                                            <div class="col-md-9">                                            
+                                                <select class="form-control select" data-live-search="true" id="p_kode_prop" onchange="get_kab_kota();"> 
+                                                    <?php 
 
-                                                foreach ($propinsi as $row  ) {
-                                                    //print_r ($row);
-                                                    echo "<option value='".$row->NO_PROP."'>". $row->NAMA_PROP."</option>";
-                                                }
+                                                    foreach ($propinsi as $row  ) {
 
-                                                ?>
-                                            </select>
+                                                        echo "<option value='".$row->NO_PROP."'>". $row->NAMA_PROP."</option>";
+                                                    }
+
+                                                    ?>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
+
                                         <div class="form-group">
-                                            <label>Kab / Kota</label>
-                                            <select class="form-control" id="p_kode_kab" onchange="get_kecamatan();">
-                                                
-                                            </select>
-                                        </div>
-                                    </div>
+                                            <label class="col-md-2 control-label">Kab / Kota</label>
+                                            <div class="col-md-9">                                            
+                                                <select class="form-control select" data-live-search="true" id="p_kode_kab" onchange="get_kecamatan();">
 
-                                    <div class="col-md-6">
-
-                                        <div class="form-group"  >
-                                            <label>Kecamatan</label>
-                                            <select class="form-control" id="p_kode_kec" onchange="get_kelurahan();">
-                                                
-                                            </select>
+                                                </select>
+                                            </div>
                                         </div>
+
+
 
                                     </div>
                                     <div class="col-md-6">
 
-                                     <div class="form-group">
-                                        <label>Kelurahan</label>
-                                        <select class="form-control" id="p_kode_kel">
-                                            
-                                        </select>
-                                    </div> 
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Kecamatan</label>
+                                            <div class="col-md-9">                                            
+                                                <select class="form-control select" data-live-search="true" id="p_kode_kec" onchange="get_kelurahan();">
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Kelurahan</label>
+                                            <div class="col-md-9">                                            
+                                                <select class="form-control select" data-live-search="true" id="p_kode_kel">
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
 
                                 </div>
-                                    
-                                    
-                                </div>
+
                             </form>
                             
                         </div>
-                        <!-- /.col-lg-6 (nested) -->
                         
-                        <!-- /.col-lg-6 (nested) -->
                     </div>
                     <!-- /.row (nested) -->
                 </div>
@@ -162,7 +171,7 @@
             $.each(data, function (key, val) {
                 $('#p_kode_kab').append('<option value="' + val.NO_KAB + '">' + val.NAMA_KAB + '</option>');
             });
-            //$('#p_kode_kab').selectpicker('refresh');
+            $('#p_kode_kab').selectpicker('refresh');
             },
             error: function () {
                 $('#p_kode_kab').append('<option id="-1">Tidak Ada Data</option>');
@@ -189,7 +198,7 @@
             $.each(data, function (key, val) {
                 $('#p_kode_kec').append('<option value="' + val.NO_KEC + '">' + val.NAMA_KEC + '</option>');
             });
-            //$('#p_kode_kec').selectpicker('refresh');
+            $('#p_kode_kec').selectpicker('refresh');
             },
             error: function () {
                 $('#p_kode_kec').append('<option id="-1">Tidak Ada Data</option>');
@@ -220,7 +229,7 @@
             $.each(data, function (key, val) {
                 $('#p_kode_kel').append('<option value="' + val.NO_KEL + '">' + val.NAMA_KEL + '</option>');
             });
-            //$('#p_kode_kel').selectpicker('refresh');
+            $('#p_kode_kel').selectpicker('refresh');
             },
             error: function () {
                 $('#p_kode_kel').append('<option id="-1">Tidak Ada Data</option>');
