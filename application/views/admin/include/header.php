@@ -210,7 +210,7 @@
                     } 
 
                     ?>
-                    <li class="xn-openable active">
+                    <!-- <li class="xn-openable active">
                         <a href="#"><span class="fa fa-bar-chart-o"></span> <span class="xn-text">Data Statistik</span></a>
                         <ul>
                             <li><a href="<?php echo base_url('admin/statistik/data_keluarga');?>"><i class="fa fa-users"></i><span class="xn-text">Data Keluarga</span></a></li>
@@ -218,7 +218,7 @@
                             <li><a href="<?php echo base_url('admin/statistik/umur');?>"><i class="fa fa-signal"></i><span class="xn-text">Umur</span></a></li>
                             <li><a href="<?php echo base_url('admin/statistik/pendidikan');?>"><i class="fa fa-university"></i><span class="xn-text">Pendidikan</span></a></li>
                         </ul>
-                    </li>   
+                    </li>  -->  
 
 
 
