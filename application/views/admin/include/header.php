@@ -151,7 +151,7 @@
                         </a>
                         <div class="profile">
                             <div class="profile-image">
-                                <img src="<?=base_url('uploads/'.$this->session->userdata('photo'));?>" alt="Pemadanan" width="100" height="100"/>
+                                <img src="<?=base_url('uploads/'.$this->session->userdata('photo'));?>" onerror="this.src='<?php echo base_url();?>/gambar/no-pic.jpeg'" alt="Pemadanan" width="100" height="100"/>
                             </div>
                             <div class="profile-data">
                                 <div class="profile-data-name"><?php echo $this->session->userdata('nama_user');?></div>
