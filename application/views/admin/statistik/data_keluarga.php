@@ -139,7 +139,12 @@
     $(document).ready(function() {
 
     //get_stat_umur();
+    $('#p_kode_prop').change();
 
+    setTimeout(function(){ $('#p_kode_kab').change();; }, 500);
+    setTimeout(function(){ $('#p_kode_kec').change();; }, 750);
+
+    
     $('#btn_cari').on('click', function () {
 
         get_stat_data_keluarga();

@@ -526,6 +526,7 @@ function get_metode_pemadanan(p_id_upload) {
         "processing": true,
         "serverSide": false,
         "autoWidth": false,
+        "paging": false,
         "aoColumnDefs": [
             {
                 "bSortable": false,

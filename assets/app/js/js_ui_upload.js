@@ -696,8 +696,6 @@ function get_upload_temp_tandingan() {
                 return json.MAIN;
             }
         },
-
-
         "columns": [
             {
                 "className": 'details-control',

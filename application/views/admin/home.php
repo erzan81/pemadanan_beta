@@ -198,7 +198,7 @@
                    '<div class="messages messages-img">'+
                         '<div class="item item-visible">'+
                             '<div class="image">'+
-                                '<img src="<?php echo base_url();?>/gambar/no-pic.jpeg" alt="Dmitry Ivaniuk">'+
+                                '<img src="<?php echo base_url();?>/gambar/no-pic.jpeg" alt="Administrator">'+
                             '</div>'+                                
                             '<div class="text">'+
                                 '<div class="heading">'+
@@ -221,16 +221,20 @@
                     $.each(data, function (i, value) {
 
                         if(value.PATH_FILE == null || value.PATH_FILE == ""){
-                           string_img =  '<span class="fa fa-university"></span>';
+                           string_img = '<img src="<?php echo base_url();?>/gambar/fasilitas.png" alt="Pemadanan" width="50" height="50"/>';
                         }
                         else{
-                            string_img = '<img src="<?php echo base_url();?>/uploads/thumbs/50x50/'+ value.PATH_FILE +'" alt="Pemadanan" width="50" height="50"/>';
+                            var img_error = "<?php echo base_url();?>/gambar/fasilitas.png";
+                            var s = value.PATH_FILE;
+                            var new_string = s.substring(0, s.lastIndexOf(".")) + "_50x50" + s.substring(s.lastIndexOf("."));
+
+                            string_img = '<img src="<?php echo base_url();?>uploads/thumbs/50x50/'+ decodeURIComponent(new_string) +'" alt="Pemadanan" width="50" height="50" onerror="this.src=\''+img_error+'\'" />';
                         }
 
                         var ret_valueT = 
-                        '<div class="col-md-4">'+
+                        '<div class="col-md-4" >'+
                             
-                                '<div class="widget widget-info widget-item-icon" >'+
+                                '<div class="widget widget-warning widget-item-icon" >'+
                                     '<div class="widget-item-left">'+ string_img +'</div>'+                             
                                     '<div class="widget-data" style="word-wrap: break-word;">'+
                                         '<div class="widget-title">'+value.NAMA_INSTANSI+'</div>'+
@@ -284,7 +288,7 @@
                     '<div class="messages messages-img">'+
                         '<div class="item item-visible">'+
                             '<div class="image">'+
-                                '<img src="<?php echo base_url();?>/gambar/no-pic.jpeg" alt="Dmitry Ivaniuk">'+
+                                '<img src="<?php echo base_url();?>/gambar/no-pic.jpeg" alt="Administrator">'+
                             '</div>'+                                
                             '<div class="text">'+
                                 '<div class="heading">'+
@@ -305,15 +309,15 @@
                     $.each(data, function (i, value) {
 
                         if(value.PATH_FILE == null || value.PATH_FILE == ""){
-                           string_img =  '<span class="fa fa-university"></span>';
+                           string_img = '<img src="<?php echo base_url();?>/gambar/fasilitas.png" alt="Pemadanan" />';
                         }
                         else{
 
+                            var img_error = "<?php echo base_url();?>/gambar/fasilitas.png";
                             var s = value.PATH_FILE;
                             var new_string = s.substring(0, s.lastIndexOf(".")) + "_50x50" + s.substring(s.lastIndexOf("."));
 
-
-                            string_img = '<img src="<?php echo base_url();?>uploads/thumbs/50x50/'+ decodeURIComponent(new_string) +'" alt="Pemadanan" width="50" height="50"/>';
+                            string_img = '<img src="<?php echo base_url();?>uploads/thumbs/50x50/'+ decodeURIComponent(new_string) +'" alt="Pemadanan" width="50" height="50" onerror="this.src=\''+img_error+'\'" />';
                         }
 
                         //console.log(decodeURIComponent(new_string));
@@ -321,7 +325,7 @@
                         var ret_valueT = 
                         '<div class="col-md-4">'+
                             
-                                '<div class="widget widget-warning widget-item-icon" >'+
+                                '<div class="widget widget-warning widget-item-icon">'+
                                     '<div class="widget-item-left">'+ string_img +'</div>'+                             
                                     '<div class="widget-data" style="word-wrap: break-word;">'+
                                         '<div class="widget-title">'+value.NAMA_INSTANSI+'</div>'+
