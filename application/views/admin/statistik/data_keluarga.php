@@ -141,8 +141,8 @@
     //get_stat_umur();
     $('#p_kode_prop').change();
 
-    setTimeout(function(){ $('#p_kode_kab').change();; }, 500);
-    setTimeout(function(){ $('#p_kode_kec').change();; }, 750);
+    setTimeout(function(){ $('#p_kode_kab').change();; }, 1000);
+    setTimeout(function(){ $('#p_kode_kec').change();; }, 1500);
 
     
     $('#btn_cari').on('click', function () {
