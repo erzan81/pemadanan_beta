@@ -641,9 +641,11 @@
             success: function (response) {
 
                 var data = JSON.parse(response);
-                console.log(data);
+                //console.log(data);
                 var number = 1;
                 
+                $('#label_step').html(b);
+
                 $('#tabel_metode tbody').empty();
                 $.each(data, function (i, value) {
 
@@ -678,9 +680,4 @@
         });
     }
 
-    function get_metode_pemadanan_erzan(p_id_upload, step_ke) {
-
-        
-    
-    }
 </script>      
