@@ -20,6 +20,32 @@ class Monitoring extends CI_Controller {
         $this->load->view('admin/include/footer');
     }
 
+    function get_metode_pemadanan_dashboard(){
+
+        $this->load->model('MMatching');
+
+        //$p_id_upload = $this->input->post('p_id_upload');
+        $p_id_upload = "UPLOAD-20180109-000001";
+        $step_ke = 1;
+        //$step_ke = $this->input->post('step_ke');
+        $detil_fix = array();
+        //$main = $this->MMatching->get_metode_pemadanan($p_id_upload);
+        $detil = $this->MMatching->get_metode_pemadanan_detil($p_id_upload);
+            
+            foreach ($detil as $det ) {
+                if($det->ID_UPLOAD == $p_id_upload && $det->STEP_KE == $step_ke){
+
+                    array_push($detil_fix,$det);
+
+                }
+
+            }
+
+
+        echo json_encode($detil_fix);  
+
+    }
+
     function coba(){
 
     	$this->load->model('MMonitoring');

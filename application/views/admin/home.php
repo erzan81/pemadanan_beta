@@ -34,21 +34,58 @@
             </div>
             
             <div class="panel-body">
+
+                <form class="form-horizontal">
+
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">ID UPLOAD</label>
+                                <div class="col-md-9">                                            
+                                    <input type="text" id="id_upload" name="id_upload" class="form-control" readonly="readonly">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">NAMA INSTANSI</label>
+                                <div class="col-md-9">                                            
+                                    <input type="text" id="nama_instansi" name="nama_instansi" class="form-control" readonly="readonly">
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">KEGIATAN</label>
+                                <div class="col-md-9">                                            
+                                    <input type="text" id="kegiatan" name="kegiatan" class="form-control" readonly="readonly">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">JUMLAH DATA AWAL</label>
+                                <div class="col-md-9">                                            
+                                    <input type="text" id="jumlah_data_awal" name="jumlah_data_awal" class="form-control" readonly="readonly">
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+                </form>
+
                 <form role="form">
-
-                <div class="form-group" id="keterangan_form">
-                    <label>ID UPLOAD</label>
-                    <input type="text" id="id_upload" name="id_upload" class="form-control" readonly="readonly">
-                </div>
-
-                <div class="form-group" id="keterangan_form">
-                    <label>NAMA INSTANSI </label>
-                    <input type="text" id="nama_instansi" name="nama_instansi" class="form-control" readonly="readonly">
-                </div>
-                <div class="form-group" id="keterangan_form">
-                    <label>KEGIATAN </label>
-                    <input type="text" id="kegiatan" name="kegiatan" class="form-control" readonly="readonly">
-                </div>
+                <br>
                     <div class="form-group">
 
                         <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_detail" >
@@ -61,7 +98,7 @@
                                     <th class="text-center" width="10%">LAMA PROSES</th>
                                     <th class="text-center" width="15%">JUMLAH DATA</th>
                                     <th class="text-center" width="10%">STATUS</th>
-                                    <th class="text-center" width="10%">AKSI</th>   
+                                    <th class="text-center" width="15%">AKSI</th>   
                                 </tr>
                             </thead>
                             <tbody>
@@ -120,7 +157,54 @@
             </div>
             
         </div>
-    </div>     
+    </div>
+
+    <div class="row" style="display:none" id="detail_metode">
+
+        <div class="col-md-12">
+            <div class="panel panel-info active">
+                <div class="panel-heading">
+                    Detail Metode Step Ke : #<label id="label_step"></label>
+                    
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="tabel_metode">
+
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" width="7%">#</th>
+                                        <th class="text-center" width="15%">ID KOLOM</th>
+                                        <th class="text-center" width="15%">IS PROSES</th>
+                                        <th class="text-center" width="15%">IS DIGIT</th>
+                                        <th class="text-center" width="15%">DIGIT</th>
+                                        <th class="text-center" width="15%">METODE</th>
+                                        <th class="text-center" width="15%">NILAI</th>
+                                        <th class="text-center" width="15%">ATRIBUT</th>
+                                          
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <div class="panel-footer">
+
+                    <a class="btn btn-danger" id="kembali_metode"><i class="fa fa-rotate-left" ></i> Kembali</a>
+
+                </div>
+
+            </div>
+            
+        </div>
+    </div>      
 
 
 <div class="modal fade" id="modal_lihat_kode">
@@ -150,6 +234,8 @@
 
 <script type="text/javascript">
     
+    var table_metode;
+
     $(document).ready(function() {
 
         get_monitoring_now();
@@ -168,13 +254,25 @@
         $('#btn_kembali').on('click', function () {
 
             $('#detail_monitoring').hide('slow');
+            $('#detail_row').hide('slow');
+            $('#detail_metode').hide('slow');
             $('#main_monitoring').show('slow');
+
+        });
+
+        $('#kembali_metode').on('click', function () {
+
+            
+            $('#detail_row').hide('slow');
+            $('#detail_metode').hide('slow');
+            $('#detail_monitoring').show('slow');
 
         });
 
         $(function() {
             $('#kembali_detail').on('click', function() {
                 $('#detail_row').hide('slow');
+                $('#detail_metode').hide('slow');
                 $('#detail_monitoring').show('slow');
             });
         });
@@ -384,6 +482,7 @@
                 $('#id_upload').val(data[0].ID_UPLOAD);
                 $('#nama_instansi').val(data[0].NAMA_INSTANSI);
                 $('#kegiatan').val(data[0].KEGIATAN);
+                $('#jumlah_data_awal').val(data[0].JML_DATA_AWAL);
 
                 var number = 1;
                 
@@ -401,7 +500,8 @@
                               '<td align="center">' + value.STATUS + '</td>' +
                               '<td align="center">' +
                                 '<a href="#" onclick="get_kodenya(\''+i+'\')"><span class="btn btn-info btn-xs">Script</span></a><span id="kode'+i+'" style="display:none">' +value.SCRIPT+'</span> '+
-                                '<a href="javascript:get_detail(\''+value.HEADER_KOLOM+'\',\''+value.NAMA_TABEL+'\')"><span class="btn btn-warning btn-xs">Detail</span></a>'+
+                                '<a href="javascript:get_detail(\''+value.HEADER_KOLOM+'\',\''+value.NAMA_TABEL+'\')"><span class="btn btn-warning btn-xs">Detail</span></a> '+
+                                '<a href="#" onclick="coba(\''+value.ID_UPLOAD+'\',\''+value.STEP_KE+'\')"><span class="btn btn-success btn-xs">Metode</span></a>'+
                               '</td>' +
                               
                               '</tr>';
@@ -532,4 +632,55 @@
 
     }
 
+    function coba(a,b){
+
+        $.ajax({
+            url: BASE_URL+'admin/monitoring/get_metode_pemadanan_dashboard', // point to server-side controller method
+            data: {p_id_upload: a, step_ke: b},
+            type: 'post',
+            success: function (response) {
+
+                var data = JSON.parse(response);
+                console.log(data);
+                var number = 1;
+                
+                $('#tabel_metode tbody').empty();
+                $.each(data, function (i, value) {
+
+                    var ret_valueT =
+                          '<tr>' +
+                          '<td align="center">'+number+'</td>' +
+                          '<td align="center">' + value.ID_KOLOM + '</td>' +
+                          '<td align="center">' + value.IS_PROSES + '</td>' +
+                          '<td align="center">' + value.IS_DIGIT + '</td>' +
+                          '<td align="center">' + value.DIGIT + '</td>' +
+                          '<td align="center">'+ value.METODE +'</td>'+
+                          '<td align="center">' + value.NILAI + '</td>' +
+                          '<td align="center">' + value.ATRIBUT + '</td>' +
+                          '</tr>';
+
+
+                    $('#tabel_metode tbody').append(ret_valueT);
+                    number++;
+                    
+                });
+
+                $('#main_monitoring').hide('slow');
+                $('#detail_monitoring').hide('slow');
+                $('#detail_row').hide('slow');
+                $('#detail_metode').show('slow');
+
+
+            },
+            error: function (response) {
+                alert(response); // display error response from the server
+            }
+        });
+    }
+
+    function get_metode_pemadanan_erzan(p_id_upload, step_ke) {
+
+        
+    
+    }
 </script>      

@@ -20,6 +20,8 @@ class Home extends CI_Controller {
 		$this->load->view('admin/include/footer');
 	}
 
+	
+
 }
 
 /* End of file home.php */
