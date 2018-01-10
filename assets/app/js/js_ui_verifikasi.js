@@ -1,4 +1,6 @@
 var table_temp_upload;
+var open_img = BASE_URL + "gambar/details_open.png";
+var close_img = BASE_URL + "gambar/details_close.png";
 
 $(document).ready(function() {
 
@@ -155,7 +157,7 @@ function get_upload_temp_tandingan() {
                 "className": 'details-control',
                 "orderable": false,
                 "data": null,
-                "defaultContent": ''
+                "defaultContent": '<img src="'+open_img+'"></img>'
             },
             {"data": "NAMA_INSTANSI", "defaultContent": ""},
             {"data": "INSTANSI_ID", "defaultContent": ""},

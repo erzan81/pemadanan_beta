@@ -2,16 +2,12 @@
 
 <style type="text/css">
     .details-control {
-        background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+        background: url('<?php echo base_url();?>/gambar/details_open.png') no-repeat center center;
         cursor: pointer;
     }
     .shown td.details-control {
-        background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+        background: url('<?php echo base_url();?>/gambar/details_close.png') no-repeat center center;
     }
-
-    
-   
-
 </style>
 
     

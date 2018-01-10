@@ -49,23 +49,14 @@ $active_group = "pblmig";
 $active_record = TRUE;
 
 
-$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =10.14.160.174)(PORT = 1521))(CONNECT_DATA =(SID = KONOHA)))';
-//$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =36.71.184.117)(PORT = 1521))(CONNECT_DATA =(SID = KONOHA)))';
-//$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =192.168.3.26)(PORT = 1521))(CONNECT_DATA =(SID = KONOHA)))';
-
+//$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =192.168.34.131)(PORT = 1521))(CONNECT_DATA =(SID = dwhduk1)))';
+$tnsname = '(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST =10.10.20.61)(PORT = 1521))(CONNECT_DATA =(SID = KONOHA)))';
 
 $db['pblmig']['hostname'] = $tnsname;
 $db['pblmig']['username'] = 'pemadanan_app';
 $db['pblmig']['password'] = '12345678';
 $db['pblmig']['database'] = '';
 $db['pblmig']['dbdriver'] = 'oci8';
-
-// $db['pblmig']['hostname'] = '';
-// $db['pblmig']['username'] = '';
-// $db['pblmig']['password'] = '';
-// $db['pblmig']['database'] = '';
-// $db['pblmig']['dbdriver'] = 'mysqli';
-
 
 $db['pblmig']['dbprefix'] = '';
 $db['pblmig']['pconnect'] = FALSE;

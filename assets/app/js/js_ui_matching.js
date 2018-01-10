@@ -7,9 +7,13 @@ var p_step_ke;
 var p_step_acuan;
 var p_is_paralel;
 
+var open_img = BASE_URL + "gambar/details_open.png";
+var close_img = BASE_URL + "gambar/details_close.png";
+
 $(document).ready(function() {
 
     get_data_final();
+
     //get_acuan_step();
     //get_metode_pemadanan("123");
 
@@ -579,7 +583,7 @@ function get_metode_pemadanan(p_id_upload) {
                 "className": 'details-control',
                 "orderable": false,
                 "data": null,
-                "defaultContent": '<img src="http://www.datatables.net/examples/resources/details_open.png"></img>'
+                "defaultContent": '<img src="'+open_img+'"></img>'
             },
             {"data": "STEP_KE", "defaultContent": ""},
             {"data": "NAMA_INSTANSI", "defaultContent": ""},

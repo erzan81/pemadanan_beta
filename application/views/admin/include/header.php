@@ -30,19 +30,19 @@
     <!-- START SCRIPTS -->
         <!-- START PLUGINS -->
 
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js"></script>
+        <script src="<?php echo base_url()?>assets/plugins/js/jquery-1.11.1.min.js"></script>
+        <script src="<?php echo base_url()?>assets/plugins/js/jquery-ui.min.js"></script>
+        <script src="<?php echo base_url()?>assets/plugins/js/lodash.min.js"></script>
 
         <script type="text/javascript" src="<?php echo base_url()?>new_asset/js/plugins/bootstrap/bootstrap.min.js"></script>        
         <!-- END PLUGINS -->
 
         <!-- <script src="<?php //echo base_url('assets/sb-admin-v2/js/select2.full.min.js') ?>"></script> -->
 
-        <script src="https://cdn.jsdelivr.net/jquery.tablednd/0.8/jquery.tablednd.0.8.min.js"></script>
+        <script src="<?php echo base_url()?>assets/plugins/js/jquery.tablednd.0.8.min.js"></script>
  
     
-        <script src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <script src="<?php echo base_url()?>assets/plugins/js/jquery.dataTables.min.js"></script>
     
         <script src="<?php echo base_url('assets/plugins/loading/loading.js') ?>"></script>
       

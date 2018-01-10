@@ -431,7 +431,7 @@
                                         '<div class="widget-subtitle" >'+value.KEGIATAN+'</div>'+
                                     '</div>'+  
                                     '<div class="widget-buttons">'+  
-                                        '<a href="#" onclick="get_monitoring_finish_detail(\''+value.ID_UPLOAD+'\',\'2\')" ><span class="fa fa-search"></span></a>'+   
+                                        '<a href="#" onclick="get_monitoring_finish_detail(\''+value.ID_UPLOAD+'\',\'2\',\''+value.JML_DATA_AWAL+'\')" ><span class="fa fa-search"></span></a>'+   
                                     '</div>'+
 
                                 '</div>'+ 
@@ -457,7 +457,7 @@
 
     }
 
-    function get_monitoring_finish_detail(id_upload, kat){
+    function get_monitoring_finish_detail(id_upload, kat, jml_data){
 
         var url = "";
 
@@ -482,7 +482,7 @@
                 $('#id_upload').val(data[0].ID_UPLOAD);
                 $('#nama_instansi').val(data[0].NAMA_INSTANSI);
                 $('#kegiatan').val(data[0].KEGIATAN);
-                $('#jumlah_data_awal').val(data[0].JML_DATA_AWAL);
+                $('#jumlah_data_awal').val(jml_data);
 
                 var number = 1;
                 
